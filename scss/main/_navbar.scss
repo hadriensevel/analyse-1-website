@@ -1,0 +1,41 @@
+// ----------------------------------
+// NAVBAR
+// ----------------------------------
+
+.#{$prefix}-navbar {
+  @extend .navbar;
+  @extend .navbar-dark;
+  @extend .sticky-top;
+  @extend .bg-dark;
+  @extend .flex-md-nowrap;
+  @extend .px-3;
+
+  .#{$prefix}-navbar-title {
+    @extend .navbar-brand;
+    @extend .fs-5;
+    @extend .fw-bold;
+    @extend .me-0;
+    @extend .px-3;
+  }
+
+  .#{$prefix}-navbar-width-buttons {
+    @extend .navbar-brand;
+    @extend .d-none;
+    @extend .d-md-block;
+    @extend .me-0;
+    @extend .py-0;
+  }
+
+  .#{$prefix}-width-button {
+    @extend .btn;
+    @extend .btn-secondary;
+    width: 35px;
+  }
+
+  .#{$prefix}-navbar-toggler {
+    @extend .navbar-toggler;
+    @extend .position-absolute;
+    @extend .d-md-none;
+    right: 30px;
+  }
+}

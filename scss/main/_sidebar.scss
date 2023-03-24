@@ -1,0 +1,112 @@
+// ----------------------------------
+// SIDEBAR
+// ----------------------------------
+
+.#{$prefix}-sidebar {
+  @extend .col;
+  @extend .d-md-block;
+  @extend .position-fixed;
+  @extend .collapse;
+  @extend .overflow-hidden;
+  @extend .text-white;
+  height: calc(var(--vh, 1vh) * 100 - $header-height);
+  width: $sidebar-width;
+  background: #E0E0E0;
+  z-index: 100;
+
+  &.collapsing {
+    transition: none;
+    -webkit-transition: none;
+  }
+
+  @include media-breakpoint-down(md) {
+    & {
+      max-width: none;
+      width: 100%;
+    }
+  }
+
+  .#{$prefix}-sidebar-full {
+    @extend .overflow-y-auto;
+    height: calc(var(--vh, 1vh) * 100 - $header-height - $footer-height);
+  }
+
+  .#{$prefix}-sidebar-menu {
+    @extend .p-3;
+
+    .nav {
+      @extend .d-block;
+    }
+  }
+
+  .#{$prefix}-sidebar-nav {
+    @extend .nav;
+
+    ul {
+      @extend .list-unstyled;
+    }
+  }
+
+  .#{$prefix}-sidebar-header {
+    padding: 10px 10px 5px 10px;
+    background: #343a40;
+    color: #e3e1e1;
+  }
+
+  h1 {
+    @extend .fs-6;
+    @extend .fw-bold;
+  }
+
+  a {
+    @extend .d-block;
+    @extend .py-1;
+    @extend .text-reset;
+    @extend .text-decoration-none;
+
+    &:hover, &:focus {
+      transition: all 0.3s;
+      color: #7386D5 !important;
+      background: #fff !important;
+      font-weight: bold;
+    }
+  }
+
+  .#{$prefix}-nav-toplevel > a {
+    @extend .ps-1;
+    @extend .pe-4;
+    @extend .dropdown-toggle;
+    background-color: #343a40;
+    font-size: 0.8rem;
+    white-space: normal;
+
+    &[data-bs-toggle="collapse"] {
+      position: relative;
+    }
+
+    &::after {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  .#{$prefix}-nav-secondlevel li {
+    > a {
+      @extend .px-2;
+      background-color: #757575;
+      font-size: 0.7em;
+    }
+
+    &.active > a {
+      color: #fff;
+      background: #828fbf;
+    }
+
+    &.#{$prefix}-pdf-link > a {
+      @extend .text-center;
+    }
+  }
+}
+

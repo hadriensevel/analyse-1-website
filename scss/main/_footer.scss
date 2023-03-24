@@ -1,0 +1,22 @@
+// ----------------------------------
+// FOOTER
+// ----------------------------------
+
+.#{$prefix}-footer {
+  @extend .position-absolute;
+  @extend .start-0;
+  @extend .bottom-0;
+  @extend .w-100;
+  @extend .mx-auto;
+  height: $footer-height;
+  background-color: #343a40;
+  z-index: 150;
+
+  p {
+    @extend .text-white;
+    @extend .position-relative;
+    @extend .text-end;
+    @extend .pe-3;
+    font-size: 10px;
+  }
+}

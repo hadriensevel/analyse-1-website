@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL.">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Scripts -->
+    <script src="../js/bundle.min.js"></script>
+</head>
+<body class="had-main-body had-analyse">
+
+<!-- Header -->
+<nav class="had-navbar had-analyse">
+    <div class="had-navbar-title">Analyse 1</div>
+    <button class="had-navbar-toggler collapsed" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Ouvrir le menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="had-navbar-width-buttons">
+        <button type="button" class="had-width-button" onclick="changeWidth('-1');">-</button>
+        <button type="button" class="had-width-button" onclick="changeWidth('1');">+</button>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebarMenu" class="had-sidebar">
+    <nav class="had-sidebar-full">
+        <div class="had-sidebar-menu">
+            <div class="had-sidebar-header">
+                <h1>Table des matières</h1>
+            </div>
+
+            <ul class="had-sidebar-nav">
+                <li class="had-nav-toplevel">
+                    <a href="#chap-preface" data-bs-toggle="collapse" aria-expanded="false">
+                        I. Préface
+                    </a>
+                    <ul class="had-nav-secondlevel collapse" id="chap-preface">
+                        <li class="liSubMenu" id="m_intro_objectifs">
+                            <a href="#" onclick="return loadIframe(this);">I.1 Un cours d'Analyse 1</a>
+                        </li>
+                        <li class="liSubMenu" id="m_intro_format_de_ce_cours">
+                            <a href="#" onclick="return loadIframe(this);">I.2 À propos de ce
+                                site</a>
+                        </li>
+                        <li class="liSubMenu" id="m_intro_referencesbiblio">
+                            <a href="#" onclick="return loadIframe(this);">I.3 Références
+                                bibliographiques</a>
+                        </li>
+                        <li class="liSubMenu" id="m_intro_essais_css">
+                            <a href="#" onclick="return loadIframe(this);">I.4 Fonctionnalités Web</a>
+                        </li>
+                        <li class="liSubMenu" id="m_intro_conventions">
+                            <a href="#" onclick="return loadIframe(this);">I.5 Symboles et conventions</a>
+                        </li>
+                    </ul>
+                <li class="had-nav-toplevel">
+                    <a href="#chap-notions-elementaires" data-bs-toggle="collapse" aria-expanded="false">
+                        II. Notions élémentaires
+                    </a>
+                    <ul class="had-nav-secondlevel collapse" id="chap-notions-elementaires">
+                        <li class="had-pdf-link">
+                            <a href="https://botafogo.saitis.net/analyse-1/resources/pdfschapitres/chap-notions-elementaires.pdf"
+                               target="_blank">** PDF du Chapitre **</a>
+                        <li>
+                        <li class="liSubMenu" id="m_elementaire_sommes_produits">
+                            <a href="#" onclick="return loadIframe(this);">II.1 Sommes et produits</a>
+                        </li>
+                        <li class="liSubMenu" id="m_fonctions_defs_inj_surj">
+                            <a href="#" onclick="return loadIframe(this);">II.2 Fonctions</a>
+                        </li>
+                        <li class="liSubMenu" id="m_fonctions_generalites_fonctions_reelles">
+                            <a href="#" onclick="return loadIframe(this);">II.3 Cas des fonctions réelles</a>
+                        </li>
+                        <li class="liSubMenu" id="m_elementaire_trigo">
+                            <a href="#" onclick="return loadIframe(this);">II.4 Trigonométrie</a>
+                        </li>
+                        <li class="liSubMenu" id="m_elementaire_reciproques_trigo">
+                            <a href="#" onclick="return loadIframe(this);">II.5 Fonctions trigonométriques
+                                réciproques</a>
+                        </li>
+                        <li class="liSubMenu" id="m_elementaire_exp_log">
+                            <a href="#" onclick="return loadIframe(this);">II.6 Exponentielles et logarithmes</a>
+                        </li>
+                        <li class="liSubMenu" id="m_recurrence">
+                            <a href="#" onclick="return loadIframe(this);">II.7 Preuves par récurrence</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Footer -->
+    <div class="had-footer">
+        <p>&copy; 2023 S. Friedli, EPFL</p>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="had-content">
+    <iframe name="iframe" id="iframe" class="had-iframe" title="Section" allowfullscreen
+            src="sections/m_intro_objectifs.html"
+            loading="lazy"></iframe>
+</div>
+
+<!-- Scripts -->
+<script src="../js/main.min.js"></script>
+</body>
+</html>

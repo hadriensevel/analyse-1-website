@@ -1,0 +1,34 @@
+// ----------------------------------
+// CONTENT
+// ----------------------------------
+
+.#{$prefix}-content {
+  @extend .row;
+  @extend .g-0;
+  @extend .px-0;
+  @extend .w-100;
+  max-width: -moz-available;
+  max-width: -webkit-fill-available;
+  margin-left: $sidebar-width !important;
+
+  @include media-breakpoint-down(md) {
+    & {
+      max-width: none !important;
+      margin-left: 0 !important;
+    }
+  }
+
+  iframe {
+    @extend .col;
+    @extend .p-0;
+    @extend .m-auto;
+    @extend .border-0;
+    height: calc(var(--vh, 1vh) * 100 - $header-height);
+  }
+
+  @include media-breakpoint-down(xl) {
+    .#{$prefix}-iframe-polycop {
+      display: none !important;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+// ----------------------------------
+// IMPORTS
+// ----------------------------------
+
+@import "common/imports";
+
+// ----------------------------------
+// CONFIGURATION
+// ----------------------------------
+
+$header-height: 56px;
+$footer-height: 15px;
+$sidebar-width: 230px;
+
+// ----------------------------------
+// MAIN PAGE STYLES
+// ----------------------------------
+
+@import "main/navbar";
+@import "main/sidebar";
+@import "main/content";
+@import "main/footer";
+
+// ----------------------------------
+// CONTENT PAGES STYLES
+// ----------------------------------
+
