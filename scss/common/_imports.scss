@@ -5,12 +5,14 @@
 // Required
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
 @import "bootstrap/scss/maps";
 @import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
 @import "bootstrap/scss/root";
-@import "bootstrap/scss/reboot";
 
+// Optional
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
 // @import "bootstrap/scss/images";
 // @import "bootstrap/scss/containers";
@@ -22,8 +24,7 @@
 @import "bootstrap/scss/dropdown";
 // @import "bootstrap/scss/button-group";
 @import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar";
-// Requires nav
+@import "bootstrap/scss/navbar"; // Requires nav
 // @import "bootstrap/scss/card";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
@@ -43,22 +44,6 @@
 // @import "bootstrap/scss/offcanvas"; // Requires transitions
 // @import "bootstrap/scss/placeholders";
 @import "bootstrap/scss/helpers";
-
-// Add overflow-x and overflow-y utilities
-// TODO: Remove this when version 5.3.0 is released
-$utilities: map-merge(
-    $utilities,
-    (
-      "overflow-x": (
-        property: overflow-x,
-        values: auto hidden visible scroll,
-      ),
-      "overflow-y": (
-        property: overflow-y,
-        values: auto hidden visible scroll,
-      ),
-    )
-);
 
 // Utilities
 @import "bootstrap/scss/utilities/api";
