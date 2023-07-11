@@ -4,41 +4,38 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm-run-all delete-old-build create-dir html fonts js-css && echo \"Build complete!\"",
+    "clean": "rimraf dist",
+    "create-dir": "mkdir -p dist/css/fonts dist/js",
+    "html": "cp -r html/* dist/",
+    "fonts": "cp -r node_modules/katex/dist/fonts/* dist/css/fonts/",
     "css-compile": "sass --style compressed --source-map --embed-sources --no-error-css --load-path=node_modules scss/:dist/css/",
     "css-prefix": "postcss --replace dist/css/styles.css --use autoprefixer --map",
     "css": "npm-run-all css-compile css-prefix",
-    "js-bundle": "rollup -c --silent",
-    "js-compress": "uglifyjs js/main.js -c -m -o dist/js/main.min.js --source-map \"base='dist/js',content=inline,includeSources=true,url='main.min.js.map'\" & uglifyjs js/main-semestre.js -c -m -o dist/js/main-semestre.min.js --source-map \"base='dist/js',content=inline,includeSources=true,url='main-semestre.min.js.map'\"",
-    "js": "npm-run-all --parallel js-bundle js-compress",
-    "js-css": "npm-run-all --parallel js css",
-    "delete-old-build": "rm -rf dist",
-    "create-dir": "mkdir -p dist && mkdir -p dist/css && mkdir -p dist/js && mkdir -p dist/css/fonts",
-    "fonts": "cp -r node_modules/katex/dist/fonts/* dist/css/fonts/",
-    "html": "cp -r html/* dist/",
+    "js": "rollup -c --silent",
+    "build": "npm-run-all clean create-dir html fonts css js && echo \"Build complete!\"",
     "server": "serve dist/ --listen 3000",
     "start": "npm-run-all --parallel watch server",
     "watch": "nodemon -e html,scss,js -i \"/dist/*\" -x \"npm run build\""
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.6",
-    "bootstrap": "^5.2.3",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.0",
     "jsxgraph": "^1.5.0",
-    "katex": "^0.16.4",
-    "plyr": "^3.7.7"
+    "katex": "^0.16.8",
+    "plyr": "^3.7.8"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-replace": "^5.0.2",
     "autoprefixer": "^10.4.14",
-    "nodemon": "^2.0.21",
+    "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "rollup": "^3.20.0",
     "sass": "^1.59.3",
     "serve": "^14.2.0",
-    "stylelint": "^14.16.1",
-    "stylelint-config-twbs-bootstrap": "^7.0.0",
-    "uglify-js": "^3.17.4"
+    "stylelint": "^15.10.1",
+    "stylelint-config-twbs-bootstrap": "^11.0.1"
   }
 }
