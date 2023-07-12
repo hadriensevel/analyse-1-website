@@ -24,7 +24,6 @@ export default [
     output: {
       file: 'dist/js/bundle.min.js',
       format: 'cjs',
-      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   },
@@ -33,7 +32,6 @@ export default [
     output: {
       file: 'dist/js/bundle2.min.js',
       format: 'cjs',
-      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   },
