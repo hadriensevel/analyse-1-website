@@ -43,4 +43,20 @@ function handleActiveState(button, section) {
   }
 }
 
-export {addClickListenerIframe, handleActiveState, loadIframe};
+// Function to load iframe from url parameters and when clicking on a button
+function loadIframeInit() {
+  const buttons = document.querySelectorAll('.liSubMenu');
+  const section = new URLSearchParams(window.location.search).get('section');
+
+  // Load iframe from url section parameter
+  if (section != null) {
+    loadIframe(section, true);
+  }
+
+  buttons.forEach(button => {
+    addClickListenerIframe(button);
+    handleActiveState(button, section);
+  });
+}
+
+export {loadIframeInit};
