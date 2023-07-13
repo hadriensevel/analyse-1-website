@@ -8,15 +8,16 @@
   @extend .bottom-0;
   @extend .w-100;
   @extend .mx-auto;
+  @extend .border-top;
+  font-family: 'Open Sans', sans-serif;
   height: $footer-height;
-  background-color: #343a40;
   z-index: 150;
 
   p {
-    @extend .text-white;
+    @extend .text-body-secondary;
     @extend .position-relative;
-    @extend .text-end;
-    @extend .pe-3;
-    font-size: 10px;
+    @extend .p-2;
+    @extend .m-0;
+    font-size: .75rem;
   }
 }

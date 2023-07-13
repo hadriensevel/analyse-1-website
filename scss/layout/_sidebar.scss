@@ -9,9 +9,11 @@
   @extend .collapse;
   @extend .overflow-hidden;
   @extend .text-white;
-  height: calc(var(--vh, 1vh) * 100 - $header-height);
+  @extend .bg-white;
+  @extend .border-start;
+  @extend .border-end;
+  height: calc(100dvh - $header-height);
   width: $sidebar-width;
-  background: #E0E0E0;
   z-index: 100;
 
   &.collapsing {

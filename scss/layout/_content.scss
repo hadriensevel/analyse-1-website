@@ -23,7 +23,11 @@
     @extend .p-0;
     @extend .m-auto;
     @extend .border-0;
-    height: calc(var(--vh, 1vh) * 100 - $header-height);
+    height: calc(100dvh - $header-height);
+  }
+
+  .#{$prefix}-iframe-polycop {
+    @extend .border-start;
   }
 
   @include media-breakpoint-down(xl) {

@@ -10,17 +10,17 @@
 // ----------------------------------
 
 $header-height: 56px;
-$footer-height: 15px;
+$footer-height: 33px;
 $sidebar-width: 230px;
 
 // ----------------------------------
-// MAIN PAGE STYLES
+// LAYOUT STYLES
 // ----------------------------------
 
-@import "main/header";
-@import "main/sidebar";
-@import "main/content";
-@import "main/footer";
+@import "layout/header";
+@import "layout/sidebar";
+@import "layout/content";
+@import "layout/footer";
 
 // ----------------------------------
 // CONTENT PAGES STYLES
