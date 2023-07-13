@@ -5,6 +5,7 @@
 // Imports
 import {loadIframeInit} from './utils/iframe.js';
 import {changeWidth, setWidth, getWidthCookie, checkWidthCookie} from './utils/page-width.js';
+import {fetchAuthDetails} from './utils/auth';
 
 // ----------------------------------
 // IFRAME
@@ -29,4 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const newWidth = getWidthCookie();
     setWidth(newWidth);
   }
+});
+
+// ----------------------------------
+// AUTHENTICATION
+// ----------------------------------
+
+// Fetch authentication details
+document.addEventListener('DOMContentLoaded', () => {
+    const data = fetchAuthDetails();
+    console.log(data);
 });

@@ -1,38 +1,14 @@
 import terser from '@rollup/plugin-terser';
+import resolve from '@rollup/plugin-node-resolve';
 
 export default [
   {
-    input: 'js/main.js',
+    input: ['js/main.js', 'js/main-semestre.js', 'js/bundle.js', 'js/bundle2.js'],
     output: {
-      file: 'dist/js/main.min.js',
-      format: 'cjs',
+      dir: 'dist/js',
+      format: 'es',
       sourcemap: true
     },
-    plugins: [terser()]
-  },
-  {
-    input: 'js/main-semestre.js',
-    output: {
-      file: 'dist/js/main-semestre.min.js',
-      format: 'cjs',
-      sourcemap: true
-    },
-    plugins: [terser()]
-  },
-  {
-    input: 'js/bundle.js',
-    output: {
-      file: 'dist/js/bundle.min.js',
-      format: 'cjs',
-    },
-    plugins: [terser({format: {comments: false}})]
-  },
-  {
-    input: 'js/bundle2.js',
-    output: {
-      file: 'dist/js/bundle2.min.js',
-      format: 'cjs',
-    },
-    plugins: [terser({format: {comments: false}})]
-  },
+    plugins: [resolve({browser: true}), terser({format: {comments: false}})]
+  }
 ]
