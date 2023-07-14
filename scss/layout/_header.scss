@@ -8,22 +8,26 @@
   @extend .sticky-top;
   @extend .flex-md-nowrap;
   @extend .px-3;
-  font-family: 'Open Sans', sans-serif;
   height: $header-height;
 
-  // Background color header Analyse
+  // Background color header analyse
   .#{$prefix}-analyse & {
-    background-color: rgb(91 33 182);
+    background-color: $analyse-header-color;
   }
 
-  // Background color header Analyse Semestre
+  // Background color header analyse semestre
   .#{$prefix}-analyse-semestre & {
-    background-color: rgb(0, 0, 0);
+    background-color: $analyse-semestre-header-color;
+  }
+
+  // Background color header analyse online
+  .#{$prefix}-analyse-online & {
+    background-color: $analyse-online-header-color;
   }
 
   .#{$prefix}-navbar-title {
     @extend .navbar-brand;
-    @extend .fs-5;
+    @extend .fs-4;
     @extend .me-0;
     @extend .px-3;
   }
@@ -40,6 +44,12 @@
     @extend .btn;
     @extend .btn-light;
     width: 35px;
+  }
+
+  .#{$prefix}-auth-info {
+    @extend .d-inline;
+    @extend .me-2;
+    font-size: .9rem;
   }
 
   .#{$prefix}-navbar-toggler {

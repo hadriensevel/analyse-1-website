@@ -27,7 +27,7 @@
     height: calc(100dvh - $header-height);
   }
 
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(xxl) {
     .#{$prefix}-iframe-polycop {
       display: none !important;
     }

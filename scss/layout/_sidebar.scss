@@ -35,14 +35,11 @@
 
   .#{$prefix}-sidebar-menu {
     @extend .p-3;
-
-    .nav {
-      @extend .d-block;
-    }
   }
 
   .#{$prefix}-sidebar-nav {
     @extend .nav;
+    @extend .d-block;
 
     ul {
       @extend .list-unstyled;
@@ -50,13 +47,10 @@
   }
 
   .#{$prefix}-sidebar-header {
-    @extend .text-body-tertiary;
-    @extend .p-2;
-  }
-
-  h1 {
-    @extend .fs-6;
+    @extend .text-body-secondary;
     @extend .fw-bold;
+    @extend .pb-2;
+    font-size: .8rem;
   }
 
   a {

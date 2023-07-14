@@ -1,7 +1,8 @@
 // ----------------------------------
-// BOOTSTRAP
+// IMPORTS
 // ----------------------------------
 
+// BOOTSTRAP
 // Required
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
@@ -24,7 +25,8 @@
 @import "bootstrap/scss/dropdown";
 // @import "bootstrap/scss/button-group";
 @import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar"; // Requires nav
+@import "bootstrap/scss/navbar";
+// Requires nav
 // @import "bootstrap/scss/card";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
@@ -48,27 +50,14 @@
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-// ----------------------------------
 // KATEX
-// ----------------------------------
-
 @import "katex/dist/katex";
 
-// ----------------------------------
 // JSXGRAPH
-// ----------------------------------
-
 @import "jsxgraph/distrib/jsxgraph";
 
-// ----------------------------------
 // PLYR
-// ----------------------------------
-
 @import "plyr/dist/plyr";
 
-// ----------------------------------
 // FONTS
-// ----------------------------------
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
