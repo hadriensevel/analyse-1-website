@@ -18,16 +18,13 @@
     }
   }
 
-  iframe {
+  .#{$prefix}-iframe, .#{$prefix}-iframe-polycop {
     @extend .col;
     @extend .p-0;
     @extend .m-auto;
     @extend .border-0;
+    @extend .border-end;
     height: calc(100dvh - $header-height);
-  }
-
-  .#{$prefix}-iframe-polycop {
-    @extend .border-start;
   }
 
   @include media-breakpoint-down(xl) {

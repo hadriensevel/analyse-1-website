@@ -30,7 +30,7 @@
 
   .#{$prefix}-sidebar-full {
     @extend .overflow-y-auto;
-    height: calc(var(--vh, 1vh) * 100 - $header-height - $footer-height);
+    height: calc(100dvh - $header-height - $footer-height);
   }
 
   .#{$prefix}-sidebar-menu {
@@ -50,9 +50,8 @@
   }
 
   .#{$prefix}-sidebar-header {
-    padding: 10px 10px 5px 10px;
-    background: #343a40;
-    color: #e3e1e1;
+    @extend .text-body-tertiary;
+    @extend .p-2;
   }
 
   h1 {
