@@ -1,0 +1,42 @@
+// ----------------------------------
+// Vidéo
+// ----------------------------------
+
+// Variables
+$video-font-size: $font-size;
+
+.video {
+  @extend .my-2;
+  min-width: 0 !important;
+
+  .video-button {
+    @extend .btn;
+    @extend .btn-outline-secondary;
+    @extend .d-block;
+    @extend .mt-2;
+    @extend .rounded-3;
+    @extend .text-start;
+    @extend .fw-bold;
+    @extend .text-black;
+    @extend .border-0;
+    background: #f8f4ff;
+    font-size: $video-font-size;
+
+    &:before {
+      content: '\F282 \00a0\00a0 \F21C \00a0\00a0'; // chevron-down & camera
+      font-family: 'bootstrap-icons';
+      top: .125em;
+      position: relative;
+    }
+
+    &:hover {
+      background-color: pink;
+    }
+  }
+
+  .plyr {
+    @extend .w-100;
+    @extend .rounded-2;
+    @extend .mx-auto;
+  }
+}

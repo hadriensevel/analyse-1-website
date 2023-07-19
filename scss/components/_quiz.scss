@@ -1,0 +1,105 @@
+// ----------------------------------
+// Quiz
+// ----------------------------------
+
+@mixin icon($icon, $icon-color) {
+  content: $icon;
+  font-family: 'bootstrap-icons';
+  color: $icon-color;
+  top: .125em;
+  position: relative;
+}
+
+// Variables
+$quiz-bg-color: #e6f3ff;
+$quiz-btn-bg-color: #3ba2e3;
+$quiz-multicols-margin-top: 15px;
+
+.quiz {
+  background-color: $quiz-bg-color;
+  @extend .p-2;
+  @extend .my-2;
+  @extend .mx-0;
+  @extend .rounded-3;
+  min-width: 0 !important;
+
+  ol {
+    @extend .mt-2;
+    margin-left: -10px;
+
+    li {
+      @extend .mb-1;
+    }
+  }
+
+  .quiz-button-container {
+    @extend .d-flex;
+    @extend .justify-content-end;
+    @extend .w-100;
+    @extend .p-0;
+  }
+
+  .quiz-button {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-sm;
+    background-color: $quiz-btn-bg-color;
+    @extend .border-0;
+  }
+
+  .multicolsTHREE {
+    margin-top: $quiz-multicols-margin-top;
+    column-count: 3;
+  }
+
+  .multicolsTWO {
+    margin-top: $quiz-multicols-margin-top;
+    column-count: 2;
+  }
+
+  @include media-breakpoint-down(md) {
+    .multicolsTHREE {
+      column-count: 2;
+    }
+    .multicolsTWO {
+      column-count: 1;
+    }
+  }
+
+  .quiz-answer-user {
+    @extend .d-inline;
+    cursor: pointer;
+
+    &:before {
+      @include icon('\F287', #ccc);
+    }
+
+    &.true:before {
+      @include icon('\F26A', #77dd91);
+    }
+
+    &.false:before {
+      @include icon('\F622', #ff6166);
+    }
+  }
+
+  .quiz-answer {
+    @extend .d-inline;
+
+    &:before {
+      content: "|\00A0";
+    }
+
+    &:after {
+      @include icon('\F287', #ccc);
+    }
+
+    &.true:after {
+      @include icon('\F26A', #77dd91);
+    }
+
+    &.false:after {
+      @include icon('\F622', #ff6166);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+// ----------------------------------
+// Exemple
+// ----------------------------------
+
+.exemple {
+  @extend .border-start;
+  @extend .border-2;
+  @extend .border-secondary-subtle;
+  @extend .ps-1;
+  @extend .my-2;
+  min-width:0!important;
+}

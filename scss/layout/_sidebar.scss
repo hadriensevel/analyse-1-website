@@ -37,6 +37,22 @@
     @extend .p-3;
   }
 
+  .#{$prefix}-sidebar-header {
+    @extend .text-secondary;
+    @extend .fw-bold;
+    @extend .pb-2;
+    font-size: .875rem;
+    letter-spacing: -.05rem;
+  }
+
+  .#{$prefix}-sidebar-nav-section {
+    @extend .py-3;
+    @extend .px-2;
+    @extend .bg-body-secondary;
+    @extend .rounded;
+    @extend .mb-3;
+  }
+
   .#{$prefix}-sidebar-nav {
     @extend .nav;
     @extend .d-block;
@@ -44,13 +60,6 @@
     ul {
       @extend .list-unstyled;
     }
-  }
-
-  .#{$prefix}-sidebar-header {
-    @extend .text-body-secondary;
-    @extend .fw-bold;
-    @extend .pb-2;
-    font-size: .8rem;
   }
 
   a {

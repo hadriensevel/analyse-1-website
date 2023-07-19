@@ -15,19 +15,19 @@
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
-// @import "bootstrap/scss/images";
-// @import "bootstrap/scss/containers";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
-// @import "bootstrap/scss/tables";
-// @import "bootstrap/scss/forms";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
 @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/dropdown";
-// @import "bootstrap/scss/button-group";
+@import "bootstrap/scss/button-group";
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/navbar";
 // Requires nav
-// @import "bootstrap/scss/card";
+@import "bootstrap/scss/card";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/pagination";
@@ -39,7 +39,7 @@
 // @import "bootstrap/scss/toasts";
 @import "bootstrap/scss/modal";
 // Requires transitions
-// @import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/tooltip";
 // @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
@@ -49,6 +49,9 @@
 
 // Utilities
 @import "bootstrap/scss/utilities/api";
+
+// Bootstrap icons
+@import "bootstrap-icons/font/bootstrap-icons";
 
 // KATEX
 @import "katex/dist/katex";
@@ -60,4 +63,111 @@
 @import "plyr/dist/plyr";
 
 // FONTS
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+// ----------------------------------
+// CONFIGURATION
+// ----------------------------------
+
+$font-size: .875rem;
+
+// ----------------------------------
+// GENERAL
+// ----------------------------------
+
+body {
+  font: {
+    family: 'Roboto', sans-serif;
+    size: $font-size;
+  }
+
+  @extend .px-2;
+  @extend .py-3;
+  @extend .d-grid;
+  grid-template-columns: 1fr;
+
+  &:after {
+    content: '';
+  }
+}
+
+h6 {
+  @extend .my-3;
+  @extend .ms-1;
+}
+
+p {
+  @extend .p-1;
+  @extend .m-0;
+  min-width: 0 !important;
+}
+
+div {
+  text-align: justify;
+  text-justify: auto;
+}
+
+.grid-container {
+  @extend .d-grid;
+  grid-template-columns: auto 25px;
+  grid-column-start: 1;
+}
+
+.div-container {
+  grid-column-start: 1;
+
+  .grid-container{
+    @extend .d-block;
+  }
+}
+
+// Lists
+@mixin list-styles {
+  li {
+    padding-right: 10px;
+  }
+  grid-column-start: 1;
+}
+
+ol, ul {
+  @include list-styles;
+}
+
+blockquote {
+  @extend .pt-3;
+  @extend .px-4;
+}
+
+// KaTeX
+.katex-display {
+  > .katex {
+    max-width: 100%;
+    overflow: auto;
+
+    @include media-breakpoint-down(md) {
+      > .katex-html {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-left: 2px;
+        padding-right: 2px;
+      }
+    }
+  }
+}
+
+// Résout les équations coupées mais les empêche de scroller
+// .katex-display > .katex > .katex-html {
+//   display: inline !important;
+// }
+
+
+// ----------------------------------
+// COMPONENTS
+// ----------------------------------
+
+@import "components/environnements";
+@import "components/exemple";
+@import "components/preuve";
+@import "components/quiz";
+@import "components/video";

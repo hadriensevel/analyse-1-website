@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 
 export default [
   {
-    input: ['js/main.js', 'js/main-semestre.js'],
+    input: ['js/main.js', 'js/main-semestre.js', 'js/main-content.js'],
     output: {
       dir: 'dist/js',
       format: 'es',

@@ -1,0 +1,64 @@
+// ----------------------------------
+// Preuve
+// ----------------------------------
+
+// Variables
+$preuve-bg-color: #d2dde0;
+$preuve-hover-bg-color: lightblue;
+$preuve-font-size: $font-size;
+$preuve-height: 15px;
+
+// Base class
+.preuve {
+  @extend .my-2;
+  min-width: 0 !important;
+
+  // Button class
+  .preuve-button {
+    @extend .btn;
+    @extend .btn-outline-secondary;
+    @extend .d-flex;
+    @extend .mt-2;
+    @extend .rounded-3;
+    @extend .border-secondary-subtle;
+    @extend .fst-italic;
+    @extend .text-black;
+    @extend .pt-1;
+    @extend .pb-4;
+    font-size: $preuve-font-size;
+    height: $preuve-height;
+    background-color: $preuve-bg-color;
+
+    // Pseudo-element
+    &:before {
+      @extend .fst-normal;
+      content: '\F282 \00a0'; // chevron-down & space
+      font-family: 'bootstrap-icons';
+    }
+
+    // Hover state
+    &:hover {
+      background-color: $preuve-hover-bg-color;
+    }
+  }
+
+  // Card class
+  .preuve-card {
+    @extend .card;
+    @extend .card-body;
+    @extend .m-0;
+    @extend .p-1;
+    @extend .border;
+    @extend .rounded-2;
+    @extend .d-block;
+
+    // Pseudo-element
+    &:after {
+      content: '\F584'; // square
+      font-family: 'bootstrap-icons';
+      @extend .position-absolute;
+      right: 10px;
+      bottom: 5px;
+    }
+  }
+}

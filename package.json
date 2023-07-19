@@ -7,28 +7,28 @@
     "clean": "rimraf dist",
     "create-dir": "mkdir -p dist/css/fonts dist/js",
     "html": "cp -r html/* dist/",
-    "fonts": "cp -r node_modules/katex/dist/fonts/* dist/css/fonts/",
+    "fonts": "cp -r node_modules/katex/dist/fonts/* dist/css/fonts/ & cp -r node_modules/bootstrap-icons/font/fonts/* dist/css/fonts/",
     "css-compile": "sass --style compressed --source-map --embed-sources --no-error-css --load-path=node_modules scss/:dist/css/",
-    "css-prefix": "postcss --replace dist/css/styles.css --use autoprefixer --map",
+    "css-prefix": "postcss --replace dist/css/*.css --use autoprefixer --map",
     "css": "npm-run-all css-compile css-prefix",
     "js": "rollup -c --silent",
     "build": "npm-run-all clean create-dir html fonts css js && echo \"Build complete!\"",
     "server": "serve dist/ --listen 3000",
     "start": "npm-run-all --parallel watch server",
-    "watch": "nodemon -e html,scss,js -i \"/dist/*\" -x \"npm run build\""
+    "watch": "nodemon -e html,css,scss,js,mjs -i \"/dist/*\" -x \"npm run build\""
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5",
     "jsxgraph": "^1.5.0",
     "katex": "^0.16.8",
     "plyr": "^3.7.8"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.3",
-    "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "autoprefixer": "^10.4.14",
     "nodemon": "^3.0.1",
     "npm-run-all": "^4.1.5",
