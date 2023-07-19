@@ -1,5 +1,5 @@
 /*
- * MAIN PAGE JAVASCRIPT
+ * MAIN SEMESTRE PAGE JAVASCRIPT
  */
 
 import {loadIframeInit} from './utils/iframe.js';

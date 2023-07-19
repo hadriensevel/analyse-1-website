@@ -1,0 +1,69 @@
+// ----------------------------------
+// Environnements
+// ----------------------------------
+
+@mixin env($bg-color, $before-content: null) {
+  background-color: $bg-color;
+  @extend .fst-italic;
+  @extend .p-2;
+  @extend .my-2;
+  @extend .mx-0;
+  @extend .rounded-3;
+  min-width: 0 !important;
+
+  @if $before-content != null {
+    &:before {
+      content: $before-content;
+      @extend .fst-normal;
+      @extend .fw-bold;
+    }
+  }
+}
+
+// Définition
+.defin {
+  @include env(#f0f8ff, "Définition: ");
+
+  ul {
+    @extend .ps-3;
+  }
+}
+
+// Théorème
+.theo {
+  @include env(#F0F0F0);
+}
+
+// Proposition
+.pro {
+  @include env(#F0F0F0, "Proposition: ");
+}
+
+// Lemme
+.lem {
+  @include env(#F0F0F0);
+}
+
+// Corollaire
+.cor {
+  @include env(#F0F0F0, "Corollaire: ");
+}
+
+// Remarque
+.rem {
+  @include env(#F0F0F0);
+  @extend .fst-normal;
+}
+
+// Info
+.info {
+  @include env(#F0F0F0);
+  @extend .fst-normal;
+
+  &:before {
+    content: '\F586';  // Star icon
+    font-family: 'bootstrap-icons';
+    top: .125em;
+    position: relative;
+  }
+}
