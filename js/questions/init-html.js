@@ -11,13 +11,10 @@ function getFileName() {
 function initHtml() {
   const gridContainers = document.querySelectorAll('.grid-container');
   gridContainers.forEach((gridContainer) => {
-    const divContainer = gridContainer.querySelector('.div-container');
-    if (!divContainer) {
-      const gridContainerInner = gridContainer.innerHTML;
+    if (!gridContainer.querySelector('.div-container')) {
       const divContainer = document.createElement('div');
       divContainer.classList.add('div-container');
-      divContainer.innerHTML = gridContainerInner;
-      gridContainer.innerHTML = '';
+      while (gridContainer.firstChild) divContainer.appendChild(gridContainer.firstChild);
       gridContainer.appendChild(divContainer);
       const rightColumn = document.createElement('div');
       rightColumn.classList.add('right-column');
