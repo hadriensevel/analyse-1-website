@@ -14,24 +14,51 @@
 
 <body>
 <div class=grid-container>
-    <h5>
-        I.5 Symboles et conventions
-        <input type='image' src='../../../common/images/copy_01.png' width='15' height='15' onclick='copyurltoclipboard("https://botafogo.saitis.net/analyse-1/index.html?section=m_intro_conventions")' title='Copier URL de cette section'>
-    </h5>
+    <h5>I.5 Symboles et conventions (TEST)</h5>
 </div>
-<ul>
-    <li>
-        On utilisera le symbole ''\(:=\)'' pour définir des objets. Par
-        exemple,
-        \[
-        A:= \{x\in \mathbb{Q}\,|\,x^2<2\}
-        \] signifie ''\(A\)
-        est défini par l'ensemble de tous les rationnels \(x\) dont le carré est
-        strictement inférieur à \(2\)''.
-    <li>''\(\square\)'' est équivalent à ''C.Q.F.D'', et sera utilisé pour
-        indiquer la fin d'une démonstration.
-    <li>''\(\exists\)'' signifie ''il existe...''.
-    <li>''\(\exists !\)'' signifie ''il existe un/une unique...''.
-</ul>
+
+<div class=grid-container>
+    <ul>
+        <li>
+            On utilisera le symbole ''\(:=\)'' pour définir des objets. Par
+            exemple,
+            \[
+            A:= \{x\in \mathbb{Q}\,|\,x^2<2\}
+            \] signifie ''\(A\)
+            est défini par l'ensemble de tous les rationnels \(x\) dont le carré est
+            strictement inférieur à \(2\)''.
+        <li>''\(\square\)'' est équivalent à ''C.Q.F.D'', et sera utilisé pour
+            indiquer la fin d'une démonstration.
+        <li>''\(\exists\)'' signifie ''il existe...''.
+        <li>''\(\exists !\)'' signifie ''il existe un/une unique...''.
+    </ul>
+</div>
+
+<div class="grid-container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fullscreen-modal">
+        Launch modal
+    </button>
+</div>
+
+<div class="modal fade" id="fullscreen-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-target="#second-fullscreen-modal" data-bs-toggle="modal">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/main-content.js" type="module"></script>
 </body>
 </html>

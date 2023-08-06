@@ -1,0 +1,33 @@
+// ----------------------------------
+// Animation
+// ----------------------------------
+
+@import '../utils/icon';
+
+.anim-video {
+  max-width: 510px;
+  margin: 0 auto;
+  --plyr-video-controls-background: none;
+  --plyr-range-thumb-height: 10px;
+}
+
+// Buttons
+@mixin button-style($iconCode) {
+  text-decoration: none;
+
+  &:before {
+    @include icon($iconCode);
+  }
+}
+
+.play-button {
+  @include button-style('\F4F3'); // play
+}
+
+.pause-button {
+  @include button-style('\F4C2'); // pause
+}
+
+.fullscreen-button {
+  @include button-style('\F3DF'); // fullscreen
+}

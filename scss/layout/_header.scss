@@ -5,10 +5,19 @@
 .#{$prefix}-navbar {
   @extend .navbar;
   @extend .navbar-dark;
-  @extend .sticky-top;
+  //@extend .sticky-top;
   @extend .flex-md-nowrap;
   @extend .px-3;
   height: $header-height;
+
+  // Test fixed header
+  @extend .position-fixed;
+  @extend .top-0;
+  @extend .w-100;
+
+  .#{$prefix}-analyse {
+    max-width: 800px;
+  }
 
   // Background color header analyse
   .#{$prefix}-analyse & {
@@ -48,8 +57,29 @@
 
   .#{$prefix}-auth-info {
     @extend .d-inline;
-    @extend .me-2;
+    @extend .me-3;
     font-size: .9rem;
+  }
+
+  .#{$prefix}-auth-connect-icon {
+    @extend .bi-box-arrow-in-right;
+  }
+
+  .#{$prefix}-auth-user-icon {
+    @extend .bi-person-square;
+    cursor: pointer;
+  }
+
+  .#{$prefix}-auth-connect-icon, .#{$prefix}-auth-user-icon {
+    @extend .bi;
+    @extend .fs-4;
+    @extend .text-white;
+    top: .125em;
+    position: relative;
+
+    &:hover {
+      @extend .text-white-50;
+    }
   }
 
   .#{$prefix}-navbar-toggler {

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/styles-content.css">
+    <!-- Scripts -->
+    <script src="../../js/bundle.js"></script>
+    <script src="../../js/bundle2.js"></script>
+</head>
+
+<body>
+
+<div class="grid-container" id="5kjcJ4">
+    <h5>II.1 Sommes et produits</h5>
+</div>
+
+<div class="grid-container" id="rgjkl3">
+    <h6>Sommes finies</h6>
+</div>
+
+<div class="grid-container" id="04jMlb">
+    <div class="video">
+        <a class="video-button" data-bs-toggle="collapse" href="#IDVID-v_elementaire_sommes"
+           role="button" aria-expanded="false" aria-controls="IDVID-v_elementaire_sommes">
+            Sommes finies
+        </a>
+        <div class="collapse" id="IDVID-v_elementaire_sommes">
+            <video class="video-plyr" playsinline controls
+                   data-poster="../../media/videos/v_elementaire_sommes_thumbnail.png">
+                <source src="../../media/videos/v_elementaire_sommes.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container" id="nTETFK">
+    <p>
+        Lorsqu'on considère des sommes de beaucoup de nombres,
+        on a avantage à utiliser
+        une notation compacte, qui évite d'écrire explicitement tous les termes de la
+        somme:
+        \[
+        x_1+x_2+\cdots+x_N\equiv \sum_{k=1}^Nx_k\,.
+        \]
+        On lit ce dernier symbole
+        ''
+        <i>somme des \(x_k\), pour \(k\) allant de \(1\) à \(N\)</i>
+        , et on
+        appelle \(x_k\) le
+        <b>terme général</b>
+        de la somme.
+    </p>
+</div>
+
+<div class="grid-container" id="RZBXTJ">
+    <div class="rem">
+        <p>
+            <b>Remarque:</b>
+            L'indice \(k\) utilisé ci-dessus est
+            <b>muet</b>, dans le sens où il n'est
+            utilisé que pour nommer l'entier sur lequel on somme. On pourrait donc aussi le
+            nommer différemment, il ne change pas la valeur de la somme:
+            \[
+            \sum_{k=1}^Nx_k =\sum_{j=1}^Nx_j =\sum_{n=1}^Nx_n\,.
+            \]
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="3um3Lq">
+    <div class="lem">
+        <p>
+            <b>Lemme:</b>
+            La somme satisfait aux propriétés suivantes.
+        </p>
+        <ul>
+            <li>Pour toute constante \(\lambda\in \mathbb{R}\),
+                \(\displaystyle \sum_{k=1}^N(\lambda a_k)=\lambda\sum_{k=1}^Na_k\).
+            <li>
+                \(\displaystyle
+                \sum_{k=1}^N(a_k+b_k)=\Bigl(\sum_{k=1}^Na_k\Bigr)+\Bigl(\sum_{k=1}^Nb_k\Bigr)\).
+        </ul>
+    </div>
+</div>
+
+<div class="grid-container" id="tAVV0b">
+    <p>
+        Il existe certains cas où le terme général est assez simple pour que la
+        valeur de la somme puisse être calculée explicitement en fonction de \(N\):
+    </p>
+</div>
+
+<div class="grid-container" id="9M6K8d">
+    <div class="exemple">
+        <p>
+            <b>Exemple:</b>
+            Si le terme général est constant, \(x_k=C\) (pour tout \(k\)), alors
+            \[
+            \sum_{k=1}^Nx_k=\underbrace{C+C+C+\cdots +C}_{N\text{ fois}}=CN\,.
+            \]
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="V3ZTVX">
+    <div class="exemple">
+        <p>
+            <b>Exemple:</b>
+            Si \(x_k=k\), on montrera plus tard par récurrence que
+            \[
+            \sum_{k=1}^Nx_k=
+            1+2+3+\dots+N=\frac{N(N+1)}{2}\,.
+            \]
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="7gtnHb">
+    <div class="exemple">
+        <p>
+            <b>Exemple:</b>
+            La
+            <b>somme harmonique</b>
+            a pour terme général \(x_k=\frac1k\):
+            \[
+            \sum_{k=1}^N\frac1k
+            =1+\frac12+\frac13+\frac14+\dots+\frac1N\,.
+            \]
+            On ne peut hélas pas la calculer exactement en fonction de \(N\), mais nous
+            verrons plus tard qu'elle se comporte, lorsque \(N\) est grand, essentiellement
+            comme \(\log N\).
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="L217jM">
+    <p>
+        Il y a un autre type de sommes que l'on sait sommer exactement, et qui sera
+        d'importance capitale pour la suite:
+    </p>
+</div>
+
+<div class="grid-container" id="lv3qly">
+    <h6>Les sommes géométriques</h6>
+</div>
+
+<div class="grid-container" id="Cpg1l1">
+    <p>
+        Soit \(r\in \mathbb{R}\) un réel fixé, appelé
+        <b>raison</b>.
+        La somme de terme général \(x_k=r^k\), pour \(k\) allant de \(0\) à \(N\),
+        \[
+        \boxed{S_N := \sum_{k=0}^Nr^k =1+r+r^2+r^3+\dots +r^N
+        \,,}
+        \]
+        est appelée
+        <b>somme géométrique</b>.
+
+        <br>
+        <br>
+
+        On peut calculer \(S_N\)
+        exactement, quelle que soit la valeur de \(N\).
+        En effet,
+        si \(r=1\), alors \(S_N=N+1\) (puisque la somme \(S_N\) contient \(N+1\) termes
+        constants, égaux à \(1\)).
+        Pour les autres valeurs de \(r\):
+    </p>
+</div>
+
+<div class="grid-container" id="s7R149">
+    <div class="lem">
+        <p>
+            <b>Lemme:</b>
+            Si \(r\neq 1\), alors
+            \[
+            S_N=\frac{1-r^{N+1}}{1-r}\,.
+            \]
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="lTbx2R">
+    <div class="preuve">
+        <a class="preuve-button" data-bs-toggle="collapse" href="#PROOFpreuveformulesommegeometrique" role="button"
+           aria-expanded="false" aria-controls="#PROOFpreuveformulesommegeometrique">Preuve:</a>
+        <div class="collapse" id="PROOFpreuveformulesommegeometrique">
+            <div class="preuve-card">
+                <p>
+                    Remarquons que \(S_N=S_{N-1}+r^N\), et que
+                    \[\begin{aligned}
+                    S_N&=1+r+r^2+r^3+\cdots+r^N\\
+                    &=1+r(1+r+r^2+\cdots +r^{N-1})\\
+                    &=1+rS_{N-1}\\
+                    &=1+r(S_N-r^{N})\,.
+                    \end{aligned}\]
+                    Cette égalité permet d'écrire
+                    \((1-r)S_N=1-r^{N+1}\), et puisqu'on suppose que \(r\neq 1\), on peut diviser
+                    des deux côtés par \(1-r\), ce qui donne bien
+                    \(S_N=\frac{1-r^{N+1}}{1-r}\).
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container" id="bS8akl">
+    <div class="exemple">
+        <p>
+            <b>Exemple:</b>
+            On peut par exemple calculer,
+            \[\begin{aligned}
+            7^{100}+7^{101}+7^{102}+\dots+7^{1000}
+            &=7^{100}\bigl(1+7+7^2+\dots+7^{900}\bigr)\\
+            &=7^{100}\sum_{k=0}^{900}7^k\\
+            &=7^{100}\frac{1-7^{901}}{1-7}\\
+            &=\frac{7^{1001}-7^{100}}{6}\,.
+            \end{aligned}\]
+        </p>
+    </div>
+</div>
+
+<div class="grid-container" id="EWd8C5">
+    <h6>Produits finis</h6>
+</div>
+
+<div class="grid-container" id="DYsg34">
+    <p>
+        Il existe aussi un symbole utile pour le produit d'un
+        nombre fini de réels:
+        \[
+        a_1\cdot a_2\cdot a_3\cdots a_N\equiv \prod_{k=1}^Na_k\,,
+        \]
+        qui se lit "<i>produit des \(a_k\), pour \(k\) allant de \(1\) à \(N\)</i>".
+    </p>
+</div>
+
+<div class="grid-container" id="8WhV3S">
+    <div class="quiz" id="QUIZZ-q_sommes_basique">
+        <b>Quiz II.1-1 :</b>
+        Soient \(x_1,x_2,\dots,x_N\) des nombres réels
+        quelconques. Vrai ou faux?
+        <div class="multicolsTWO">
+            <ol>
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="true"></div>
+                    \(\displaystyle \sum_{k=1}^Nx_k=\sum_{j=1}^Nx_j\)
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="false"></div>
+                    \(\displaystyle \sum_{k=1}^Nx_k=Nx_k\)
+                    <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                       data-bs-title="
+                    L'identité n'est pas vraie en général, mais peut être vraie dans certains cas,
+                    par exemple si \(x_1=x_2=\dots=x_n=C\).
+                    "></a>
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="true"></div>
+                    \(\displaystyle \sum_{k=1}^Nx_k=x_1+\sum_{k=2}^Nx_k\)
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="false"></div>
+                    \(\displaystyle \sum_{j=1}^Nx_j\geqslant \sum_{k=1}^{N-1}x_k\)
+                    <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                       data-bs-title="
+                    Vrai si \(x_N\geqslant 0\), or ici on n'a rien dit sur le signe de \(x_N\)!
+                    "></a>
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="true"></div>
+                    \(\displaystyle \sum_{j=1}^Nx_j=x_N+\sum_{k=1}^{N-1}x_k\)
+                <li>
+                    <div class="quiz-answer-user"></div>
+                    <div class="quiz-answer" data-answer="false"></div>
+                    \(\displaystyle \Bigl(\sum_{j=1}^Nx_j\Bigr)^2=\sum_{k=1}^{N}x_k^2\)
+                    <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                       data-bs-title="
+                    Rappelons que dans le cas \(N=2\) par exemple,
+                        \[
+                        \Bigl(\sum_{j=1}^2x_j\Bigr)^2
+                        =(x_1+x_2)^2=x_1^2+2x_1x_2+x_2^2=2x_1x_2+
+                        \sum_{j=1}^2x_j^2\,.
+                        \]
+                    "></a>
+            </ol>
+        </div>
+        <div class="quiz-button-container">
+            <button type="button" class="quiz-button">Réponses</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/main-content.js" type="module"></script>
+</body>
+</html>

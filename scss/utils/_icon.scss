@@ -1,0 +1,11 @@
+// ----------------------------------
+// Icon
+// ----------------------------------
+
+@mixin icon($icon, $icon-color: #000) {
+  content: $icon;
+  font-family: 'bootstrap-icons';
+  color: $icon-color;
+  top: .125em;
+  position: relative;
+}

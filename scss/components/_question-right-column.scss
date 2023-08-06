@@ -1,0 +1,17 @@
+// ----------------------------------
+// Questions in right column
+// ----------------------------------
+
+@import "../utils/icon";
+
+.question-right-column {
+  text-decoration: none;
+
+  &[data-asked-questions]:before {
+    @include icon('\F309', $blue); // dot
+  }
+
+  .grid-container:hover &:before, &:hover::before {
+    @include icon('\F50C'); // question mark
+  }
+}

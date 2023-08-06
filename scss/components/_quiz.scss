@@ -2,13 +2,7 @@
 // Quiz
 // ----------------------------------
 
-@mixin icon($icon, $icon-color) {
-  content: $icon;
-  font-family: 'bootstrap-icons';
-  color: $icon-color;
-  top: .125em;
-  position: relative;
-}
+@import "../utils/icon";
 
 // Variables
 $quiz-bg-color: #e6f3ff;

@@ -11,6 +11,9 @@
   max-width: -webkit-fill-available;
   margin-left: $sidebar-width !important;
 
+  // Test fixed header
+  margin-top: $header-height;
+
   @include media-breakpoint-down(md) {
     & {
       max-width: none !important;
@@ -18,7 +21,7 @@
     }
   }
 
-  .#{$prefix}-iframe, .#{$prefix}-iframe-polycop {
+  .#{$prefix}-iframe, .#{$prefix}-right-iframe {
     @extend .col;
     @extend .p-0;
     @extend .m-auto;
@@ -28,7 +31,7 @@
   }
 
   @include media-breakpoint-down(xxl) {
-    .#{$prefix}-iframe-polycop {
+    .#{$prefix}-right-iframe {
       display: none !important;
     }
   }

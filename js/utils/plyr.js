@@ -1,3 +1,7 @@
+// ----------------------------------
+// PLYR VIDEO PLAYER
+// ----------------------------------
+
 // Initialize Plyr video player
 function plyrInit() {
   const controls = [
@@ -29,8 +33,8 @@ function plyrInit() {
     seek: true,
   };
   try {
-    const player = Plyr.setup(".js-player", {controls, speed, i18n, tooltips});
-    const audioPlayer = Plyr.setup(".audio-player", {speed, i18n, tooltips});
+    const players = Plyr.setup(".video-plyr", {controls, speed, i18n, tooltips});
+    const audioPlayers = Plyr.setup(".audio-player", {speed, i18n, tooltips});
   } catch {}
 }
 

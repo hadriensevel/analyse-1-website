@@ -31,16 +31,16 @@
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/pagination";
-// @import "bootstrap/scss/badge";
+@import "bootstrap/scss/badge";
 // @import "bootstrap/scss/alert";
 // @import "bootstrap/scss/progress";
 // @import "bootstrap/scss/list-group";
-// @import "bootstrap/scss/close";
+@import "bootstrap/scss/close";
 // @import "bootstrap/scss/toasts";
 @import "bootstrap/scss/modal";
 // Requires transitions
 @import "bootstrap/scss/tooltip";
-// @import "bootstrap/scss/popover";
+@import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
 // @import "bootstrap/scss/offcanvas"; // Requires transitions
@@ -69,7 +69,7 @@
 // CONFIGURATION
 // ----------------------------------
 
-$font-size: .875rem;
+$font-size: 14px;
 
 // ----------------------------------
 // GENERAL
@@ -111,13 +111,27 @@ div {
   @extend .d-grid;
   grid-template-columns: auto 25px;
   grid-column-start: 1;
+  column-gap: .5rem;
 }
 
 .div-container {
   grid-column-start: 1;
 
-  .grid-container{
+  .grid-container {
     @extend .d-block;
+  }
+}
+
+.right-column {
+  @extend .p-1;
+  @extend .border-start;
+  @extend .border-dark-subtle;
+  @extend .rounded-end;
+  background: #ffffff;
+  grid-column-start: 2;
+
+  .grid-container:hover > &, &:hover {
+    background-color: #f2f3f4;
   }
 }
 
@@ -171,3 +185,7 @@ blockquote {
 @import "components/preuve";
 @import "components/quiz";
 @import "components/video";
+@import "components/popover";
+@import "components/tooltip";
+@import "components/anim";
+@import "components/question-right-column";

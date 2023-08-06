@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/styles-content.css">
+    <!-- Scripts -->
+    <script src="../../js/bundle.js"></script>
+    <script src="../../js/bundle2.js"></script>
+</head>
+
+<body>
+<h5>Série 1 - Exercice 1 <span>(01-1)</span></h5>
+
+<p>Montrer que dans \(\mathbb{R}\),</p>
+
+<ol>
+    <li>Si \(x\leqslant y\) et \(x'\leqslant y'\), alors \(x+x'\leqslant y+y'\).</li>
+    <li>Si \(x\leqslant y\), alors \(-y\leqslant -x\).</li>
+</ol>
+
+<p class="fw-bold">Sections du cours:</p>
+<ul>
+    <li>
+        <a class="right-iframe-link"
+           href="https://botafogo.saitis.net/analyse-1/resources/sections/m_reels_R_est_un_corps.html">
+            1.2 Règles de calcul: \(+,-,\cdot,\div\)
+        </a>
+    </li>
+    <li>
+        <a class="right-iframe-link"
+           href="https://botafogo.saitis.net/analyse-1/resources/sections/m_reels_R_est_ordonne.html">
+            1.3 Ordre: \(\leqslant,\geqslant,\lt,\gt\)
+        </a>
+    </li>
+</ul>
+
+<ul class="nav nav-underline nav-fill">
+    <li class="nav-item">
+        <a class="tab-button nav-link active" data-target="indications" href="#">Indications</a>
+    </li>
+    <li class="nav-item">
+        <a class="tab-button nav-link" data-target="forum" href="#">Forum</a>
+    </li>
+    <li class="nav-item">
+        <a class="tab-button nav-link" data-target="solution" href="#">Solution</a>
+    </li>
+</ul>
+<div id="indications" class="tab-div">
+    Indications
+</div>
+<div id="forum" class="tab-div d-none">
+    Forum
+</div>
+<div id="solution" class="tab-div d-none">
+    <p>Pour la première identité, commençons par remarquer que \(x\leqslant y\) implique
+        \(x+x'\leqslant y+x'\). Ensuite, \(x'\leqslant y'\) implique \(x'+y\leqslant y'+y\). On a donc
+        \[ x+x'\leqslant y+x'=x'+y\leqslant y'+y=y+y'\,.
+        \]</p>
+    <p>Pour la deuxième, remarquons que \(x\leqslant y\) implique \(0=x+(-x)\leqslant y+(-x)\).
+        En additionnant \(-y\) aux deux membres de cette dernière, on obtient \(-y\leqslant
+        y+(-x)+(-y)=y+(-y)+(-x)=-x\).</p>
+</div>
+
+<script src="../../js/main-content.js" type="module"></script>
+</body>
+</html>

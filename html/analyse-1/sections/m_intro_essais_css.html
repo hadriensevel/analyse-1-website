@@ -26,8 +26,6 @@
     </p>
 </div>
 
-<br>
-<br>
 <div class="grid-container">
     <h6>Questions d'étudiant.e.s</h6>
 </div>
@@ -45,10 +43,10 @@
 
 <div class="grid-container">
     <p>
-        À certains endroits, le symbole clicable
-        <a tabindex="0" class="questionPopover" role="button" data-toggle="popover" title="
+        À certains endroits, le symbole cliquable
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
             C'est quoi l'équation de Schrödinger?
-            " data-content="
+            " data-bs-content="
             L'<a href='https://en.wikipedia.org/wiki/Schrödinger_equation' target='_blank'>équation de Schrödinger</a>, c'est
             l'équation d'onde qui régit l'évolution d'une particule quantique dans un
             potentiel \(V(x,t)\):
@@ -72,9 +70,9 @@
             "></a>
 
         (ou encore
-        <a tabindex="0" class="questionPopover" role="button" data-toggle="popover" title="
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
             Comment je fais pour lutter contre l'envie de m'endormir? (2017)
-            " data-content="
+            " data-bs-content="
             Bonne question! Rien
             de pire que de somnoler pendant un cours; ça peut être dû à la voix monotone de
             la personne qui est en face de vous, je vous le concède :-). Je dirais qu'avoir
@@ -96,8 +94,6 @@
     </p>
 </div>
 
-<br>
-<br>
 <div class="grid-container">
     <h6>Quiz</h6>
 </div>
@@ -119,7 +115,7 @@
 </div>
 
 <div class="grid-container">
-    <div class="quiz" id="QUIZZ- q_fonctions_def_ens_image ">
+    <div class="quiz" id="QUIZZ-q_fonctions_def_ens_image ">
         <b>Quiz I.4-1 :</b>
         Vrai ou faux?
         L'<b>ensemble image</b> d'une fonction \(f:A\to B\), c'est
@@ -128,21 +124,21 @@
                 <div class="quiz-answer-user"></div>
                 <div class="quiz-answer" data-answer="false"></div>
                 l'ensemble \(B\)
-                <div class="quizTooltip hide" data-toggle="tooltip" data-html="true" data-placement="right"
-                     data-container="body" title="
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
                     L'ensemble image c'est un
                     <i>sous-ensemble</i> de \(B\). Dans le cas où \(B\) coïncide avec
                     l'ensemble-image, on dit que la fonction est surjective.
-                    "></div>
+                    "></a>
             <li>
                 <div class="quiz-answer-user"></div>
                 <div class="quiz-answer" data-answer="false"></div>
                 le graphe de \(f\)
-                <div class="quizTooltip hide" data-toggle="tooltip" data-html="true" data-placement="right"
-                     data-container="body" title="
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
                     Le <b>graphe</b> d'une fonction \(f:A\to B\), c'est l'ensemble des
                     paires \((x,f(x))\), où \(x\in A\) (et \(f(x)\in B\)).
-                    "></div>
+                    "></a>
             <li>
                 <div class="quiz-answer-user"></div>
                 <div class="quiz-answer" data-answer="false"></div>
@@ -165,25 +161,21 @@
                 <div class="quiz-answer" data-answer="true"></div>
                 l'ensemble des \(y\in B\) tels que \(\{x\in
                 A\,|\,f(x)=y\}\neq\varnothing\)
-                <div class="quizTooltip hide" data-toggle="tooltip" data-html="true" data-placement="right"
-                     data-container="body" title="
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
                     C'est bien la définition de l'ensemble image: c'est l'ensemble des points \(y\) de
                     \(B\) qui possèdent au moins une préimage, c'est-à-dire pour lesquels il existe
                     au moins un \(x\in A\) tel que \(f(x)=y\).
                     Cela est équivalent à dire que l'ensemble \(\{x\in
                     A\,|\,f(x)=y\}\) doit être non-vide.
-                    "></div>
+                    "></a>
         </ol>
         <div class="quiz-button-container">
-            <button type="button" class="quiz-button"
-                    onclick="quiz_sol('QUIZZ- q_fonctions_def_ens_image ')">Réponses</button>
+            <button type="button" class="quiz-button">Réponses</button>
         </div>
     </div>
 </div>
 
-
-<br>
-<br>
 <div class="grid-container">
     <h6>Graphes interactifs</h6>
 </div>
@@ -216,8 +208,6 @@
     </ul>
 </div>
 
-<br>
-<br>
 <div class="grid-container">
     <h6>Vidéos</h6>
 </div>
@@ -235,9 +225,9 @@
             Suites qui tendent vers zéro
         </a>
         <div class="collapse" id="IDVID-v_suites_tendent_vers_zero">
-            <video class="js-player" playsinline controls
-                   data-poster="../videos/v_suites_tendent_vers_zero_thumbnail.png">
-                <source src="../videos/v_suites_tendent_vers_zero.mp4" type="video/mp4"/>
+            <video class="video-plyr" playsinline controls
+                   data-poster="../../media/videos/v_suites_tendent_vers_zero_thumbnail.png">
+                <source src="../../media/videos/v_suites_tendent_vers_zero.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -252,8 +242,6 @@
     </p>
 </div>
 
-<br>
-<br>
 <div class="grid-container">
     <h6>Animations ''explicatives''</h6>
 </div>
@@ -268,29 +256,23 @@
     </p>
 </div>
 
-<div class="grid-container" id="a_elephant_petit_prince">
-    <div class="anim-video" style="display:none;">
+<div class="grid-container animation-container" id="a_elephant_petit_prince">
+    <div class="anim-video">
         <video class="anim-video-plyr" preload="none" playsinline>
-            <source src="../animations/a_elephant_petit_prince.webm" type="video/webm">
-            <source src="../animations/a_elephant_petit_prince.mp4" type="video/mp4">
+            <source src="../../media/videos/a_elephant_petit_prince.webm" type="video/webm">
+            <source src="../../media/videos/a_elephant_petit_prince.mp4" type="video/mp4">
         </video>
     </div>
-    <div class="div-container">
-        <div>
-            <center>
-                <img class="img-fluid" src="../images/i_integrale_generalisee_chapeau.jpg" width="300">
-            </center>
-        </div>
+    <div class="div-container text-center">
+        <img class="img-fluid" src="../../media/images/i_integrale_generalisee_chapeau.jpg" width="300">
     </div>
     <div class="right-column">
-        <a href="#" class="play-button" onclick="playAnim(this); return false;"></a>
-        <a href="#" class="pause-button" style="display:none;" onclick="playAnim(this);return false;"></a>
-        <a href="#" class="fullscreen-button" style="display:none;" onclick="animFullscreen(this); return false;"></a>
+        <a href="#" class="play-button"></a>
+        <a href="#" class="pause-button"></a>
+        <a href="#" class="fullscreen-button"></a>
     </div>
 </div>
 
-<br>
-<br>
 <div class="grid-container">
     <h6>Environnements ''texte''</h6>
 </div>
@@ -329,9 +311,9 @@
 <div class="grid-container">
     <div class="lem">
         <b>Lemme:</b> Ceci est un lemme.
-        <a tabindex="0" class="questionPopover" role="button" data-toggle="popover" title="
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
                 (2017) C'est quoi un lemme?
-                " data-content="
+                " data-bs-content="
                 En sciences, on a l'habitude de casser un raisonnement
                 compliqué en bouts de raisonnements plus simples (merci Descartes!). Par
                 exemple, en mathématiques, la preuve d'un gros
@@ -368,7 +350,7 @@
                     Remarquons que dans le pdf du polycopié, les
                     preuves sont toutes affichées, par défaut.
                     <br>
-                    <a tabindex="0" class="questionPopover" role="button" data-bs-toggle="popover" data-bs-title="
+                    <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
                         Pourquoi y a-t-il un petit carré en bas à droite? (2017)
                         " data-bs-content="
                         Ce carré indique la fin de la preuve.

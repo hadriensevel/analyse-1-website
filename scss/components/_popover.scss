@@ -1,0 +1,14 @@
+// ----------------------------------
+// Popover
+// ----------------------------------
+
+@import "../utils/icon";
+
+.question-popover {
+  font-style: normal;
+  text-decoration: none;
+
+  &:before {
+    @include icon('\F504');
+  }
+}

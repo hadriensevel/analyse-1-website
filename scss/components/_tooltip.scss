@@ -1,0 +1,19 @@
+// ----------------------------------
+// Tooltip
+// ----------------------------------
+
+@import "../utils/icon";
+
+.quiz-tooltip {
+  @extend .d-none;
+  font-style: normal;
+  text-decoration: none;
+
+  &:before {
+    @include icon('\F430');
+  }
+
+  &.tooltip-show {
+    @extend .d-inline;
+  }
+}
