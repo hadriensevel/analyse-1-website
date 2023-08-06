@@ -15,7 +15,7 @@
   @extend .top-0;
   @extend .w-100;
 
-  .#{$prefix}-analyse {
+  .#{$prefix}-analyse & {
     max-width: 800px;
   }
 
