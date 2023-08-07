@@ -4,6 +4,8 @@
 
 // Initialize Plyr video player
 function plyrInit() {
+
+  // Controls to be shown
   const controls = [
     "play",
     "progress",
@@ -13,10 +15,14 @@ function plyrInit() {
     "settings",
     "fullscreen",
   ];
+
+  // Speed options
   const speed = {
     selected: 1,
     options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2 , 5],
   };
+
+  // Internationalization
   const i18n = {
     play: 'Lire',
     pause: 'Pause',
@@ -28,14 +34,20 @@ function plyrInit() {
     speed: 'Vitesse',
     normal: 'Normale',
   };
+
+  // Tooltips
   const tooltips = {
     controls: true,
     seek: true,
   };
+
+  // Initialize all video players
   try {
     const players = Plyr.setup(".video-plyr", {controls, speed, i18n, tooltips});
     const audioPlayers = Plyr.setup(".audio-player", {speed, i18n, tooltips});
-  } catch {}
+  } catch {
+    // Do nothing
+  }
 }
 
 export {plyrInit};

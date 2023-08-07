@@ -26,7 +26,7 @@ function initHtml() {
     questionIcon.href = '#';
     questionIcon.dataset.askedQuestions = '';
     questionIcon.dataset.bsToggle = 'modal';
-    questionIcon.dataset.bsTarget = '#fullscreen-modal';
+    questionIcon.dataset.bsTarget = '#questions-modal';
     rightColumn.appendChild(questionIcon);
   });
 }

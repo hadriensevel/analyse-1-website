@@ -1,0 +1,19 @@
+// ----------------------------------
+// Modal for questions
+// ----------------------------------
+
+.questions-modal {
+  @extend .fade;
+
+  .questions-modal-title {
+    @extend .modal-title;
+    @extend .fs-5;
+  }
+
+  .questions-modal-title-badge {
+    @extend .badge;
+    @extend .bg-secondary;
+    position: relative;
+    bottom: .125rem;
+  }
+}

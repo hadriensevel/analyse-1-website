@@ -29,13 +29,20 @@ function animations() {
 
     // Play button event
     playButton.addEventListener('click', function(e) {
+
+      // Prevent the default event
       e.preventDefault();
+
+      // Hide the play button and show the pause button and the fullscreen button
       playButton.classList.add('d-none');
       pauseButton.classList.remove('d-none');
       fullscreenButton.classList.remove('d-none');
       player.play();
 
       player.once('playing', () => {
+
+        // Hide the image and show the video once it starts playing
+        // (prevents seeing the video loading)
         imgWrapper.classList.add('d-none');
         videoWrapper.classList.remove('d-none');
       })
@@ -43,10 +50,16 @@ function animations() {
 
     // Pause button event
     pauseButton.addEventListener('click', function(e) {
+
+      // Prevent the default event
       e.preventDefault();
+
+      //Hide the video and show the image
       imgWrapper.classList.remove('d-none');
       videoWrapper.classList.add('d-none');
       player.pause();
+
+      // Hide the pause button and the fullscreen button and show the play button
       playButton.classList.remove('d-none');
       pauseButton.classList.add('d-none');
       fullscreenButton.classList.add('d-none');

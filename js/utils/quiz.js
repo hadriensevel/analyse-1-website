@@ -2,7 +2,7 @@
 // QUIZ UTILS
 // ----------------------------------
 
-// TODO: Show quiz answers & tooltips
+// Handle quiz button to show the answers
 function quizAnswers() {
   const quizzes = document.querySelectorAll('.quiz');
 
@@ -12,6 +12,8 @@ function quizAnswers() {
     const quizTooltips = quiz.querySelectorAll('.quiz-tooltip');
 
     quizButton.addEventListener('click', () => {
+
+      // Toggle the answers
       quizAnswers.forEach((quizAnswer) => {
         if (quizAnswer.dataset.answer === 'true') {
           quizAnswer.classList.toggle('true');
@@ -19,6 +21,8 @@ function quizAnswers() {
           quizAnswer.classList.toggle('false');
         }
       });
+
+      // Toggle the tooltip
       quizTooltips.forEach((quizTooltip) => {
         quizTooltip.classList.toggle('tooltip-show');
       });

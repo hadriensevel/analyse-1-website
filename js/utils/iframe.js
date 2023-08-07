@@ -2,6 +2,7 @@
 // IFRAME UTILS
 // ----------------------------------
 
+// Load iframe from url page parameter or handle sidebar buttons to change page in iframe
 function iframe() {
   const buttons = document.querySelectorAll('.liSubMenu');
   const page = new URLSearchParams(window.location.search).get('page');
@@ -31,12 +32,13 @@ function iframe() {
       }
       button.classList.add('active');
 
-      // Close the sidebar
+      // Close the sidebar (useful for mobile because otherwise the iframe is not visible)
       new bootstrap.Collapse(document.querySelector('.had-sidebar')).hide();
     });
   });
 }
 
+// Load iframe page
 function loadIframe(el) {
   const targetUrl = el.querySelector('a').href;
   const historyUrl = `${window.location.pathname}?page=${el.id}`;
