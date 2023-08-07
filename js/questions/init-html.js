@@ -23,10 +23,9 @@ function initHtml() {
     const rightColumn = gridContainer.querySelector('.right-column');
     const questionIcon = document.createElement('a');
     questionIcon.classList.add('question-right-column');
-    questionIcon.href = '#';
+    questionIcon.href = '#questions-modal';
     questionIcon.dataset.askedQuestions = '';
     questionIcon.dataset.bsToggle = 'modal';
-    questionIcon.dataset.bsTarget = '#questions-modal';
     rightColumn.appendChild(questionIcon);
   });
 }

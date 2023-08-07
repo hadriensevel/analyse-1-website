@@ -48,8 +48,7 @@
   }
 
   .#{$prefix}-sidebar-nav-section {
-    @extend .py-3;
-    @extend .px-2;
+    @extend .p-2;
     @extend .bg-body-secondary;
     @extend .rounded;
     @extend .mb-3;
@@ -71,7 +70,7 @@
     @extend .text-decoration-none;
   }
 
-  .#{$prefix}-nav-toplevel > a {
+  .#{$prefix}-nav-toplevel > a, .#{$prefix}-nav-link-toplevel > a {
     @extend .ps-1;
     @extend .pe-4;
     @extend .dropdown-toggle;
@@ -88,9 +87,16 @@
       color: #7386D5 !important;
       background: #fff !important;
     }
+  }
 
+  .#{$prefix}-nav-link-toplevel.active > a {
+    color: #7386D5 !important;
+    background: #fff !important;
+  }
+
+  .#{$prefix}-nav-toplevel > a {
     &::after {
-      content: '\F229';  // caret-down
+      content: '\F229'; // caret-down
       font-family: 'bootstrap-icons';
       border: none;
       position: absolute;
@@ -102,6 +108,12 @@
 
     &[aria-expanded="true"]::after {
       transform: translateY(-50%) rotate(180deg);
+    }
+  }
+
+  .#{$prefix}-nav-link-toplevel > a {
+    &::after {
+      content: none;
     }
   }
 
@@ -119,7 +131,7 @@
     &.#{$prefix}-pdf-link > a {
 
       &:before {
-        @include icon('\F756\00a0'); // pdf
+        @include icon('\F63E\00a0'); // pdf
       }
     }
   }

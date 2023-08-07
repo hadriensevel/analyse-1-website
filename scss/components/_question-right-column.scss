@@ -11,7 +11,7 @@
     @include icon('\F309', $blue); // dot
   }
 
-  .grid-container:hover &:before, &:hover::before {
+  .grid-container:hover &:before, &:hover::before, &:focus::before {
     @include icon('\F50C'); // question mark
   }
 }

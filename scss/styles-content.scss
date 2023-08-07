@@ -81,14 +81,9 @@ body {
     size: $font-size;
   }
 
-  @extend .px-2;
-  @extend .py-3;
+  @extend .p-3;
   @extend .d-grid;
   grid-template-columns: 1fr;
-
-  &:after {
-    content: '';
-  }
 }
 
 h6 {
