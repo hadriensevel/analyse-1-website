@@ -15,11 +15,25 @@
 <body>
 <h5>Série 1 - Exercice 1 <span>(01-1)</span></h5>
 
-<p>Montrer que dans \(\mathbb{R}\),</p>
+<p>Si on définit la <b>valeur absolue</b> de \(x\in \mathbb{R}\) comme étant
+    \[|x|:=
+    \begin{cases}
+    x&\text{ si }x\gt 0\,,\\
+    0&\text{ si }x= 0\,,\\
+    -x&\text{ si }x\lt 0\,,
+    \end{cases}
+    \]
+    (voir le polycopié), montrer que</p>
 
 <ol>
-    <li>Si \(x\leqslant y\) et \(x'\leqslant y'\), alors \(x+x'\leqslant y+y'\).</li>
-    <li>Si \(x\leqslant y\), alors \(-y\leqslant -x\).</li>
+    <li>\(|-x|=|x|\)
+    <li>\(-|x|\leqslant x\leqslant |x|\)
+    <li>Pour toute paire \(x,y\in \mathbb{R}\),
+        \[\begin{aligned}
+        \max\{x,y\}&=\tfrac12\bigl(x+y+|x-y|\bigr)\,,\\
+        \min\{x,y\}&=\tfrac12\bigl(x+y-|x-y|\bigr)\,.
+        \end{aligned}\]
+    </li>
 </ol>
 
 <p class="fw-bold">Sections du cours:</p>
@@ -40,29 +54,52 @@
 
 <ul class="nav nav-underline nav-fill">
     <li class="nav-item">
-        <a class="tab-button nav-link active" data-target="indications" href="#">Indications</a>
+        <a class="tab-button nav-link active" href="#indications">Indications</a>
     </li>
     <li class="nav-item">
-        <a class="tab-button nav-link" data-target="forum" href="#">Forum</a>
+        <a class="tab-button nav-link" href="#forum">Forum</a>
     </li>
     <li class="nav-item">
-        <a class="tab-button nav-link" data-target="solution" href="#">Solution</a>
+        <a class="tab-button nav-link" href="#solution">Solution</a>
     </li>
 </ul>
+
 <div id="indications" class="tab-div">
-    Indications
+    <p>En général, pour démontrer des propriétés de la valeur
+        absolue, il suffit de partir de la définition de \(|a|\)
+        (voir <a href="" onclick="return loadCours('m_reels_valeur_absolue');"><b>ici</b></a>), puis
+        de considérer séparément les cas \(a\gt 0\), \(a=0\),
+        \(a\lt 0\).</p>
 </div>
 <div id="forum" class="tab-div d-none">
     Forum
 </div>
 <div id="solution" class="tab-div d-none">
-    <p>Pour la première identité, commençons par remarquer que \(x\leqslant y\) implique
-        \(x+x'\leqslant y+x'\). Ensuite, \(x'\leqslant y'\) implique \(x'+y\leqslant y'+y\). On a donc
-        \[ x+x'\leqslant y+x'=x'+y\leqslant y'+y=y+y'\,.
-        \]</p>
-    <p>Pour la deuxième, remarquons que \(x\leqslant y\) implique \(0=x+(-x)\leqslant y+(-x)\).
-        En additionnant \(-y\) aux deux membres de cette dernière, on obtient \(-y\leqslant
-        y+(-x)+(-y)=y+(-y)+(-x)=-x\).</p>
+    <ol>
+        <li>Si \(x=0\), il n'y a rien à démontrer. Si \(x\gt 0\), alors d'une part
+            \(|x|=x\), et d'autre part \(-x\lt 0\), ce qui implique \(|-x|=-(-x)=x\), et
+            donc \(|-x|=|x|\). Si \(x\lt 0\), alors d'une part
+            \(|x|=-x\), et d'autre part \(-x\gt 0\), ce qui implique \(|-x|=-x\), et
+            donc \(|-x|=|x|\).
+        <li>
+            Si \(x=0\), il n'y a rien à démontrer. Si \(x\gt 0\), alors \(x=|x|\) (qui
+            implique \(x\leqslant |x|\)), et \(-|x|\lt 0\leqslant x\).
+            Si \(x\lt 0\), même argument.
+        <li>
+            Montrons la première identité (la deuxième se démontre de manière
+            semblable). Il suffit d'examiner les cas possibles.
+            Si \(x\geqslant y\), le côté gauche vaut
+            \(\max\{x,y\}=x\), et le côté droit vaut
+            \[
+            \tfrac12\bigl(x+y+|x-y|\bigr)=\tfrac12\bigl(x+y+(x-y)\bigr)=\frac{2x}{2}=x\,.
+            \]
+            Si \(x\leqslant y\), le côté gauche vaut
+            \(\max\{x,y\}=y\), et le côté droit vaut
+            \[
+            \tfrac12\bigl(x+y+|x-y|\bigr)=\tfrac12\bigl(x+y-(x-y)\bigr)=\frac{2y}{2}=y\,.
+            \]
+        </li>
+    </ol>
 </div>
 
 <script src="../../js/main-content.js" type="module"></script>

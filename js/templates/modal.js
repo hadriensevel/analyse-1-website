@@ -12,7 +12,7 @@ const fullscreenModalTemplate = (modalId) => `
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="card">
+                <div class="question-card">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
@@ -23,7 +23,7 @@ const fullscreenModalTemplate = (modalId) => `
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Poser une question</button>
+                <button type="button" class="new-question-button">Nouvelle question</button>
             </div>
         </div>
     </div>

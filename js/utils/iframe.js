@@ -4,7 +4,7 @@
 
 // Load iframe from url page parameter or handle sidebar buttons to change page in iframe
 function iframe() {
-  const buttons = document.querySelectorAll('.liSubMenu');
+  const buttons = document.querySelectorAll('.had-nav-link-toplevel, .had-nav-link-secondlevel');
   const page = new URLSearchParams(window.location.search).get('page');
 
   // Load iframe from url page parameter

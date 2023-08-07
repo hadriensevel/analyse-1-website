@@ -2,8 +2,14 @@
 // Modal for questions
 // ----------------------------------
 
+@import "../utils/icon";
+
 .questions-modal {
   @extend .fade;
+
+  .modal-footer {
+    @extend .py-2;
+  }
 
   .questions-modal-title {
     @extend .modal-title;
@@ -13,7 +19,22 @@
   .questions-modal-title-badge {
     @extend .badge;
     @extend .bg-secondary;
+    @extend .mx-1;
     position: relative;
     bottom: .125rem;
+  }
+
+  .new-question-button {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-sm;
+
+    &:before {
+      @include icon('\F4CA\00a0\00a0', #fff);
+    }
+  }
+
+  .question-card {
+    @extend .card;
   }
 }
