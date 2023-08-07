@@ -10,8 +10,6 @@
   max-width: -moz-available;
   max-width: -webkit-fill-available;
   margin-left: $sidebar-width !important;
-
-  // Test fixed header
   margin-top: $header-height;
 
   @include media-breakpoint-down(md) {

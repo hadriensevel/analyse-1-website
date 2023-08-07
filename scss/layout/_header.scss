@@ -5,16 +5,14 @@
 .#{$prefix}-navbar {
   @extend .navbar;
   @extend .navbar-dark;
-  //@extend .sticky-top;
+  @extend .position-fixed;
+  @extend .top-0;
+  @extend .w-100;
   @extend .flex-md-nowrap;
   @extend .px-3;
   height: $header-height;
 
-  // Test fixed header
-  @extend .position-fixed;
-  @extend .top-0;
-  @extend .w-100;
-
+  // Polycop max width
   .#{$prefix}-analyse & {
     max-width: 800px;
   }
