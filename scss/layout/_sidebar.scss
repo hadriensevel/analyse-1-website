@@ -2,6 +2,8 @@
 // SIDEBAR
 // ----------------------------------
 
+@import "../utils/icon";
+
 .#{$prefix}-sidebar {
   @extend .col;
   @extend .d-md-block;
@@ -67,49 +69,58 @@
     @extend .py-1;
     @extend .text-reset;
     @extend .text-decoration-none;
-
-    &:hover, &:focus {
-      transition: all 0.3s;
-      color: #7386D5 !important;
-      background: #fff !important;
-      font-weight: bold;
-    }
   }
 
   .#{$prefix}-nav-toplevel > a {
     @extend .ps-1;
     @extend .pe-4;
     @extend .dropdown-toggle;
-    background-color: #343a40;
+    @extend .text-secondary-emphasis;
+    @extend .fw-bold;
+    @extend .rounded;
+    //background-color: #343a40;
     font-size: 0.8rem;
     white-space: normal;
+    position: relative;
 
-    &[data-bs-toggle="collapse"] {
-      position: relative;
+    &:hover, &:focus {
+      transition: all 0.3s;
+      color: #7386D5 !important;
+      background: #fff !important;
     }
 
     &::after {
+      content: '\F229';  // caret-down
+      font-family: 'bootstrap-icons';
+      border: none;
       position: absolute;
       right: 10px;
       top: 50%;
       transform: translateY(-50%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &[aria-expanded="true"]::after {
+      transform: translateY(-50%) rotate(180deg);
     }
   }
 
   .#{$prefix}-nav-secondlevel li {
     > a {
       @extend .px-2;
-      background-color: #757575;
-      font-size: 0.7em;
+      @extend .text-secondary-emphasis;
+      font-size: 0.75em;
     }
 
-    &.active > a {
-      color: #fff;
-      background: #828fbf;
+    &.active > a, &:hover > a {
+      color: #7386D5 !important;
     }
 
     &.#{$prefix}-pdf-link > a {
-      @extend .text-center;
+
+      &:before {
+        @include icon('\F756\00a0'); // pdf
+      }
     }
   }
 }
