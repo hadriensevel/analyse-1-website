@@ -1,11 +1,11 @@
 // ----------------------------------
-// QUESTION CARD
+// HANDLE THE QUESTION CARDS IN MODAL
 // ----------------------------------
 
 import {createElementFromTemplate} from '../templates/utils';
-import {questionCardTemplate} from '../templates/question-modal';
 import axios from 'axios';
 import {baseUrl} from '../utils/config';
+import {questionCardTemplate} from '../templates/question-card';
 
 async function fetchQuestions(divId) {
   try {
@@ -46,7 +46,7 @@ async function loadQuestionCards(questionId) {
   // Add some delay to simulate a real request
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const questionsModalBody = document.querySelector('.question-modal .modal-body');
+  const questionsModalBody = document.querySelector('.question-list-modal .modal-body');
   questionsModalBody.innerHTML = '';
 
   // Iterate through the questions and add them to the modal

@@ -1,11 +1,10 @@
 // ----------------------------------
-// HANDLE QUESTION MODAL
+// HANDLE THE MODAL FOR A QUESTION
 // ----------------------------------
 
 import {createElementFromTemplate} from "../templates/utils.js";
 import {questionModalTemplate} from "../templates/question-modal.js";
 
-// Takes the modal template and appends it at the end of the body
 function handleQuestionModal() {
   const questionModal = createElementFromTemplate(questionModalTemplate);
   document.body.appendChild(questionModal);
@@ -13,5 +12,3 @@ function handleQuestionModal() {
     renderMathInElement(questionModal.querySelector('.modal-content'));
   });
 }
-
-export {handleQuestionModal};

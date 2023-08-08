@@ -3,6 +3,7 @@
 // ----------------------------------
 
 import {loadQuestionCards} from './handle-question-card';
+import {handleQuestionListModal} from './handle-question-list-modal';
 
 // Get the file name of the HTML page
 function getFileName() {
@@ -11,6 +12,9 @@ function getFileName() {
 }
 
 function handleRightColumn() {
+  // TODO: fetch the questions from the backend
+  // For now, we just add a question icon to each grid-container
+
   const gridContainers = document.querySelectorAll('.grid-container');
   gridContainers.forEach((gridContainer) => {
     if (!gridContainer.querySelector('.div-container')) {
@@ -25,14 +29,17 @@ function handleRightColumn() {
     const rightColumn = gridContainer.querySelector('.right-column');
     const questionIcon = document.createElement('a');
     questionIcon.classList.add('question-right-column');
-    questionIcon.href = '#question-modal';
+    questionIcon.href = '#';
     questionIcon.dataset.askedQuestions = '';
-    questionIcon.dataset.bsToggle = 'modal';
     rightColumn.appendChild(questionIcon);
 
     questionIcon.addEventListener('click', (e) => {
       e.preventDefault();
-      loadQuestionCards(questionIcon.parentElement.parentElement.id);
+      const divId = questionIcon.parentElement.parentElement.id;
+      handleQuestionListModal(divId)
+      const questionListModal = new bootstrap.Modal(document.querySelector('.question-list-modal'));
+      questionListModal.show();
+      loadQuestionCards(divId);
     });
   });
 }

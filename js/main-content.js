@@ -25,11 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // ----------------------------------
 
 import {handleRightColumn} from './questions/handle-right-column';
-import {handleQuestionModal} from './questions/handle-question-modal';
 import {handleNewQuestionModal} from './questions/handle-new-question-modal';
 
 document.addEventListener('DOMContentLoaded', () => {
   handleRightColumn();
-  handleQuestionModal();
-  handleNewQuestionModal()
 });
