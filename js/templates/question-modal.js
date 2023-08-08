@@ -2,8 +2,8 @@
 // QUESTION MODAL
 // ----------------------------------
 
-const questionModalTemplate = (modalId) => `
-<div class="modal question-modal" id="${modalId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+const questionModalTemplate = `
+<div class="modal question-modal" id="question-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
@@ -35,7 +35,10 @@ const questionModalTemplate = (modalId) => `
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="new-question-button">Nouvelle question</button>
+                <button type="button" class="new-question-button" 
+                        data-bs-target="#new-question-modal" data-bs-toggle="modal">
+                    Nouvelle question
+                </button>
             </div>
         </div>
     </div>

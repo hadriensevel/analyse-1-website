@@ -1,5 +1,5 @@
 // ----------------------------------
-// INITIALIZE RIGHT COLUMN
+// HANDLE RIGHT COLUMN FOR QUESTIONS
 // ----------------------------------
 
 import {loadQuestionCards} from './question-card';
@@ -10,7 +10,7 @@ function getFileName() {
   return path.split('/').pop();
 }
 
-function initRightColumn() {
+function handleRightColumn() {
   const gridContainers = document.querySelectorAll('.grid-container');
   gridContainers.forEach((gridContainer) => {
     if (!gridContainer.querySelector('.div-container')) {
@@ -37,4 +37,4 @@ function initRightColumn() {
   });
 }
 
-export {initRightColumn};
+export {handleRightColumn};

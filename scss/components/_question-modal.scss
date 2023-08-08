@@ -5,7 +5,7 @@
 @import "../utils/icon";
 
 .question-modal {
-  @extend .fade;
+  //@extend .fade;
 
   .modal-footer {
     @extend .py-2;
@@ -30,7 +30,8 @@
     @extend .btn-sm;
 
     &:before {
-      @include icon('\F4CA\00a0\00a0', #fff);
+      @include icon('\F4CA');
+      @extend .me-1;
     }
   }
 
