@@ -108,11 +108,12 @@ div {
   overflow-x: hidden;
 }
 
-.div-container {
+.grid-container, .div-container {
+  @extend .d-block;
+}
 
-  .grid-container {
-    @extend .d-block;
-  }
+.div-container {
+  overflow-x: auto;
 }
 
 .right-column {
