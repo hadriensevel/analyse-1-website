@@ -2,12 +2,45 @@
 // ANIMATIONS
 // ----------------------------------
 
+// Helper function for toggling multiple elements
+function toggleElements(elements, action) {
+  elements.forEach(el => el.classList[action]('d-none'));
+}
+
+// Event handlers
+function handlePlayButton(e, player, elements) {
+  e.preventDefault();
+
+  toggleElements(elements.hide, 'add');
+  toggleElements(elements.show, 'remove');
+  player.play();
+
+  player.once('playing', () => {
+    toggleElements(elements.swap, 'toggle');
+  });
+}
+
+function handlePauseButton(e, player, elements) {
+  e.preventDefault();
+
+  toggleElements(elements.swap, 'toggle');
+  player.pause();
+
+  toggleElements(elements.hide, 'add');
+  toggleElements(elements.show, 'remove');
+}
+
+function handleFullscreenButton(e, player) {
+  e.preventDefault();
+  player.fullscreen.toggle();
+}
+
+// Main animation function
 function animations() {
-  // Get the animation containers
   const containers = document.querySelectorAll('.animation-container');
 
   containers.forEach((container) => {
-    // Getting the elements
+    // Elements
     const video = container.querySelector('.anim-video-plyr');
     const videoWrapper = video.parentElement;
     const imgWrapper = container.querySelector('img').parentElement;
@@ -15,7 +48,7 @@ function animations() {
     const pauseButton = container.querySelector('.pause-button');
     const fullscreenButton = container.querySelector('.fullscreen-button');
 
-    // Initialize Plyr video player
+    // Plyr player
     const player = new Plyr(video, {
       controls: ['progress'],
       clickToPlay: false,
@@ -23,53 +56,25 @@ function animations() {
     });
 
     // Initial state
-    videoWrapper.classList.add('d-none');
-    pauseButton.classList.add('d-none');
-    fullscreenButton.classList.add('d-none');
+    toggleElements([videoWrapper, pauseButton, fullscreenButton], 'add');
 
-    // Play button event
-    playButton.addEventListener('click', function(e) {
+    // Elements for button handlers
+    const playElements = {
+      hide: [playButton],
+      show: [pauseButton, fullscreenButton],
+      swap: [imgWrapper, videoWrapper]
+    };
 
-      // Prevent the default event
-      e.preventDefault();
+    const pauseElements = {
+      hide: [pauseButton, fullscreenButton],
+      show: [playButton],
+      swap: [imgWrapper, videoWrapper]
+    };
 
-      // Hide the play button and show the pause button and the fullscreen button
-      playButton.classList.add('d-none');
-      pauseButton.classList.remove('d-none');
-      fullscreenButton.classList.remove('d-none');
-      player.play();
-
-      player.once('playing', () => {
-
-        // Hide the image and show the video once it starts playing
-        // (prevents seeing the video loading)
-        imgWrapper.classList.add('d-none');
-        videoWrapper.classList.remove('d-none');
-      })
-    });
-
-    // Pause button event
-    pauseButton.addEventListener('click', function(e) {
-
-      // Prevent the default event
-      e.preventDefault();
-
-      //Hide the video and show the image
-      imgWrapper.classList.remove('d-none');
-      videoWrapper.classList.add('d-none');
-      player.pause();
-
-      // Hide the pause button and the fullscreen button and show the play button
-      playButton.classList.remove('d-none');
-      pauseButton.classList.add('d-none');
-      fullscreenButton.classList.add('d-none');
-    });
-
-    // Fullscreen button event
-    fullscreenButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      player.fullscreen.toggle();
-    });
+    // Event listeners
+    playButton.addEventListener('click', e => handlePlayButton(e, player, playElements));
+    pauseButton.addEventListener('click', e => handlePauseButton(e, player, pauseElements));
+    fullscreenButton.addEventListener('click', e => handleFullscreenButton(e, player));
   });
 }
 

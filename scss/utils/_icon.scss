@@ -2,10 +2,12 @@
 // Icon
 // ----------------------------------
 
-@mixin icon($icon, $icon-color: #000) {
+@mixin icon($icon, $icon-color: false) {
   content: $icon;
   font-family: 'bootstrap-icons';
-  color: $icon-color;
+  @if $icon-color {
+    color: $icon-color;
+  }
   top: .125em;
   position: relative;
 }

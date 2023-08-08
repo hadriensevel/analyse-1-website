@@ -16,7 +16,7 @@
   text-decoration: none;
 
   &:before {
-    @include icon($iconCode);
+    @include icon($iconCode, $black);
   }
 }
 

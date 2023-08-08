@@ -3,12 +3,12 @@
 // ----------------------------------
 
 import {createElementFromTemplate} from "../templates/utils.js";
-import {fullscreenModalTemplate} from "../templates/modal.js";
+import {questionModalTemplate} from "../templates/questions-modal.js";
 
 // Takes the modal template and appends it at the end of the body
-function initModal() {
-  const modal = createElementFromTemplate(fullscreenModalTemplate("questions-modal"));
+function initQuestionsModal() {
+  const modal = createElementFromTemplate(questionModalTemplate("questions-modal"));
   document.body.appendChild(modal);
 }
 
-export {initModal};
+export {initQuestionsModal};

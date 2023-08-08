@@ -12,6 +12,6 @@
   }
 
   .grid-container:hover &:before, &:hover::before, &:focus::before {
-    @include icon('\F50C'); // question mark
+    @include icon('\F50C', $black); // question mark
   }
 }

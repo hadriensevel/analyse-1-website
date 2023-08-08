@@ -36,5 +36,73 @@
 
   .question-card {
     @extend .card;
+    @extend .border-0;
+    cursor: pointer;
+
+    &:hover {
+      @extend .bg-light;
+    }
+
+    .question-body {
+      @extend .card-body;
+    }
+
+    .question-header, .question-footer {
+      @extend .d-flex;
+      @extend .justify-content-between;
+    }
+
+    .question-title {
+      @extend .d-inline;
+      @extend .fs-6;
+      @extend .m-0;
+      @extend .me-2;
+    }
+
+    .resolved-question {
+      @extend .d-inline;
+      @extend .text-success;
+
+      &:before {
+        @include icon('\F633');
+      }
+    }
+
+    .question-author-date {
+      @extend .me-2;
+    }
+
+    .question-author, .question-date {
+      @extend .d-inline;
+      @extend .px-0;
+    }
+
+    .question-author {
+      @extend .me-2;
+    }
+
+    .question-comments-likes {
+      @extend .text-end;
+      @extend .text-secondary;
+    }
+
+    .question-comments {
+      @extend .d-inline;
+      @extend .me-2;
+
+      &:before {
+        @include icon('\F24B');
+        @extend .me-1;
+      }
+    }
+
+    .question-likes {
+      @extend .d-inline;
+
+      &:before {
+        @include icon('\F415');
+        @extend .me-1;
+      }
+    }
   }
 }

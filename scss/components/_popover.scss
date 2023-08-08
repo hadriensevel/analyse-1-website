@@ -9,6 +9,6 @@
   text-decoration: none;
 
   &:before {
-    @include icon('\F504');
+    @include icon('\F504', $black);
   }
 }

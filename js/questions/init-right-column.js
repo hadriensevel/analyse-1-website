@@ -8,7 +8,7 @@ function getFileName() {
   return path.split('/').pop();
 }
 
-function initHtml() {
+function initRightColumn() {
   const gridContainers = document.querySelectorAll('.grid-container');
   gridContainers.forEach((gridContainer) => {
     if (!gridContainer.querySelector('.div-container')) {
@@ -27,7 +27,12 @@ function initHtml() {
     questionIcon.dataset.askedQuestions = '';
     questionIcon.dataset.bsToggle = 'modal';
     rightColumn.appendChild(questionIcon);
+
+    questionIcon.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log(questionIcon.parentElement.parentElement.id);
+    });
   });
 }
 
-export {initHtml};
+export {initRightColumn};

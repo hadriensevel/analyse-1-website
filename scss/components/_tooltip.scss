@@ -10,7 +10,7 @@
   text-decoration: none;
 
   &:before {
-    @include icon('\F430');
+    @include icon('\F430', $black);
   }
 
   &.tooltip-show {

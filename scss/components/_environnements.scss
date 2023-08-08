@@ -2,6 +2,8 @@
 // Environnements
 // ----------------------------------
 
+@import "../utils/icon";
+
 @mixin env($bg-color, $before-content: null) {
   background-color: $bg-color;
   @extend .fst-italic;
@@ -61,9 +63,6 @@
   @extend .fst-normal;
 
   &:before {
-    content: '\F586';  // Star icon
-    font-family: 'bootstrap-icons';
-    top: .125em;
-    position: relative;
+    @include icon('\F586'); // Star icon
   }
 }
