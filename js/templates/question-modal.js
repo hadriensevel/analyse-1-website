@@ -48,13 +48,22 @@ const questionModalTemplate = `
 const questionCardTemplate = (questionId, questionTitle, questionResolved, questionAuthor, questionDate, questionComments, questionLikes) => {
   if (questionComments) {
     questionComments = `<div class="question-comments">${questionComments}</div>`;
+  } else {
+    questionComments = '';
   }
+
   if (questionLikes) {
     questionLikes = `<div class="question-likes">${questionLikes}</div>`;
+  } else {
+    questionLikes = '';
   }
+
   if (questionResolved) {
     questionResolved = `<div class="resolved-question"></div>`;
+  } else {
+    questionResolved = '';
   }
+
   return `
 <div class="question-card" id="${questionId}">
     <div class="question-body">

@@ -2,7 +2,7 @@
 // HANDLE RIGHT COLUMN FOR QUESTIONS
 // ----------------------------------
 
-import {loadQuestionCards} from './question-card';
+import {loadQuestionCards} from './handle-question-card';
 
 // Get the file name of the HTML page
 function getFileName() {
