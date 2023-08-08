@@ -1,6 +1,8 @@
 // ----------------------------------
-// INITIALIZE HTML
+// INITIALIZE RIGHT COLUMN
 // ----------------------------------
+
+import {loadQuestionCards} from './question-card';
 
 // Get the file name of the HTML page
 function getFileName() {
@@ -23,14 +25,14 @@ function initRightColumn() {
     const rightColumn = gridContainer.querySelector('.right-column');
     const questionIcon = document.createElement('a');
     questionIcon.classList.add('question-right-column');
-    questionIcon.href = '#questions-modal';
+    questionIcon.href = '#question-modal';
     questionIcon.dataset.askedQuestions = '';
     questionIcon.dataset.bsToggle = 'modal';
     rightColumn.appendChild(questionIcon);
 
     questionIcon.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log(questionIcon.parentElement.parentElement.id);
+      loadQuestionCards(questionIcon.parentElement.parentElement.id);
     });
   });
 }

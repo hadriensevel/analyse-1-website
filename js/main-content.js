@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // QUESTIONS
 // ----------------------------------
 
-import {initQuestionsModal} from './questions/init-questions-modal';
+import {initQuestionModal} from './questions/init-question-modal';
 import {initRightColumn} from './questions/init-right-column';
 
 document.addEventListener('DOMContentLoaded', () => {
-  initQuestionsModal();
+  initQuestionModal();
   initRightColumn();
 });

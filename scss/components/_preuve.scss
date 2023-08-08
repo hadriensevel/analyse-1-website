@@ -36,6 +36,10 @@ $preuve-height: 15px;
       font-family: 'bootstrap-icons';
     }
 
+    &[aria-expanded="true"]:before {
+      content: '\F286 \00a0'; // chevron-up & space
+    }
+
     // Hover state
     &:hover {
       background-color: $preuve-hover-bg-color;

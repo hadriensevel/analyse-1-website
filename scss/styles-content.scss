@@ -44,7 +44,7 @@
 // @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
 // @import "bootstrap/scss/offcanvas"; // Requires transitions
-// @import "bootstrap/scss/placeholders";
+@import "bootstrap/scss/placeholders";
 @import "bootstrap/scss/helpers";
 
 // Utilities
@@ -83,7 +83,6 @@ body {
 
   @extend .p-3;
   @extend .d-grid;
-  grid-template-columns: 1fr;
 }
 
 h6 {
@@ -105,12 +104,11 @@ div {
 .grid-container {
   @extend .d-grid;
   grid-template-columns: auto 25px;
-  grid-column-start: 1;
   column-gap: .5rem;
+  overflow-x: hidden;
 }
 
 .div-container {
-  grid-column-start: 1;
 
   .grid-container {
     @extend .d-block;
@@ -161,7 +159,7 @@ blockquote {
         padding-left: 2px;
         padding-right: 2px;
       }
-    }
+     }
   }
 }
 
@@ -184,4 +182,5 @@ blockquote {
 @import "components/tooltip";
 @import "components/anim";
 @import "components/question-right-column";
-@import "components/questions-modal";
+@import "components/question-modal";
+@import "components/new-question-modal";

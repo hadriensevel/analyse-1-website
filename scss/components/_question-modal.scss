@@ -4,19 +4,19 @@
 
 @import "../utils/icon";
 
-.questions-modal {
+.question-modal {
   @extend .fade;
 
   .modal-footer {
     @extend .py-2;
   }
 
-  .questions-modal-title {
+  .question-modal-title {
     @extend .modal-title;
     @extend .fs-5;
   }
 
-  .questions-modal-title-badge {
+  .question-modal-title-badge {
     @extend .badge;
     @extend .bg-secondary;
     @extend .mx-1;
@@ -104,5 +104,10 @@
         @extend .me-1;
       }
     }
+  }
+
+  .question-card-placeholder {
+    @extend .mb-1;
+    @extend .p-3;
   }
 }

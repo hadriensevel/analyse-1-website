@@ -23,10 +23,14 @@ $video-font-size: $font-size;
     font-size: $video-font-size;
 
     &:before {
-      content: '\F282 \00a0\00a0 \F21C \00a0\00a0'; // chevron-down & camera
+      content: '\F282 \00a0\00a0 \F4F0 \00a0\00a0'; // chevron-down & camera
       font-family: 'bootstrap-icons';
       top: .125em;
       position: relative;
+    }
+
+    &[aria-expanded="true"]:before {
+      content: '\F286 \00a0\00a0 \F4F0 \00a0\00a0'; // chevron-up & camera
     }
 
     &:hover {
