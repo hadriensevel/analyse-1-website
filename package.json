@@ -12,10 +12,11 @@
     "css-prefix": "postcss --replace dist/css/*.css --use autoprefixer --map",
     "css": "npm-run-all css-compile css-prefix",
     "js": "rollup -c --silent",
-    "build": "npm-run-all clean create-dir html fonts css js && echo \"Build complete!\"",
+    "build-dev": "npm-run-all clean create-dir html fonts css js && echo \"Build complete!\"",
+    "build": "npm-run-all clean create-dir fonts css js && echo \"Build complete!\"",
     "server": "serve dist/ --listen 3001",
     "start": "npm-run-all --parallel watch server",
-    "watch": "nodemon -e html,css,scss,js,mjs -i \"/dist/*\" -x \"npm run build\""
+    "watch": "nodemon -e html,css,scss,js,mjs -i \"/dist/*\" -x \"npm run build-dev\""
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
