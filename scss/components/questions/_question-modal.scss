@@ -1,0 +1,33 @@
+// ----------------------------------
+// Modal for question
+// ----------------------------------
+
+@import "../../utils/icon";
+
+.question-modal {
+
+  .modal-title-h1 {
+    @extend .modal-title;
+    @extend .fs-5;
+  }
+
+  .back-button {
+    @extend .text-decoration-none;
+    @extend .text-secondary;
+    @extend .fs-5;
+    @extend .me-2;
+
+    &:before {
+      @include icon('\F12F');
+    }
+
+    &:hover, &:focus {
+      @extend .text-dark;
+    }
+  }
+
+  .modal-body {
+    @extend .mx-auto;
+    max-width: 800px;
+  }
+}

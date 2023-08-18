@@ -5,13 +5,25 @@
 function tabs() {
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabDivs = document.querySelectorAll('.tab-div');
+  let activeTabButton = document.querySelector('.tab-button.active');
 
   tabButtons.forEach((tabButton) => {
     tabButton.addEventListener('click', (e) => {
       e.preventDefault();
-      document.querySelector('.tab-button.active').classList.remove('active');
+
+      // Remove the active class from the previously active button
+      activeTabButton.classList.remove('active');
+
+      // Add the active class to the clicked button
       tabButton.classList.add('active');
-      const tabId = new URL(tabButton.href).hash.slice(1);
+
+      // Update the reference to the active tab button
+      activeTabButton = tabButton;
+
+      // Get the target tab ID from the data attribute
+      const tabId = tabButton.dataset.target;
+
+      // Show the target tab and hide others
       tabDivs.forEach((tabDiv) => {
         if (tabDiv.id === tabId) {
           tabDiv.classList.remove('d-none');

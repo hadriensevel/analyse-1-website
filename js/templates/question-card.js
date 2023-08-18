@@ -22,7 +22,7 @@ const questionCardTemplate = (questionId, questionTitle, questionResolved, quest
   }
 
   return `
-<div class="question-card" id="${questionId}">
+<div class="question-card" data-question-id="${questionId}">
     <div class="question-body">
         <div class="question-header">
             <h5 class="question-title">${questionTitle}</h5>
@@ -40,6 +40,5 @@ const questionCardTemplate = (questionId, questionTitle, questionResolved, quest
         </div>
     </div>
 </div>
-`
-};
+`};
 export {questionCardTemplate};

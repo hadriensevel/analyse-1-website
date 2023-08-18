@@ -2,29 +2,26 @@
 // QUIZ UTILS
 // ----------------------------------
 
+function toggleClasses(element, ...classes) {
+  classes.forEach((cls) => {
+    element.classList.toggle(cls);
+  });
+}
+
 // Handle quiz button to show the answers
 function quizAnswers() {
   const quizzes = document.querySelectorAll('.quiz');
-
   quizzes.forEach((quiz) => {
     const quizButton = quiz.querySelector('.quiz-button');
     const quizAnswers = quiz.querySelectorAll('.quiz-answer');
     const quizTooltips = quiz.querySelectorAll('.quiz-tooltip');
 
     quizButton.addEventListener('click', () => {
-
-      // Toggle the answers
       quizAnswers.forEach((quizAnswer) => {
-        if (quizAnswer.dataset.answer === 'true') {
-          quizAnswer.classList.toggle('true');
-        } else if (quizAnswer.dataset.answer === 'false') {
-          quizAnswer.classList.toggle('false');
-        }
+        toggleClasses(quizAnswer, quizAnswer.dataset.answer === 'true' ? 'true' : 'false');
       });
-
-      // Toggle the tooltip
       quizTooltips.forEach((quizTooltip) => {
-        quizTooltip.classList.toggle('tooltip-show');
+        toggleClasses(quizTooltip, 'tooltip-show');
       });
     });
   });
@@ -33,18 +30,17 @@ function quizAnswers() {
 // Select all the divs with class "quiz-answer-user" and add a click event listener to toggle
 // between the classes "true", "false" and nothing
 function quizUserAnswers() {
-  const quizAnswers = document.querySelectorAll('.quiz-answer-user');
-  quizAnswers.forEach((quizAnswer) => {
-    quizAnswer.addEventListener('click', () => {
+  document.addEventListener('click', (e) => {
+    const quizAnswer = e.target.closest('.quiz-answer-user');
+    if (quizAnswer) {
       if (quizAnswer.classList.contains('true')) {
-        quizAnswer.classList.remove('true');
-        quizAnswer.classList.add('false');
+        toggleClasses(quizAnswer, 'true', 'false');
       } else if (quizAnswer.classList.contains('false')) {
-        quizAnswer.classList.remove('false');
+        toggleClasses(quizAnswer, 'false');
       } else {
-        quizAnswer.classList.add('true');
+        toggleClasses(quizAnswer, 'true');
       }
-    });
+    }
   });
 }
 

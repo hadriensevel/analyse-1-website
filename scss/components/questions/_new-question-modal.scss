@@ -2,12 +2,12 @@
 // Modal for new question
 // ----------------------------------
 
-@import "../utils/icon";
+@import "../../utils/icon";
 
 .new-question-modal {
   //@extend .fade;
 
-  .new-question-modal-title {
+  .modal-title-h1 {
     @extend .modal-title;
     @extend .fs-5;
   }

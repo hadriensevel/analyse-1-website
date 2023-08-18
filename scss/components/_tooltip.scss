@@ -17,3 +17,8 @@
     @extend .d-inline;
   }
 }
+
+.tooltip-inner {
+  text-align: justify;
+  max-width: 600px;
+}

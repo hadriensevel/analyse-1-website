@@ -3,9 +3,11 @@
 // ----------------------------------
 
 import {createElementFromTemplate} from '../templates/utils';
+import {questionCardTemplate} from '../templates/question-card';
+import {handleQuestionModal} from './handle-question-modal';
+
 import axios from 'axios';
 import {baseUrl} from '../utils/config';
-import {questionCardTemplate} from '../templates/question-card';
 
 async function fetchQuestions(divId) {
   try {
@@ -18,6 +20,24 @@ async function fetchQuestions(divId) {
   } catch {
     return null;
   }
+}
+
+function renderQuestions(questions, questionsModalBody) {
+  questionsModalBody.innerHTML = '';
+
+  questions.forEach((question) => {
+    const questionCard = createElementFromTemplate(questionCardTemplate(question.id, question.title, question.resolved, question.author, question.date, question.comments, question.likes));
+    questionsModalBody.appendChild(questionCard);
+  });
+
+  // Use event delegation to handle click events on question cards
+  questionsModalBody.addEventListener('click', (e) => {
+    const questionCard = e.target.closest('.question-card');
+    if (questionCard) {
+      handleQuestionModal(questionCard.dataset.questionId)
+      new bootstrap.Modal(document.querySelector('.question-modal')).show();
+    }
+  });
 }
 
 // Load the question cards to the modal and add them to the modal
@@ -47,29 +67,15 @@ async function loadQuestionCards(questionId) {
 
 
   // Add some delay to simulate a real request
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  //await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const questionsModalBody = document.querySelector('.question-list-modal .modal-body');
-  questionsModalBody.innerHTML = '';
 
-  // If there are no questions, display a message
-  if (questions.length === 0) {
+  if (questions.length) {
+    renderQuestions(questions, questionsModalBody);
+  } else {
     questionsModalBody.innerHTML = '<p class="text-center">Aucune question n\'a été posée pour le moment.</p>';
-    return;
   }
-
-  // Iterate through the questions and add them to the modal
-  questions.forEach((question) => {
-    const questionCard = createElementFromTemplate(questionCardTemplate(question.id, question.title, question.resolved, question.author, question.date, question.comments, question.likes));
-
-    // Event listener to open the question card
-    questionCard.addEventListener('click', (e) => {
-      // TODO
-    });
-
-    // Add the question card to the modal
-    questionsModalBody.appendChild(questionCard);
-  });
 }
 
 export {loadQuestionCards};

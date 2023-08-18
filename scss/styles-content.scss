@@ -189,8 +189,14 @@ blockquote {
 @import "components/popover";
 @import "components/tooltip";
 @import "components/anim";
-@import "components/question-right-column";
-@import "components/question-list-modal";
-@import "components/new-question-modal";
 @import "components/jsxgraph";
 @import "components/footer";
+
+// ----------------------------------
+// QUESTIONS
+// ----------------------------------
+
+@import "components/questions/question-right-column";
+@import "components/questions/question-list-modal";
+@import "components/questions/new-question-modal";
+@import "components/questions/question-modal";

@@ -16,10 +16,9 @@ function rightIframeLink() {
       // Prevent the link default behavior
       e.preventDefault();
 
-      if (parent.window.innerWidth >= 1400) {
-        // If the parent window's inner width is greater than or equal to 1400 pixels
-        // (i.e. the window is large enough to display the right iframe)
-        // then change the right iframe's src attribute
+      // Use window.matchMedia() to test if the window is large enough to display the right iframe
+      if (parent.window.matchMedia("(min-width: 1400px)").matches) {
+        // Change the right iframe's src attribute
         rightIframe.setAttribute('src', link.href);
       } else {
         // Otherwise, open the link in a new tab

@@ -7,32 +7,17 @@ function toggleElements(elements, action) {
   elements.forEach(el => el.classList[action]('d-none'));
 }
 
-// Event handlers
-function handlePlayButton(e, player, elements) {
+// Event handler
+function handleButton(e, player, elements, play) {
   e.preventDefault();
 
   toggleElements(elements.hide, 'add');
   toggleElements(elements.show, 'remove');
-  player.play();
+  play ? player.play() : player.pause();
 
-  player.once('playing', () => {
+  player.once(play ? 'playing' : 'pause', () => {
     toggleElements(elements.swap, 'toggle');
   });
-}
-
-function handlePauseButton(e, player, elements) {
-  e.preventDefault();
-
-  toggleElements(elements.swap, 'toggle');
-  player.pause();
-
-  toggleElements(elements.hide, 'add');
-  toggleElements(elements.show, 'remove');
-}
-
-function handleFullscreenButton(e, player) {
-  e.preventDefault();
-  player.fullscreen.toggle();
 }
 
 // Main animation function
@@ -71,10 +56,17 @@ function animations() {
       swap: [divWrapper, videoWrapper]
     };
 
-    // Event listeners
-    playButton.addEventListener('click', e => handlePlayButton(e, player, playElements));
-    pauseButton.addEventListener('click', e => handlePauseButton(e, player, pauseElements));
-    fullscreenButton.addEventListener('click', e => handleFullscreenButton(e, player));
+    // Event listeners using event delegation
+    container.addEventListener('click', (e) => {
+      if (e.target === playButton) {
+        handleButton(e, player, playElements, true);
+      } else if (e.target === pauseButton) {
+        handleButton(e, player, pauseElements, false);
+      } else if (e.target === fullscreenButton) {
+        e.preventDefault();
+        player.fullscreen.toggle();
+      }
+    });
   });
 }
 

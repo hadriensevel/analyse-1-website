@@ -9,4 +9,12 @@ function createElementFromTemplate(template) {
   return tempDiv.firstElementChild;
 }
 
-export {createElementFromTemplate};
+// Close, dispose and remove the modal
+function closeModal(modalElement) {
+  const modalBootstrap = new bootstrap.Modal(modalElement);
+  modalBootstrap.hide();
+  modalBootstrap.dispose();
+  modalElement.remove();
+}
+
+export {createElementFromTemplate, closeModal};
