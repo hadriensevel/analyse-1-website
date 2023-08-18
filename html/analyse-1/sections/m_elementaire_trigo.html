@@ -1,0 +1,590 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/styles-content.css">
+    <!-- Scripts -->
+    <script src="../../js/bundle.js"></script>
+    <script src="../../js/bundle2.js"></script>
+</head>
+
+<body>
+
+<h5> II.4 Trigonométrie </h5>
+<p>
+    On rappelle ici les définitions et propriétés des
+    principales fonctions trigonométriques.
+
+    <br>
+    Rappelons d'abord comment sont mesurés les angles dans le plan.
+</p>
+
+<h6>Sur la mesure des angles</h6>
+
+<p>
+    La mesure des angles se fait par un choix d'unités, et ce choix est déterminé
+    une fois que l'on fixe la valeur de la mesure de l'angle
+    total (ouverture correspondant à ''un tour complet'').
+</p>
+
+<div class="grid-container" id="SshAgKbRN3BrPrF0">
+<p>
+    La mesure en <b>degrés</b> consiste à associer à l'angle total une mesure
+    de \(360\) degrés, les autres angles étant mesurés de façon proportionnelle:
+</p>
+</div>
+
+<div>
+    <img class="image-center" src="../../media/images/i_elementaire_angles_en_degres.png" width="200">
+</div>
+
+<div class="grid-container" id="cGhngjrvPeOqlO50">
+<p>
+    La mesure en <b>radians</b> est plus naturelle d'un point de vue
+    géométrique, puisqu'elle
+    consiste à mesurer une longueur le long d'un arc de cercle. Si la
+    longueur parcourue est égale au rayon, ceci définit un angle de
+    <b>un radian</b>:
+</p>
+</div>
+
+<div class="grid-container animation-container"
+     id="a_trigo_explication_mesure_radian">
+    <div class="anim-video"><video class="anim-video-plyr" preload="none" playsinline>
+        <source src="../../media/videos/a_trigo_explication_mesure_radian.mp4" type="video/mp4"></video></div>
+    <div class="div-container">
+        <div>
+            <img class="image-center" src="../../media/images/i_elementaire_angle_un_radian.png" width="140">
+        </div>
+    </div> <div class="right-column">
+    <a href="#" class="play-button"></a>
+    <a href="#" class="pause-button"></a>
+    <a href="#" class="fullscreen-button"></a> </div> </div>
+
+<div class="grid-container" id="lKEVyokwhwKrU9L1">
+<p>
+    L'angle total correspond donc à la longueur de la circonférence d'un cercle de
+    rayon \(1\), à savoir \(2\pi\).
+    Quelques angles intermédiaires:
+</p>
+
+<div>
+    <img class="image-center" src="../../media/images/i_elementaire_angles_remarquables_cercle.png" width="260">
+</div>
+</div>
+
+<p>
+    Soit un angle donné, dont la mesure en degrés est \(\alpha_d\) et celle en
+    radians est \(\alpha_r\). Puisque
+    \[
+    \frac{\alpha_d}{360}=\frac{\alpha_r}{2\pi}\,,
+    \]
+    on a la formule de conversion:
+    \[
+    \alpha_d=\frac{180}{\pi}\alpha_r\,.
+    \]
+</p>
+
+<p>
+    Donnons en passant l'expression de l'aire \(A\) d'un secteur
+    circulaire de rayon \(r\), dont l'ouverture est un angle de \(\theta\)
+    radians:
+</p>
+
+<div class="grid-container animation-container"
+     id="a_trigo_explication_aire_secteur">
+    <div class="anim-video"><video class="anim-video-plyr" preload="none" playsinline>
+        <source src="../animations/a_trigo_explication_aire_secteur.webm" type="video/webm">
+        <source src="../animations/a_trigo_explication_aire_secteur.mp4" type="video/mp4"></video></div>
+    <div class="div-container">
+        <div><div id="BOX-jsx_elementaire_aire_secteur" class="jxgbox" style="width:300px; height:180px;"></div></div>
+        <script src="../jsxgraph/jsx_elementaire_aire_secteur.js"></script>
+    </div> <div class="right-column">
+    <a href="#" class="play-button"></a>
+    <a href="#" class="pause-button"></a>
+    <a href="#" class="fullscreen-button"></a> </div> </div>
+
+<p>
+    Dans le cas où l'angle est total \(\theta=2\pi\), ce secteur est un
+    disque, et donc son aire est égale à \(\pi r^2\).
+    Or pour un secteur quelconque,
+    la proportionnalité existant entre l'angle \(\theta\) et l'angle total doit
+    être la même que la proportionnalité existant entre l'aire \(A\) du secteur et celle
+    du disque:
+    \[ \frac{\theta}{2\pi}=\frac{A}{\pi r^2}\,.
+    \]
+    On a donc
+    \[
+    \boxed{
+    A=\tfrac12 r^2\theta
+    }
+    \]
+</p>
+
+<h6>Définitions des fonctions trigonométriques</h6>
+
+<p>
+    Considérons un triangle rectangle, et distinguons un de ses angles non droit,
+    que l'on notera \(\alpha\):
+</p>
+
+<div>
+    <img class="image-center" src="../../media/images/i_elementaire_triangle_rectangle_alpha.png" width="200">
+</div>
+
+<p>
+    Le côté \(a\) est le <b>cathète adjacent à</b>  \(\alpha\),
+    le côté \(b\) est le <b>cathète opposé à</b>  \(\alpha\),
+    et \(c\) est <b>l'hypothénuse</b>.
+
+    <br><br>
+    Pour l'instant, \(\alpha\in ]0,\frac{\pi}{2}[\).
+    On associe trois nombres à \(\alpha\), représentant chacun un rapport
+    entre une paire de côtés:
+</p>
+
+<div class="grid-container" id="T52e7v7U6UE9mmBp">
+<div class="defin">
+    <ul>
+        <li>Le <b>sinus de</b> \(\alpha\) est défini par
+            \[
+            \sin(\alpha):=\frac{b}{c}\,.
+            \]
+        <li>Le <b>cosinus de</b> \(\alpha\) est défini par
+            \[
+            \cos(\alpha):=\frac{a}{c}\,.
+            \]
+        <li>La <b>tangente de</b> \(\alpha\) est définie par
+            \[
+            \tan(\alpha):=\frac{b}{a}\,.
+            \]
+    </ul>
+</div>
+</div>
+
+<p>
+    Remarquons que l'on a toujours
+    \[\tan(\alpha)=\frac{b}{a}=\frac{b/c}{a/c}=\frac{\sin(\alpha)}{\cos(\alpha)}\,.
+    \]
+</p>
+
+<div class="grid-container animation-container"
+     id="a_explication_proportionalite_trigo">
+    <div class="anim-video"><video class="anim-video-plyr" preload="none" playsinline>
+        <source src="../animations/a_explication_proportionalite_trigo.webm" type="video/webm">
+        <source src="../animations/a_explication_proportionalite_trigo.mp4" type="video/mp4"></video></div>
+    <div class="div-container">
+        <p>
+            Il est important de souligner que les nombres
+            \(\sin(\alpha)\), \(\cos(\alpha)\),
+            \(\tan(\alpha)\) sont définis comme étant des
+            <i>proportions</i> dans le rectangle considéré; ils ne dépendant donc pas du
+            choix particulier fait pour le rectangle. N'importe quel autre triangle
+            semblable peut être utilisé:
+        </p>
+        <div>
+            <img class="image-center" src="../../media/images/i_elementaire_triangle_rectangle_alpha_semblables.png" width="315">
+        </div>
+    </div> <div class="right-column">
+    <a href="#" class="play-button"></a>
+    <a href="#" class="pause-button"></a>
+    <a href="#" class="fullscreen-button"></a> </div> </div>
+
+<h6>Valeurs remarquables</h6>
+
+<p>
+    Si les nombres \(\sin(\alpha), \cos(\alpha),\tan(\alpha)\) sont géométriquement
+    bien définis,
+    il n'est pas pour autant facile de les <i>calculer</i>.
+
+    <br><br>
+    Il existe pourtant certains angles, appelés <b>remarquables</b>, qui sont des
+    parties rationnelles de \(2\pi\), pour lesquels
+    ces nombres peuvent être calculés exactement.
+    Commençons par les plus simples.
+
+    <br><br>
+    Considérons \(\alpha=\frac{\pi}{4}\), que l'on peut représenter dans un
+    triangle rectangle
+    dont les deux cathètes sont de longueurs \(1\), ce qui implique que son
+    hypothénuse a pour longueur \(\sqrt{1^2+1^2}=\sqrt{2}\):
+</p>
+
+<div>
+    <img class="image-center" src="../../media/images/i_elementaire_triangle_PISURQUATRE_mainlevee.jpg" width="170">
+</div>
+
+<p>
+    Ceci implique
+    \[\begin{aligned}
+    \sin(\tfrac{\pi}{4})&=\frac{1}{\sqrt{2}}=\frac{\sqrt{2}}{2}\\
+    \cos(\tfrac{\pi}{4})&=\frac{1}{\sqrt{2}}=\frac{\sqrt{2}}{2}\\
+    \tan(\tfrac{\pi}{4})&=\frac{1}{1}=1\,.
+    \end{aligned}\]
+    Considérons ensuite \(\alpha=\frac{\pi}{3}\), que l'on peut représenter comme
+    un triangle rectangle égale à une moitié d'un triangle équilatéral de côté
+    \(1\) (dont les trois angles sont égaux à \(\frac{\pi}{3}\)):
+</p>
+
+<div>
+    <img class="image-center" src="../../media/images/i_elementaire_triangle_PISURTROIS.jpg" width="200">
+</div>
+
+<p>
+    Par Pythagore, le cathète opposé a longueur
+    \(l=\sqrt{1^2-(\frac12)^2}=\frac{\sqrt{3}}{2}\).
+    On en déduit:
+    \[\begin{aligned}
+    \sin(\tfrac{\pi}{3})&=\frac{\sqrt{3}/2}{1}=\frac{\sqrt{3}}{2}\\
+    \cos(\tfrac{\pi}{3})&=\frac{1/2}{1}=\frac{1}{2}\\
+    \tan(\tfrac{\pi}{3})&=\frac{\sqrt{3}/2}{1/2}=\sqrt{3}\,.
+    \end{aligned}\]
+    Remarquons que l'autre angle non-droit de ce triangle vaut \(\frac{\pi}{6}\), et
+    donc on a aussi
+    \[\begin{aligned}
+    \sin(\tfrac{\pi}{6})&=\frac{1/2}{1}=\frac{1}{2}\\
+    \cos(\tfrac{\pi}{6})&=\frac{\sqrt{3}/2}{1}=\frac{\sqrt{3}}{2}\\
+    \tan(\tfrac{\pi}{6})&=\frac{1/2}{\sqrt{3}/2}=\frac{1}{\sqrt{3}}\,.
+    \end{aligned}\]
+
+    <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+Mais si \(\alpha\) n'est pas remarquable, comment je fais pour calculer
+\(\sin(\alpha)\)?
+" data-bs-content="
+Nous verrons plus loin quelques trucs permettant 
+de calculer les
+valeurs exactes de \(\sin(\alpha)\) pour beaucoup d'angles, 
+mais pour un angle assez
+quelconque, par exemple
+\(\alpha=17\) radians, on ne peut pas obtenir de valeur exacte de
+\(\sin(\alpha)\)!
+Notre définition géométrique de \(\sin(\alpha)\) fait que la seule façon de
+le calculer est de considérer un triangle rectangle 
+avec \(\alpha\) à son sommet, de
+mesurer \(b\) et \(c\) avec une règle (sous-entendu: une règle 
+infiniment précise), puis de calculer le rapport \(b/c\).
+
+<br><br>
+Nous verrons aussi, bien plus tard, comment on peut obtenir des valeurs 
+<i>approchées</i> très précises des fonctions trigonométriques, 
+dans le chapitre sur les développements limités.
+"></a>
+
+</p>
+
+<h6>Cercle trigonométrique et extension à tout \(\mathbb{R}\)</h6>
+
+<p>
+    Nous l'avons dit plus haut, ce qui définit les fonctions trigonométriques sont
+    des <i>proportions</i> (ici: des quotients de longueurs);
+    elles ne dépendent pas du
+    triangle utilisé pour les définir. On peut donc choisir de
+    toujours les définir à partir d'un triangle dont l'hypothénuse est de longueur
+    égale à \(1\).
+
+    <br><br>
+    Or un triangle dont l'hypothénuse est de longueur \(1\) peut être placé dans le
+    plan cartésien, avec l'angle à l'origine,
+    le cathète adjacent le long de l'axe \(Ox\).
+    Son sommet , noté \(P\) sur l'image ci-dessous, est donc placé
+    sur le cercle de rayon \(1\)
+    centré à l'origine, appelé <b>cercle trigonométrique</b>.
+    Les trois nombres \(\sin(\alpha)\), \(\cos(\alpha)\) et \(\tan(\alpha)\) peuvent
+    alors être vus comme des longueurs (sur l'animation, faire varier
+    \(\alpha\) en déplaçant \(P\)):
+</p>
+
+<div class="grid-container animation-container"
+     id="a_trigo_explication_cercle_trigo">
+    <div class="anim-video"><video class="anim-video-plyr" preload="none" playsinline>
+        <source src="../animations/a_trigo_explication_cercle_trigo.webm" type="video/webm">
+        <source src="../animations/a_trigo_explication_cercle_trigo.mp4" type="video/mp4"></video></div>
+    <div class="div-container">
+        <div><div id="BOX-jsx_elementaire_cercle_trigo" class="jxgbox" style="width:300px; height:300px;"></div></div>
+        <script src="../jsxgraph/jsx_elementaire_cercle_trigo.js"></script>
+    </div> <div class="right-column">
+    <a href="#" class="play-button"></a>
+    <a href="#" class="pause-button"></a>
+    <a href="#" class="fullscreen-button"></a> </div> </div>
+
+<p>
+    L'utilisation du cercle trigonométrique permet de
+    <i>généraliser</i> naturellement ces fonctions, en les définissant
+    pour un angle quelconque \(\alpha\in\mathbb{R}\) (à part la tangente,
+    définie pour tout angle qui n'est pas de la forme \(\frac{\pi}{2}+k\pi\), \(k\in
+    \mathbb{Z}\)).
+</p>
+
+<h6>Graphes</h6>
+
+<p>
+    Graphe de la fonction \(\sin:\mathbb{R}\to [-1,1]\):
+</p>
+
+<div><div id="BOX-jsx_fonctions_graphe_sinus" class="jxgbox" style="width:500px; height:150px;"></div></div>
+<script src="../jsxgraph/jsx_fonctions_graphe_sinus.js"></script>
+
+<p>
+    Graphe de la fonction \(\cos:\mathbb{R}\to [-1,1]\):
+</p>
+
+<div><div id="BOX-jsx_fonctions_graphe_cosinus" class="jxgbox" style="width:500px; height:150px;"></div></div>
+<script src="../jsxgraph/jsx_fonctions_graphe_cosinus.js"></script>
+
+<div class="grid-container" id="7YDmt6juw4Ne0oEX">
+<p>
+    Graphe de la fonction
+    \(\tan:\mathbb{R}\setminus \{\frac{\pi}{2}+k\pi,k\in\mathbb{Z}\}\to [-1,1]\):
+</p>
+
+<div><div id="BOX-jsx_fonctions_graphe_tangente" class="jxgbox" style="width:500px; height:350px;"></div></div>
+<script src="../jsxgraph/jsx_fonctions_graphe_tangente.js"></script>
+</div>
+
+<h6>Propriétés</h6>
+
+<p>
+    La définition géométrique des fonctions trigonométriques (sur le cercle
+    trigonométrique)
+    permet d'obtenir facilement leurs principales propriétés élémentaires. Par exemple,
+    \[\begin{aligned}
+    \sin(-\alpha)&=-\sin(\alpha)\\
+    \cos(-\alpha)&=\cos(\alpha)\\
+    \tan(-\alpha)&=-\tan(\alpha)
+    \end{aligned}\]
+    Aussi, sous la transformation \(\alpha\mapsto \alpha+2\pi\), ces fonctions sont
+    inchangées:
+    \[
+    \sin(\alpha+2\pi)=\sin(\alpha)\,,\qquad
+    \cos(\alpha+2\pi)=\cos(\alpha)\,.
+    \]
+    On dit que sinus et cosinus sont <b>périodiques</b>,
+    de <b>période</b> \(2\pi\).
+    \[
+    \tan(\alpha+\pi)=\tan(\alpha)\,\qquad
+    \]
+    pour des angles plus petits?
+    Sous la transformation \(\alpha\mapsto \alpha+\pi\):
+    \[\begin{aligned}
+    \sin(\alpha+\pi)&=-\sin(\alpha)\\
+    \cos(\alpha+\pi)&=-\cos(\alpha)\\
+    \tan(\alpha+\pi)&=\tan(\alpha)\,.
+    \end{aligned}\]
+
+    Sous la transformation \(\alpha\mapsto \alpha+\frac{\pi}{2}\):
+    \[\begin{aligned}
+    \sin(\alpha+\tfrac{\pi}{2})&=\cos(\alpha)\\
+    \cos(\alpha+\tfrac{\pi}{2})&=-\sin(\alpha)\\
+    \tan(\alpha+\tfrac{\pi}{2})&=\frac{-1}{\tan(\alpha)}\,.
+    \end{aligned}\]
+    Sous la transformation \(\alpha\mapsto \frac{\pi}{2}-\alpha\):
+    \[\begin{aligned}
+    \sin(\tfrac{\pi}{2}-\alpha)&=\cos(\alpha)\\
+    \cos(\tfrac{\pi}{2}-\alpha)&=\sin(\alpha)\\
+    \tan(\tfrac{\pi}{2}-\alpha)&=\frac{1}{\tan(\alpha)}\,.
+    \end{aligned}\]
+
+</p>
+
+<h6>Identités trigonométriques</h6>
+
+<p>
+    Par le Théorème de Pythagore (dans le cercle trigonométrique), on obtient
+    l'identité fondamentale
+    \[ \sin^2(\alpha)+\cos^2(\alpha)=1\,.
+    \]
+    Passons aux identités fondamentales concernant les sommes d'angles:
+</p>
+
+<div class="theo"><p><b>Théorème:</b>
+    Pour tous \(\alpha,\beta\in\mathbb{R}\),
+    \[\begin{aligned}
+    \sin(\alpha+\beta)&=\sin(\alpha)\cos(\beta)+\sin(\beta)\cos(\alpha)\\
+    \cos(\alpha+\beta)&=\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)\\
+    \tan(\alpha+\beta)&=\frac{\tan(\alpha)+\tan(\beta)}{
+    1-\tan(\alpha)\tan(\beta)}\,.
+    \end{aligned}\]
+</p></div>
+
+<div class="preuve">
+    <a class="preuve-button" data-bs-toggle="collapse" href="#PROOFproofdesidentitestrigoalphaplusbeta" role="button" aria-expanded="false" aria-controls="PROOFproofdesidentitestrigoalphaplusbeta">Preuve:</a>
+    <div class="collapse" id="PROOFproofdesidentitestrigoalphaplusbeta">
+        <div class="preuve-card">
+            <p>
+                Pour simplifier, supposons que \(0\lt \alpha,\beta\lt \frac{\pi}{4}\), et
+                plaçons l'angle \(\alpha+\beta\) sur le cercle trigonométrique:
+            </p>
+                <div class="iamge-wrapper">
+                    <img class="image-center" src="../../media/images/i_elementaire_preuve_sin_aplusb.jpg" width="280">
+                </div>
+            <p>
+                (Remarquons que l'angle \(\alpha\) se retrouve en \(A\),
+                puisque \(AE\perp OD\) et \(AC\perp OC\).)
+                Avec les points représentés sur cette image,
+                \[\sin(\alpha+\beta)=AC=AB+BC\,.\]
+                On remarque que
+            </p>
+            <ul>
+                <li>Dans le triangle \(OAE\), où \(E\) est le projeté orthogonal de \(A\) sur
+                    \(OD\),
+                    \(OE=\cos(\beta)\), \(AE=\sin(\beta)\).
+                <li>Dans le triangle \(ABE\),
+                    \(AE=AB\cos(\alpha)\), \(BE=AB\sin(\alpha)\).
+                <li>Dans le triangle \(OBC\), \(BC=OB\sin(\alpha)\).
+            </ul>
+            <p>
+            On a donc:
+            \[\begin{aligned}
+            \sin(\alpha+\beta)&=AB+BC\\
+            &=AB+OB\sin(\alpha)\\
+            &=AB+(OE-BE)\sin(\alpha)\\
+            &=AB+(\cos(\beta)-AB\sin(\alpha))\sin(\alpha)\\
+            &=AB(1-\sin^2(\alpha))+\sin(\alpha)\cos(\beta)\\
+            &=AB\cos^2(\alpha)+\sin(\alpha)\cos(\beta)\,.
+            \end{aligned}\]
+            Mais puisque
+            \[
+            AB=\frac{AE}{\cos(\alpha)}=\frac{\sin(\beta)}{\cos(\alpha)}\,,
+            \]
+            on a bien que
+            \[\begin{aligned}
+            \sin(\alpha+\beta)
+            &=\frac{\sin(\beta)}{\cos(\alpha)}\cos^2(\alpha)+\sin(\alpha)\cos(\beta)\\
+            &=\sin(\beta)\cos(\beta)+\sin(\alpha)\cos(\beta)\,,
+            \end{aligned}\]
+            ce qui démontre la première identité.
+
+            <br><br>
+            Pour la deuxième, on peut utiliser \(\sin(\theta+\frac{\pi}{2})=\cos(\theta)\)
+            et la première identité, en écrivant
+            \[\begin{aligned}
+            \cos(\alpha+\beta)
+            &=\sin((\alpha+\beta)+\tfrac{\pi}{2})\\
+            &=\sin(\alpha+(\beta+\tfrac{\pi}{2}))\\
+            &=\sin(\alpha)\cos(\beta+\tfrac{\pi}{2})+\sin(\beta+\tfrac{\pi}{2})\cos(\alpha)\\
+            &=\sin(\alpha)(-\sin(\beta))+\cos(\beta)\cos(\alpha)\\
+            &=\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)\,.
+            \end{aligned}\]
+            La troisième identité découle des deux premières puisque
+            \[\begin{aligned}
+            \tan(\alpha+\beta)
+            &=\frac{\sin(\alpha+\beta)}{\cos(\alpha+\beta)}\\
+            &=\frac{\sin(\beta)\cos(\beta)
+            +\sin(\alpha)\cos(\beta)}{\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)}\\
+            &=
+            \frac{\bcancel{\cos(\alpha)\cos(\beta)}\bigl(\frac{\sin(\alpha)}{\cos(\alpha)}
+            +\frac{\sin(\beta)}{\cos(\beta)}\bigr)}{\bcancel{\cos(\alpha)\cos(\beta)}\Bigl(
+            1-\frac{\sin(\alpha)}{\cos(\alpha)}\frac{\sin(\beta)}{\cos(\beta)}
+            \Bigr)}\\
+            &=
+            \frac{\tan(\alpha)+\tan(\beta)}{1-\tan(\alpha)\tan(\beta)}\,.
+            \end{aligned}\]
+            </p>
+        </div></div></div>
+
+<p>
+    Comme conséquence, des formules très utiles dans la pratique:
+</p>
+
+<div class="cor">
+    Pour tout \(\alpha\in \mathbb{R}\),
+    \[\begin{aligned}
+    \sin(2\alpha)&=2\sin(\alpha)\cos(\alpha)\\
+    \cos(2\alpha)&=\cos^2(\alpha)-\sin^2(\alpha)=2\cos^2(\alpha)-1=1-2\sin^2(\alpha)\\
+    \tan(2\alpha)&=\frac{2\tan(\alpha)}{1-\tan^2(\alpha)}
+    \end{aligned}\]
+</div>
+
+<p>
+    Les formules ci-dessus permettent de trouver des formules exactes pour des
+    angles plus compliqués que les quelques angles remarquables mentionnés plus
+    haut. En effet, si on sait par exemple que \(\cos(\frac{\alpha}{2})\geqslant 0\), et
+    qu'on connaît \(\cos(\alpha)\), on peut utiliser la formule ci-dessus comme
+    suit:
+    \[
+    \cos(\tfrac{\alpha}{2})=+\sqrt{\frac{1+\cos(\alpha)}{2}}\,.
+    \]
+</p>
+
+<div class="exemple"><p><b>Exemple:</b>
+    Puisque \(0\lt \frac{\pi}{8}\lt \frac{\pi}{2}\), on a
+    \(\cos(\frac{\pi}{8})\gt 0\), et donc en posant
+    \(\alpha=\frac{\pi}{4}\),
+    \[\begin{aligned}
+    \cos(\tfrac{\pi}{8})
+    &=\cos(\tfrac{\alpha}{2})\\
+    &=\sqrt{\frac{1+\cos(\alpha)}{2}}\\
+    &=\sqrt{\frac{1+\tfrac{\sqrt{2}}{2}}{2}}\\
+    &=\frac{\sqrt{2+\sqrt{2}}}{2}\,,
+    \end{aligned}\]
+    et donc
+    \[
+    \sin(\tfrac{\pi}{8})=+\sqrt{1-\cos^2(\tfrac{\pi}{8})}=\frac{\sqrt{2-\sqrt{2}}}{2}\,,
+    \]
+    \[
+    \tan(\tfrac{\pi}{8})=\frac{\sqrt{2-\sqrt{2}}}{\sqrt{2+\sqrt{2}}}\,.
+    \]
+</p></div>
+
+<p>
+    L'exemple ci-dessus montre que l'on peut, a priori, calculer les
+    valeurs exactes des fonctions trigonométriques pour tous les angles de la forme
+    \(\frac{\pi}{2^n}\).
+</p>
+
+<div class="cor">
+    Pour tous \(x,y\in\mathbb{R}\),
+    \[\begin{aligned}
+    \sin(x)+\sin(y)&=2\sin\bigl(\frac{x+y}{2}\bigr)\cos\bigl(\frac{x-y}{2}\bigr)\\
+    \sin(x)-\sin(y)&=2\sin\bigl(\frac{x-y}{2}\bigr)\cos\bigl(\frac{x+y}{2}\bigr)\\
+    \cos(x)+\cos(y)&=2\cos\bigl(\frac{x+y}{2}\bigr)\cos\bigl(\frac{x-y}{2}\bigr)\\
+    \cos(x)-\cos(y)&=-2\sin\bigl(\frac{x+y}{2}\bigr)\sin\bigl(\frac{x-y}{2}\bigr)
+    \end{aligned}\]
+</div>
+
+<div class="preuve">
+    <a class="preuve-button" data-bs-toggle="collapse" href="#PROOFlessommesdesinusetcosinus" role="button" aria-expanded="false" aria-controls="PROOFlessommesdesinusetcosinus">Preuve:</a>
+    <div class="collapse" id="PROOFlessommesdesinusetcosinus">
+        <div class="preuve-card">
+            <p>
+                Montrons la première identité. En utilisant la formule du dessus,
+                on développe les termes du membre de droite,
+                \[\begin{aligned}
+                \sin\bigl(\frac{x+y}{2}\bigr)
+                &=\sin(\tfrac{x}{2})\cos(\tfrac{y}{2})
+                +\cos(\tfrac{x}{2})\sin(\tfrac{y}{2})\\
+                \cos\bigl(\frac{x-y}{2}\bigr)
+                &=\cos(\tfrac{x}{2})\cos(\tfrac{y}{2})-\sin(\tfrac{x}{2})\sin(\tfrac{y}{2})\,.
+                \end{aligned}\]
+                En multipliant ces deux lignes, un calcul sans difficulté mène à
+                \[
+                \sin\bigl(\frac{x+y}{2}\bigr)\cos\bigl(\frac{x-y}{2}\bigr)
+                =\frac12\bigl(\sin(x)+\sin(y)\bigr)\,.
+                \]
+            </p></div></div></div>
+
+<div class="footer">
+    <p><em>Dernière compilation: 2023-08-11 (14:18:43)</em></p>
+    <hr>
+    <div class="footer-wrapper">
+        <div>
+            <p>Sauf indication contraire, le contenu de ce document est soumis à une licence
+                <em>Creative Commons</em> internationale, Attribution: Pas d'Utilisation Commerciale
+                - Partage dans les Mêmes Conditions 4.0
+                <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>(CC BY-NC-SA 4.0)</a>
+            </p>
+            <img src='../../media/images/creative_commons_by_nc_sa.png'>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../../js/main-content.js" type="module"></script>
+</body>
+</html>

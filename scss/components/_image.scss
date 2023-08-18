@@ -1,9 +1,10 @@
 // ----------------------------------
-// JSXGraph
+// Image
 // ----------------------------------
 
-.jxgbox {
+.image-center {
+  @extend .img-fluid;
+  @extend .d-block;
   @extend .mx-auto;
-  @extend .border-0;
+  @extend .my-2;
 }
-

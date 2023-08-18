@@ -81,7 +81,7 @@ $quiz-multicols-margin-top: 15px;
     @extend .d-inline;
 
     &:before {
-      content: "|\00A0";
+      content: "\00a0|\00a0";
     }
 
     &:after {

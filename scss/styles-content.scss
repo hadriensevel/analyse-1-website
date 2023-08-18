@@ -82,21 +82,26 @@ body {
   }
 
   @extend .p-3;
-  @extend .d-grid;
+}
+
+// Pour créer virtuellement la 3e colonne
+// si il n'y a pas de grid-container
+body > :not(.grid-container) {
+  margin-right: calc(2rem + 1px) !important; // 1px de décalage, je ne sais pas pourquoi
 }
 
 h6 {
-  @extend .my-3;
+  @extend .mt-4;
+  @extend .mb-3;
   @extend .ms-1;
 }
 
 p {
   @extend .p-1;
   @extend .m-0;
-  min-width: 0 !important;
 }
 
-div {
+div, p {
   text-align: justify;
   text-justify: auto;
 }
@@ -113,6 +118,7 @@ div {
 }
 
 .div-container {
+  grid-column-start: 1;
   overflow-x: auto;
 }
 
@@ -179,9 +185,12 @@ blockquote {
 @import "components/preuve";
 @import "components/quiz";
 @import "components/video";
+@import "components/image";
 @import "components/popover";
 @import "components/tooltip";
 @import "components/anim";
 @import "components/question-right-column";
 @import "components/question-list-modal";
 @import "components/new-question-modal";
+@import "components/jsxgraph";
+@import "components/footer";

@@ -23,7 +23,7 @@ async function fetchQuestions(divId) {
 // Load the question cards to the modal and add them to the modal
 async function loadQuestionCards(questionId) {
   // Mock questions
-  const questions = [
+  /*const questions = [
     {
       id: 1,
       title: 'Définition de la limite',
@@ -41,7 +41,10 @@ async function loadQuestionCards(questionId) {
       date: '1m',
       comments: 0,
       likes: 2,
-    }];
+    }];*/
+  const questions = [];
+  //const questions = await fetchQuestions(questionId);
+
 
   // Add some delay to simulate a real request
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -49,13 +52,19 @@ async function loadQuestionCards(questionId) {
   const questionsModalBody = document.querySelector('.question-list-modal .modal-body');
   questionsModalBody.innerHTML = '';
 
+  // If there are no questions, display a message
+  if (questions.length === 0) {
+    questionsModalBody.innerHTML = '<p class="text-center">Aucune question n\'a été posée pour le moment.</p>';
+    return;
+  }
+
   // Iterate through the questions and add them to the modal
   questions.forEach((question) => {
     const questionCard = createElementFromTemplate(questionCardTemplate(question.id, question.title, question.resolved, question.author, question.date, question.comments, question.likes));
 
     // Event listener to open the question card
     questionCard.addEventListener('click', (e) => {
-      console.log('click to open');
+      // TODO
     });
 
     // Add the question card to the modal

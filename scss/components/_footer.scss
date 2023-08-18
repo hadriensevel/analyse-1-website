@@ -1,0 +1,28 @@
+// ----------------------------------
+// Content footer
+// ----------------------------------
+
+.footer {
+  @extend .mt-5;
+  font-size: 0.8rem;
+
+  .footer-wrapper {
+    @extend .row;
+    @extend .align-items-center;
+  }
+
+  .footer-wrapper > div {
+    @extend .d-flex;
+  }
+
+  hr {
+    @extend .my-1;
+    @extend .ms-1;
+  }
+
+  img {
+    width: 60px;
+    @extend .object-fit-contain;
+    @extend .ms-2;
+  }
+}

@@ -43,7 +43,7 @@ function animations() {
     // Elements
     const video = container.querySelector('.anim-video-plyr');
     const videoWrapper = video.parentElement;
-    const imgWrapper = container.querySelector('img').parentElement;
+    const divWrapper = container.querySelector('.div-container');
     const playButton = container.querySelector('.play-button');
     const pauseButton = container.querySelector('.pause-button');
     const fullscreenButton = container.querySelector('.fullscreen-button');
@@ -62,13 +62,13 @@ function animations() {
     const playElements = {
       hide: [playButton],
       show: [pauseButton, fullscreenButton],
-      swap: [imgWrapper, videoWrapper]
+      swap: [divWrapper, videoWrapper]
     };
 
     const pauseElements = {
       hide: [pauseButton, fullscreenButton],
       show: [playButton],
-      swap: [imgWrapper, videoWrapper]
+      swap: [divWrapper, videoWrapper]
     };
 
     // Event listeners
