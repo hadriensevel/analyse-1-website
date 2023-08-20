@@ -2,7 +2,7 @@
 // QUESTION LIST MODAL
 // ----------------------------------
 
-const questionListModalTemplate = (divId) => `
+const questionListModalTemplate = (divId, newQuestion) => `
 <div class="modal question-list-modal" id="question-list-modal" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="modal-title" aria-hidden="true" data-div-id="${divId}">
     <div class="modal-dialog modal-fullscreen">
@@ -34,9 +34,11 @@ const questionListModalTemplate = (divId) => `
                 </div>
                 
             </div>
-            <div class="modal-footer">
+            ${newQuestion ? 
+            `<div class="modal-footer">
                 <button type="button" class="new-question-button">Nouvelle question</button>
-            </div>
+            </div>`
+            : ''}
         </div>
     </div>
 </div>

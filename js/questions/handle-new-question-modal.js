@@ -2,8 +2,12 @@
 // HANDLE MODAL FOR NEW QUESTIONS
 // ----------------------------------
 
-import {createElementFromTemplate, closeModal} from "../templates/utils.js";
-import {newQuestionModalTemplate} from "../templates/new-question-modal.js";
+import {createElementFromTemplate, closeModal} from "./templates/utils.js";
+import {newQuestionModalTemplate} from "./templates/new-question-modal.js";
+import {loadQuestionCards} from './handle-question-card';
+import {getAuthData} from './auth';
+import {getFileName} from './utils';
+
 
 function initializeNewQuestionForm(newQuestionModal) {
   const form = newQuestionModal.querySelector('form');
@@ -21,19 +25,27 @@ function initializeNewQuestionForm(newQuestionModal) {
       const divId = formData.get('div-id');
       const questionTitle = formData.get('question-title');
       const questionText = formData.get('question-text');
-
-      // TODO: send the data to the server
-
       const toastOptions = {delay: 10000};
-      const successToast = new bootstrap.Toast(successToastElement, toastOptions);
-      // Uncomment the line below if you want to handle errors
-      // const errorToast = new bootstrap.Toast(errorToastElement, toastOptions);
 
-      successToast.show();
-      // errorToast.show();
+      // Get the authentication details (sciper number)
+      const authData = getAuthData();
 
-      form.classList.remove('was-validated');
-      form.reset();
+      if (authData && authData.sciper) {
+        const sciper = authData.sciper;
+        const section = getFileName();
+
+        // TODO: send the question to the server
+        //console.log(sciper, divId, section, questionTitle, questionText)
+
+        const successToast = new bootstrap.Toast(successToastElement, toastOptions);
+        successToast.show();
+
+        form.classList.remove('was-validated');
+        form.reset();
+      } else {
+        const errorToast = new bootstrap.Toast(errorToastElement, toastOptions);
+        errorToast.show();
+      }
     }
   });
 

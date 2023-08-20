@@ -8,8 +8,6 @@ const dropdownClickHandler = () => {
   currentShownDropdowns.forEach(currentShownDropdown => {
     new bootstrap.Collapse(currentShownDropdown).hide();
   });
-
-  this.querySelector('.had-nav-secondlevel').classList.add('current-dropdown');
 }
 
 // Prevent multiple dropdowns from being open at the same time

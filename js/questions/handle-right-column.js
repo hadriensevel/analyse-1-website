@@ -5,12 +5,6 @@
 import {loadQuestionCards} from './handle-question-card';
 import {handleQuestionListModal} from './handle-question-list-modal';
 
-// Get the file name of the HTML page
-function getFileName() {
-  const path = window.location.pathname;
-  return path.split('/').pop();
-}
-
 function createRightColumnFor(gridContainer) {
   if (!gridContainer.querySelector('.div-container')) {
     const divContainer = document.createElement('div');
@@ -44,14 +38,14 @@ function handleRightColumn() {
     addQuestionIconTo(rightColumn);
   });
 
-  document.body.addEventListener('click', (e) => {
+  document.body.addEventListener('click', async (e) => {
     if (e.target.matches('.question-right-column')) {
       e.preventDefault();
       const divId = e.target.parentElement.parentElement.id;
-      handleQuestionListModal(divId);
+      await handleQuestionListModal(divId);
       const questionListModal = new bootstrap.Modal(document.querySelector('.question-list-modal'));
       questionListModal.show();
-      loadQuestionCards(divId);
+      loadQuestionCards(divId, '.question-list-modal .modal-body');
     }
   });
 }

@@ -2,8 +2,8 @@
 // HANDLE THE QUESTION CARDS IN MODAL
 // ----------------------------------
 
-import {createElementFromTemplate} from '../templates/utils';
-import {questionCardTemplate} from '../templates/question-card';
+import {createElementFromTemplate} from './templates/utils';
+import {questionCardTemplate} from './templates/question-card';
 import {handleQuestionModal} from './handle-question-modal';
 
 import axios from 'axios';
@@ -41,9 +41,9 @@ function renderQuestions(questions, questionsModalBody) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(questionId) {
+async function loadQuestionCards(divId, questionsBody) {
   // Mock questions
-  /*const questions = [
+  const questions = [
     {
       id: 1,
       title: 'Définition de la limite',
@@ -61,20 +61,20 @@ async function loadQuestionCards(questionId) {
       date: '1m',
       comments: 0,
       likes: 2,
-    }];*/
-  const questions = [];
-  //const questions = await fetchQuestions(questionId);
+    }];
+  //const questions = [];
+  //const questions = await fetchQuestions(divId);
 
 
   // Add some delay to simulate a real request
-  //await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const questionsModalBody = document.querySelector('.question-list-modal .modal-body');
+  const questionsBodyElement = document.querySelector(questionsBody);
 
   if (questions.length) {
-    renderQuestions(questions, questionsModalBody);
+    renderQuestions(questions, questionsBodyElement);
   } else {
-    questionsModalBody.innerHTML = '<p class="text-center">Aucune question n\'a été posée pour le moment.</p>';
+    questionsBodyElement.innerHTML = '<p class="text-center">Aucune question n\'a été posée pour le moment.</p>';
   }
 }
 

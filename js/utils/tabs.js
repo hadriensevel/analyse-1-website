@@ -2,10 +2,38 @@
 // TABS UTILS
 // ----------------------------------
 
+import {handleQuestionsExercise} from '../questions/handle-questions-exercise';
+
 function tabs() {
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabDivs = document.querySelectorAll('.tab-div');
   let activeTabButton = document.querySelector('.tab-button.active');
+
+  // Add the placeholder divs for the questions tab
+  const questionsTabDiv = document.querySelector('#questions');
+  if (questionsTabDiv) {
+    questionsTabDiv.innerHTML = `
+    <div class="question-card-placeholder">
+          <h5 class="placeholder-glow">
+            <span class="placeholder col-5"></span>
+        </h5>
+        <div class="placeholder-glow">
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-3"></span>
+        </div>
+    </div>
+    <div class="question-card-placeholder">
+        <h5 class="placeholder-glow">
+            <span class="placeholder col-5"></span>
+        </h5>
+        <div class="placeholder-glow">
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-3"></span>
+        </div>
+    </div>
+    `;
+  }
+
 
   tabButtons.forEach((tabButton) => {
     tabButton.addEventListener('click', (e) => {
@@ -31,6 +59,11 @@ function tabs() {
           tabDiv.classList.add('d-none');
         }
       });
+
+      // If the tab is the questions tab, load the questions
+      if (tabId === 'questions') {
+        handleQuestionsExercise();
+      }
     });
   });
 }

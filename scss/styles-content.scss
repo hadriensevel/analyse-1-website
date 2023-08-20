@@ -84,9 +84,9 @@ body {
   @extend .p-3;
 }
 
-// Pour créer virtuellement la 3e colonne
+// Pour créer virtuellement la 3e colonne pour le polycop
 // si il n'y a pas de grid-container
-body > :not(.grid-container) {
+body.polycop > :not(.grid-container) {
   margin-right: calc(2rem + 1px) !important; // 1px de décalage, je ne sais pas pourquoi
 }
 
@@ -198,5 +198,6 @@ blockquote {
 
 @import "components/questions/question-right-column";
 @import "components/questions/question-list-modal";
+@import "components/questions/question-card";
 @import "components/questions/new-question-modal";
 @import "components/questions/question-modal";

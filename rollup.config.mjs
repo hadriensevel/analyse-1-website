@@ -16,6 +16,7 @@ export default [
     output: {
       file: 'dist/js/bundle.js',
       format: 'iife',
+      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   },
@@ -24,6 +25,7 @@ export default [
     output: {
       file: 'dist/js/bundle2.js',
       format: 'iife',
+      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   }
