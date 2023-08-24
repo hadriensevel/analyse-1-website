@@ -43,9 +43,6 @@ function handleRightColumn() {
       e.preventDefault();
       const divId = e.target.parentElement.parentElement.id;
       await handleQuestionListModal(divId);
-      const questionListModal = new bootstrap.Modal(document.querySelector('.question-list-modal'));
-      questionListModal.show();
-      loadQuestionCards(divId, '.question-list-modal .modal-body');
     }
   });
 }

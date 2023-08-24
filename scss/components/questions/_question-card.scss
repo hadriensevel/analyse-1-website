@@ -75,3 +75,21 @@
     }
   }
 }
+
+.top-bar {
+  @extend .d-flex;
+  @extend .justify-content-between;
+  @extend .align-items-center;
+
+  .sort-dropdown {
+    @extend .btn;
+    @extend .btn-sm;
+    @extend .dropdown-toggle;
+    @extend .p-0;
+    @extend .ms-1;
+    @extend .border-0;
+    @extend .border-bottom;
+    @extend .border-dark;
+    @extend .rounded-0;
+  }
+}

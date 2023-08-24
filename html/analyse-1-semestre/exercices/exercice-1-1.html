@@ -52,24 +52,33 @@
     </li>
 </ul>
 
-<ul class="nav nav-underline nav-fill">
-    <li class="nav-item">
-        <a class="tab-button nav-link active" href="#" data-target="indications">Indications</a>
+<ul class="exercise-tabs">
+    <li class="exercise-tab-item">
+        <a class="exercise-tab-link active" href="#" data-target="indications">Indications</a>
     </li>
-    <li class="nav-item">
-        <a class="tab-button nav-link" href="#" data-target="questions">Forum</a>
+    <li class="exercise-tab-item">
+        <a class="exercise-tab-link" href="#" data-target="questions">
+            Forum
+            <span class="questions-badge"></span>
+        </a>
     </li>
-    <li class="nav-item">
-        <a class="tab-button nav-link" href="#" data-target="solution">Solution</a>
+    <li class="exercise-tab-item">
+        <a class="exercise-tab-link" href="#" data-target="solution">Solution</a>
     </li>
 </ul>
 
 <div id="indications" class="tab-div">
-    <p>En général, pour démontrer des propriétés de la valeur
-        absolue, il suffit de partir de la définition de \(|a|\)
-        (voir <a href="" onclick="return loadCours('m_reels_valeur_absolue');"><b>ici</b></a>), puis
-        de considérer séparément les cas \(a\gt 0\), \(a=0\),
-        \(a\lt 0\).</p>
+    <a class="indication-button" data-bs-toggle="collapse" href="#indication-1"
+       role="button" aria-expanded="false" aria-controls="indication-1">
+        Indication 1
+    </a>
+    <div class="collapse" id="indication-1">
+        <p>En général, pour démontrer des propriétés de la valeur
+            absolue, il suffit de partir de la définition de \(|a|\)
+            (voir <a href="" onclick="return loadCours('m_reels_valeur_absolue');"><b>ici</b></a>), puis
+            de considérer séparément les cas \(a\gt 0\), \(a=0\),
+            \(a\lt 0\).</p>
+    </div>
 </div>
 
 <div id="questions" class="tab-div d-none"></div>

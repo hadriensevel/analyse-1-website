@@ -11,6 +11,7 @@ function createElementFromTemplate(template) {
 
 // Close, dispose and remove the modal
 function closeModal(modalElement) {
+  if (!modalElement) return;
   const modalBootstrap = new bootstrap.Modal(modalElement);
   modalBootstrap.hide();
   modalBootstrap.dispose();

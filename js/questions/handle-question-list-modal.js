@@ -2,52 +2,32 @@
 // HANDLE THE MODAL FOR QUESTIONS
 // ----------------------------------
 
-import {createElementFromTemplate, closeModal} from "./templates/utils.js";
-import {questionListModalTemplate} from "./templates/question-list-modal.js";
-import {handleNewQuestionModal} from './handle-new-question-modal';
-import {getAuthData} from './auth';
-import {getFeatureFlag} from '../utils/feature-flags';
+import {createElementFromTemplate, closeModal} from './templates/utils.js';
+import {questionListModalTemplate} from './templates/question-list-modal.js';
+import {loadQuestionCards} from './handle-question-card';
+import {QuestionLocation} from './utils';
 
-function addEventListenersToModal(questionListModal) {
-  questionListModal.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn-close')) {
-      closeModal(questionListModal);
-    } else if (e.target.classList.contains('new-question-button')) {
-      const divId = e.target.closest('.modal').dataset.divId;
-      handleNewQuestionModal(divId);
-      new bootstrap.Modal(document.querySelector('.new-question-modal')).show();
-    }
-  });
-}
-
-function initializeQuestionListModal(questionListModal) {
-  questionListModal.addEventListener('shown.bs.modal', (e) => {
-    renderMathInElement(questionListModal.querySelector('.modal-content'));
-  });
-
-  addEventListenersToModal(questionListModal);
-}
-
-async function handleQuestionListModal(divId) {
+function handleQuestionListModal(divId) {
   // Ensure only one modal instance exists at a time.
   const existingModal = document.querySelector('.question-list-modal');
   if (existingModal) existingModal.remove();
 
-  // Check the feature flag for new questions
-  let newQuestion = false;
-  const newQuestionEnabled = await getFeatureFlag('newQuestion');
-  if (newQuestionEnabled) {
-    // Check if the user is authenticated
-    const authData = getAuthData();
-    //newQuestion = authData !== null;
-    newQuestion = true;
-  }
-
   // Create the modal
-  const questionListModal = createElementFromTemplate(questionListModalTemplate(divId, newQuestion));
+  const questionListModal = createElementFromTemplate(questionListModalTemplate(divId));
   document.body.appendChild(questionListModal);
 
-  initializeQuestionListModal(questionListModal);
+  // Add the event listeners for the close button
+  const closeButton = questionListModal.querySelector('.btn-close');
+  closeButton.addEventListener('click', (e) => {
+    closeModal(questionListModal);
+  });
+
+  // Show the modal
+  const questionListModalBootstrap = new bootstrap.Modal(document.querySelector('.question-list-modal'));
+  questionListModalBootstrap.show();
+
+  // Load the question cards and add them in the modal
+  loadQuestionCards(divId, '.question-list-modal .content-wrapper', QuestionLocation.COURSE);
 }
 
 export {handleQuestionListModal};

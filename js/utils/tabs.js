@@ -2,38 +2,57 @@
 // TABS UTILS
 // ----------------------------------
 
-import {handleQuestionsExercise} from '../questions/handle-questions-exercise';
+import {getFeatureFlag} from './feature-flags';
+import {loadQuestionCards} from '../questions/handle-question-card';
+import {createElementFromTemplate} from '../questions/templates/utils';
+import {QuestionLocation} from '../questions/utils';
 
-function tabs() {
-  const tabButtons = document.querySelectorAll('.tab-button');
+async function tabs() {
+  const tabButtons = document.querySelectorAll('.exercise-tab-link');
   const tabDivs = document.querySelectorAll('.tab-div');
-  let activeTabButton = document.querySelector('.tab-button.active');
+  let activeTabButton = document.querySelector('.exercise-tab-link.active');
 
-  // Add the placeholder divs for the questions tab
+  // Check the feature flag for questions
+  const questionsEnabled = await getFeatureFlag('questions');
   const questionsTabDiv = document.querySelector('#questions');
   if (questionsTabDiv) {
-    questionsTabDiv.innerHTML = `
-    <div class="question-card-placeholder">
-          <h5 class="placeholder-glow">
-            <span class="placeholder col-5"></span>
-        </h5>
-        <div class="placeholder-glow">
-            <span class="placeholder col-1"></span>
-            <span class="placeholder col-3"></span>
-        </div>
-    </div>
-    <div class="question-card-placeholder">
-        <h5 class="placeholder-glow">
-            <span class="placeholder col-5"></span>
-        </h5>
-        <div class="placeholder-glow">
-            <span class="placeholder col-1"></span>
-            <span class="placeholder col-3"></span>
-        </div>
-    </div>
-    `;
-  }
+    if (!questionsEnabled) {
+      questionsTabDiv.innerHTML = '';
+      const questionsDisabledElement = createElementFromTemplate(`
+       <p class="questions-disabled-text">Le forum est désactivé pour le moment.</p>
+    `);
+      questionsTabDiv.appendChild(questionsDisabledElement);
+    } else {
+      // Add the placeholder divs for the questions tab
+      questionsTabDiv.innerHTML = `
+      <div class="question-cards-wrapper">
+          <div class="question-card-placeholder mt-2">
+              <h5 class="placeholder-glow">
+                  <span class="placeholder col-8"></span>
+              </h5>
+              <div class="placeholder-glow">
+                  <span class="placeholder col-2"></span>
+                  <span class="placeholder col-4"></span>
+              </div>
+          </div>
+          <div class="question-card-placeholder mt-4">
+              <h5 class="placeholder-glow">
+                  <span class="placeholder col-5"></span>
+              </h5>
+              <div class="placeholder-glow">
+                  <span class="placeholder col-3"></span>
+                  <span class="placeholder col-5"></span>
+              </div>
+          </div>
+      </div>
+      `;
 
+      // Update the badge with the number of questions
+      const badge = document.querySelector('.exercise-tab-link[data-target="questions"] .questions-badge');
+      // TODO: fetch the number of questions
+      badge.textContent = '2';
+    }
+  }
 
   tabButtons.forEach((tabButton) => {
     tabButton.addEventListener('click', (e) => {
@@ -61,8 +80,8 @@ function tabs() {
       });
 
       // If the tab is the questions tab, load the questions
-      if (tabId === 'questions') {
-        handleQuestionsExercise();
+      if (tabId === 'questions' && questionsEnabled) {
+        loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
       }
     });
   });

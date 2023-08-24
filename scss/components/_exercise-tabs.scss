@@ -1,0 +1,74 @@
+// ----------------------------------
+// Exercise Tabs
+// ----------------------------------
+
+.exercise-tabs {
+  @extend .nav;
+  @extend .flex-nowrap;
+  @extend .justify-content-around;
+  @extend .p-1;
+  @extend .mt-5;
+  @extend .mb-3;
+  @extend .bg-primary-subtle;
+  @extend .rounded;
+
+  & > *:not(:last-child) {
+    @extend .me-1;
+  }
+
+  .exercise-tab-item {
+    @extend .nav-item;
+    @extend .text-center;
+    @extend .p-0;
+    @extend .w-100;
+  }
+
+  .exercise-tab-link {
+    @extend .nav-link;
+    @extend .p-1;
+    @extend .rounded;
+    @extend .text-primary;
+    @extend .fw-medium;
+
+    &:hover, &:focus, &.active {
+      @extend .bg-white;
+    }
+  }
+
+  .questions-badge {
+    @extend .badge;
+    @extend .bg-danger;
+    @extend .rounded-pill;
+    @extend .position-absolute;
+    transform: translate(0, -50%);
+  }
+}
+
+.indication-button {
+  @extend .btn;
+  @extend .btn-outline-secondary;
+  @extend .d-block;
+  @extend .mt-2;
+  @extend .rounded-3;
+  @extend .text-start;
+  @extend .fw-bold;
+  @extend .text-black;
+  @extend .border-0;
+  background: #f8f4ff;
+  font-size: $video-font-size;
+
+  &:before {
+    content: '\F282\00a0'; // chevron-down
+    font-family: 'bootstrap-icons';
+    top: .125em;
+    position: relative;
+  }
+
+  &[aria-expanded="true"]:before {
+    content: '\F286\00a0'; // chevron-up
+  }
+
+  &:hover {
+    background-color: pink;
+  }
+}

@@ -5,11 +5,16 @@
 @import "../../utils/icon";
 
 .new-question-modal {
-  //@extend .fade;
 
   .modal-title-h1 {
     @extend .modal-title;
     @extend .fs-5;
+  }
+
+  .content-wrapper {
+    @extend .mx-auto;
+    @extend .w-100;
+    max-width: 1200px;
   }
 
   .back-button {
@@ -28,7 +33,6 @@
   }
 
   form {
-
     .send-button {
       @extend .btn;
       @extend .btn-primary;
@@ -39,6 +43,10 @@
         @extend .me-1;
       }
     }
+  }
+
+  .form-label {
+    @extend .fw-medium;
   }
 
   .form-toast {
@@ -61,6 +69,31 @@
       @extend .btn-close-white;
       @extend .me-2;
       @extend .m-auto;
+    }
+  }
+
+  .preview {
+    @extend .mb-3;
+
+    .preview-title {
+      @extend .fw-medium;
+      @extend .mb-2;
+    }
+
+    .preview-body {
+      @extend .d-flex;
+      @extend .flex-column;
+    }
+
+    .preview-text {
+      @extend .w-100;
+      @extend .p-0;
+    }
+
+    .preview-image {
+      @extend .img-fluid;
+      @extend .mx-auto;
+      @extend .mt-2;
     }
   }
 }

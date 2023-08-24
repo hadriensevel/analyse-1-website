@@ -25,6 +25,7 @@
     "bootstrap-icons": "^1.10.5",
     "jsxgraph": "^1.1.0",
     "katex": "^0.16.8",
+    "moment": "^2.29.4",
     "plyr": "^3.7.8"
   },
   "devDependencies": {

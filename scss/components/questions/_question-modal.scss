@@ -11,6 +11,12 @@
     @extend .fs-5;
   }
 
+  .content-wrapper {
+    @extend .mx-auto;
+    @extend .w-100;
+    max-width: 1000px;
+  }
+
   .back-button {
     @extend .text-decoration-none;
     @extend .text-secondary;
@@ -26,8 +32,40 @@
     }
   }
 
-  .modal-body {
+  h5 {
+    @extend .mb-1;
+  }
+
+  .question-date {
+    @extend .text-secondary;
+  }
+
+  .question-text {
+    @extend .mt-3;
+  }
+
+  .question-image-wrapper {
+    @extend .d-flex;
+    @extend .mt-2;
+  }
+
+  .question-image {
+    @extend .img-fluid;
     @extend .mx-auto;
-    max-width: 800px;
+  }
+
+  form {
+    @extend .mt-4;
+
+    .send-button {
+      @extend .btn;
+      @extend .btn-primary;
+      @extend .btn-sm;
+
+      &:before {
+        @include icon('\F6C0');
+        @extend .me-1;
+      }
+    }
   }
 }

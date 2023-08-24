@@ -5,7 +5,6 @@
 @import "../../utils/icon";
 
 .question-list-modal {
-  //@extend .fade;
 
   .modal-body {
     @extend .py-2;
@@ -13,6 +12,12 @@
 
   .modal-footer {
     @extend .py-2;
+  }
+
+  .content-wrapper {
+    @extend .mx-auto;
+    @extend .w-100;
+    max-width: 1200px;
   }
 
   .question-list-modal-title {
