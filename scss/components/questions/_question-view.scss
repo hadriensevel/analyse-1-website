@@ -36,6 +36,7 @@
   .question-icons {
     @extend .d-flex;
     @extend .align-items-center;
+    @extend .ms-2;
   }
 
   .question-resolved {
@@ -56,6 +57,7 @@
     &:before {
       @include icon('\F415');
       @extend .me-1;
+      @extend .fs-6;
     }
   }
 
@@ -75,5 +77,9 @@
 
   form {
     @extend .mt-4;
+
+    .form-label {
+      @extend .fw-medium;
+    }
   }
 }

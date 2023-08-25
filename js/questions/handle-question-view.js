@@ -35,12 +35,13 @@ function initializeQuestionView(questionContainer, questionId, directView) {
   // Mock data
   const questionData = {
     id: questionId,
-    title: 'G pa compri koman on fé du cou j\'ai pa pu répondre à la kestion de la 2ème ligne',
-    resolved: false,
+    title: 'G pa compri koman on fé',
+    resolved: true,
     date: '2023-08-21T06:34:23.541Z',
     body: 'G pa compri pkoi pour certaines fonctions on di k\'elles sont continu partout et pour d\'autres just à certains endroits. Et koman on détermine ces points de discontinuité? Tu peu m\'expliké tout ça en détail stp?',
     image: '',
     likes: 17,
+    answers: [],
   }
 
   // Moment.js is used to format the date
