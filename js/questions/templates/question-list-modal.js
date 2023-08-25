@@ -14,7 +14,7 @@ const questionListModalTemplate = (divId) => `
             <div class="modal-body">
                 <div class="content-wrapper">
             
-                    <div class="question-cards-wrapper">
+                    <div class="question-cards-wrapper" data-direct-view="false">
                         <div class="question-card-placeholder">
                             <h5 class="placeholder-glow">
                                 <span class="placeholder col-6"></span>

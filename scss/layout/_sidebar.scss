@@ -54,6 +54,10 @@
     @extend .mb-3;
   }
 
+  .#{$prefix}-sidebar-nav-section.special {
+    background-color: lightsteelblue;
+  }
+
   .#{$prefix}-sidebar-nav {
     @extend .nav;
     @extend .d-block;

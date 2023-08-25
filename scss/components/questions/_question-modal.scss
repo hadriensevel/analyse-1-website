@@ -17,21 +17,6 @@
     max-width: 1000px;
   }
 
-  .back-button {
-    @extend .text-decoration-none;
-    @extend .text-secondary;
-    @extend .fs-5;
-    @extend .me-2;
-
-    &:before {
-      @include icon('\F12F');
-    }
-
-    &:hover, &:focus {
-      @extend .text-dark;
-    }
-  }
-
   h5 {
     @extend .mb-1;
   }

@@ -25,7 +25,7 @@ async function tabs() {
     } else {
       // Add the placeholder divs for the questions tab
       questionsTabDiv.innerHTML = `
-      <div class="question-cards-wrapper">
+      <div class="question-cards-wrapper" data-direct-view="true">
           <div class="question-card-placeholder mt-2">
               <h5 class="placeholder-glow">
                   <span class="placeholder col-8"></span>
@@ -58,8 +58,8 @@ async function tabs() {
     tabButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Remove the active class from the previously active button
-      activeTabButton.classList.remove('active');
+      // Remove the active class from the previously active button if it exists
+      if (activeTabButton) activeTabButton.classList.remove('active');
 
       // Add the active class to the clicked button
       tabButton.classList.add('active');

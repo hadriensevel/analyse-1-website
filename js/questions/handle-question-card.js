@@ -4,10 +4,10 @@
 
 import {createElementFromTemplate} from './templates/utils';
 import {questionCardTemplate} from './templates/question-card';
-import {handleQuestionModal} from './handle-question-modal';
-import {handleNewQuestionModal} from './handle-new-question-modal';
+import {handleQuestionView} from './handle-question-view';
+import {handleNewQuestionView} from './handle-new-question-view';
 import {noQuestionMessages} from './no-question-messages';
-import {Sort} from './utils';
+import {QuestionLocation, Sort} from './utils';
 import {getFeatureFlag} from '../utils/feature-flags';
 import {getAuthData} from './auth';
 
@@ -31,6 +31,9 @@ async function fetchQuestions(divId) {
 
 function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
   if (questions.length) {
+    // Get if the questions are displayed directly or in a modal
+    const directView = questionCardsWrapper.dataset.directView === 'true';
+
     // Moment.js is used to format the date
     moment.locale('fr-ch');
 
@@ -57,7 +60,7 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
     questionCardsWrapper.addEventListener('click', (e) => {
       const questionCard = e.target.closest('.question-card');
       if (questionCard) {
-        handleQuestionModal(questionCard.dataset.questionId)
+        handleQuestionView(questionCard.dataset.questionId, directView);
         new bootstrap.Modal(document.querySelector('.question-modal')).show();
       }
     });
@@ -83,7 +86,7 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(divId, questionsBody, questionType) {
+async function loadQuestionCards(divId, questionsBody, questionLocation) {
   // Mock questions
   const questions = [
     {
@@ -165,8 +168,12 @@ async function loadQuestionCards(divId, questionsBody, questionType) {
 
     // Add the event listener to the new question button
     newQuestionButton.addEventListener('click', () => {
-      handleNewQuestionModal(divId, questionType);
-      new bootstrap.Modal(document.querySelector('.new-question-modal')).show();
+      if (questionLocation === QuestionLocation.EXERCISE) {
+        handleNewQuestionView(divId, questionLocation, true);
+      } else {
+        handleNewQuestionView(divId, questionLocation);
+        new bootstrap.Modal(document.querySelector('.new-question-modal')).show();
+      }
     });
   }
 
