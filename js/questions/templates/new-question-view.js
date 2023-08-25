@@ -8,17 +8,17 @@ const newQuestionFormTemplate = (divId) => `
         <input type="hidden" name="div-id" value="${divId}">
         <div class="mb-3">
             <label for="question-title" class="form-label">Titre de la question</label>
-            <input type="text" class="form-control form-control-sm" name="question-title" required>
+            <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" required>
             <div class="invalid-feedback">Merci de donner un titre à votre question.</div>
         </div>
         <div class="mb-3">
             <label for="question-text" class="form-label">Question</label>
-            <textarea class="form-control form-control-sm" name="question-text" rows="5" required></textarea>
+            <textarea class="form-control form-control-sm" id="question-text" name="question-text" rows="5" required></textarea>
             <div class="invalid-feedback">Merci d'écrire ici votre question.</div>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Ajouter une image (optionnel, max 5 Mo)</label>
-            <input class="form-control form-control-sm" type="file" name="image" accept="image/*">
+            <input class="form-control form-control-sm" type="file" id="image" name="image" accept="image/*">
             <div class="invalid-feedback"></div>
         </div>
         <div class="preview d-none">

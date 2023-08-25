@@ -12,22 +12,9 @@
   }
 
   .new-question-view-title {
-    @extend .fs-5;
+    @extend .fs-6;
     @extend .fw-medium;
     @extend .mb-0;
-  }
-
-  form {
-    .send-button {
-      @extend .btn;
-      @extend .btn-primary;
-      @extend .btn-sm;
-
-      &:before {
-        @include icon('\F6C0');
-        @extend .me-1;
-      }
-    }
   }
 
   .form-label {

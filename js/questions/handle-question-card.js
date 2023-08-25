@@ -61,7 +61,7 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
       const questionCard = e.target.closest('.question-card');
       if (questionCard) {
         handleQuestionView(questionCard.dataset.questionId, directView);
-        new bootstrap.Modal(document.querySelector('.question-modal')).show();
+        if (!directView) new bootstrap.Modal(document.querySelector('.question-modal')).show();
       }
     });
   } else {
@@ -92,20 +92,20 @@ async function loadQuestionCards(divId, questionsBody, questionLocation) {
     {
       id: 1,
       title: 'Définition de la limite \\( \\lim_{x \\to 0} \\frac{\\sin x}{x} \\)',
-      resolved: true,
+      resolved: false,
       author: '',
       date: '2023-06-20T12:00:44.541Z',
-      comments: 7,
+      comments: 2,
       likes: 28,
     },
     {
       id: 2,
       title: 'G pa compri koman on fé',
-      resolved: false,
+      resolved: true,
       author: '',
       date: '2023-08-21T06:34:23.541Z',
-      comments: 0,
-      likes: 2,
+      comments: 3,
+      likes: 17,
     }];
   //const questions = [];
 

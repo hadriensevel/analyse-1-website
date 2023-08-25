@@ -1,0 +1,18 @@
+// ----------------------------------
+// Send button
+// ----------------------------------
+
+@import "../../utils/icon";
+
+form {
+  .send-button {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-sm;
+
+    &:before {
+      @include icon('\F6C0');
+      @extend .me-1;
+    }
+  }
+}

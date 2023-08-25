@@ -3,8 +3,62 @@
 // ----------------------------------
 
 import {createElementFromTemplate, closeModal} from './templates/utils.js';
-import {questionModalTemplate} from "./templates/question-modal.js";
-import {newQuestionModalTemplate} from './templates/new-question-view';
+import {questionViewTemplate, questionModalTemplate} from "./templates/question-view.js";
+
+import moment from 'moment/src/moment';
+import 'moment/src/locale/fr-ch';
+
+function addDirectViewEventListeners(questionView, questionId) {
+  const topBar = document.createElement('div');
+  topBar.classList.add('top-bar');
+  topBar.innerHTML = `
+    <a class="back-button" href="#" aria-label="Retour"></a>
+    <h1 class="question-view-title">Question #${questionId}</h1>
+  `;
+
+  questionView.prepend(topBar);
+  topBar.addEventListener('click', (e) => {
+    if (e.target.classList.contains('back-button')) {
+      e.preventDefault();
+      topBar.remove();
+      questionView.remove();
+
+      document.querySelector('.top-bar').classList.remove('d-none');
+      document.querySelector('.question-cards-wrapper').classList.remove('d-none');
+    }
+  });
+}
+
+function initializeQuestionView(questionContainer, questionId, directView) {
+  // Get the question data
+  // TODO: fetch the question data from the API
+  // Mock data
+  const questionData = {
+    id: questionId,
+    title: 'G pa compri koman on fé du cou j\'ai pa pu répondre à la kestion de la 2ème ligne',
+    resolved: false,
+    date: '2023-08-21T06:34:23.541Z',
+    body: 'G pa compri pkoi pour certaines fonctions on di k\'elles sont continu partout et pour d\'autres just à certains endroits. Et koman on détermine ces points de discontinuité? Tu peu m\'expliké tout ça en détail stp?',
+    image: '',
+    likes: 17,
+  }
+
+  // Moment.js is used to format the date
+  moment.locale('fr-ch');
+  // Convert the date to a relative date
+  questionData.date = moment(questionData.date).fromNow();
+
+  // Add the question view
+  const questionView = createElementFromTemplate(questionViewTemplate(questionData));
+  questionContainer.appendChild(questionView, questionId);
+
+  if (directView) {
+    addDirectViewEventListeners(questionView, questionId);
+  } else {
+    //addModalEventListeners(questionView);
+  }
+
+}
 
 function handleQuestionView(questionId, directView) {
   // Remove existing elements if they exist
@@ -15,8 +69,8 @@ function handleQuestionView(questionId, directView) {
   if (existingView) existingView.remove();
 
   if (directView) {
-    const questionsContainer = document.querySelector('#questions');
-    //appendAndInitializeForm(questionsContainer, questionLocation, true);
+    const questionContainer = document.querySelector('#questions');
+    initializeQuestionView(questionContainer, questionId, true);
 
     // Hide unnecessary UI components
     document.querySelector('.top-bar').classList.add('d-none');
@@ -24,7 +78,8 @@ function handleQuestionView(questionId, directView) {
   } else {
     const questionModal = createElementFromTemplate(questionModalTemplate());
     document.body.appendChild(questionModal);
-    //initializeNewQuestionForm(newQuestionModal, questionLocation);
+    const questionContainer = questionModal.querySelector('.content-wrapper');
+    initializeQuestionView(questionContainer, questionId, false);
   }
 
   /*questionModal.addEventListener('shown.bs.modal', (e) => {

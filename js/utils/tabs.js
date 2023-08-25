@@ -3,6 +3,7 @@
 // ----------------------------------
 
 import {getFeatureFlag} from './feature-flags';
+import {questionCardsWrapperTemplate} from '../questions/templates/question-cards-wrapper';
 import {loadQuestionCards} from '../questions/handle-question-card';
 import {createElementFromTemplate} from '../questions/templates/utils';
 import {QuestionLocation} from '../questions/utils';
@@ -24,28 +25,8 @@ async function tabs() {
       questionsTabDiv.appendChild(questionsDisabledElement);
     } else {
       // Add the placeholder divs for the questions tab
-      questionsTabDiv.innerHTML = `
-      <div class="question-cards-wrapper" data-direct-view="true">
-          <div class="question-card-placeholder mt-2">
-              <h5 class="placeholder-glow">
-                  <span class="placeholder col-8"></span>
-              </h5>
-              <div class="placeholder-glow">
-                  <span class="placeholder col-2"></span>
-                  <span class="placeholder col-4"></span>
-              </div>
-          </div>
-          <div class="question-card-placeholder mt-4">
-              <h5 class="placeholder-glow">
-                  <span class="placeholder col-5"></span>
-              </h5>
-              <div class="placeholder-glow">
-                  <span class="placeholder col-3"></span>
-                  <span class="placeholder col-5"></span>
-              </div>
-          </div>
-      </div>
-      `;
+      const questionCardsWrapper = createElementFromTemplate(questionCardsWrapperTemplate(true));
+      questionsTabDiv.appendChild(questionCardsWrapper);
 
       // Update the badge with the number of questions
       const badge = document.querySelector('.exercise-tab-link[data-target="questions"] .questions-badge');
@@ -58,17 +39,30 @@ async function tabs() {
     tabButton.addEventListener('click', (e) => {
       e.preventDefault();
 
+      // Check if the clicked button is already active
+      const wasAlreadyActive = tabButton.classList.contains('active');
+
       // Remove the active class from the previously active button if it exists
       if (activeTabButton) activeTabButton.classList.remove('active');
+
+      // Get the target tab ID from the data attribute
+      const tabId = tabButton.dataset.target;
+
+      // If the button was already active, hide its content and return
+      if (wasAlreadyActive) {
+        e.currentTarget.blur();  // remove focus from the button
+        document.getElementById(tabId).classList.add('d-none'); // hide the tab
+        activeTabButton = null;  // set the reference to null since no tab button is active now
+        return;  // exit from the function
+      }
+
+      // Otherwise, proceed as before:
 
       // Add the active class to the clicked button
       tabButton.classList.add('active');
 
       // Update the reference to the active tab button
       activeTabButton = tabButton;
-
-      // Get the target tab ID from the data attribute
-      const tabId = tabButton.dataset.target;
 
       // Show the target tab and hide others
       tabDivs.forEach((tabDiv) => {

@@ -32,11 +32,6 @@
     position: relative;
     bottom: .125rem;
   }
-
-  .question-card-placeholder {
-    @extend .mb-1;
-    @extend .p-3;
-  }
 }
 
 .new-question-button {

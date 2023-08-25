@@ -174,7 +174,7 @@ function addDirectViewEventListeners(newQuestionView) {
   topBar.classList.add('top-bar');
   topBar.innerHTML = `
     <a class="back-button" href="#" aria-label="Retour"></a>
-    <h1 class="new-question-view-title" id="modal-title">Nouvelle question</h1>
+    <h1 class="new-question-view-title">Nouvelle question</h1>
   `;
 
   newQuestionView.prepend(topBar);

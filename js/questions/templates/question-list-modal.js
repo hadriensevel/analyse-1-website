@@ -2,6 +2,8 @@
 // QUESTION LIST MODAL
 // ----------------------------------
 
+import {questionCardsWrapperTemplate} from './question-cards-wrapper';
+
 const questionListModalTemplate = (divId) => `
 <div class="modal question-list-modal" id="question-list-modal" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="modal-title" aria-hidden="true" data-div-id="${divId}">
@@ -14,27 +16,7 @@ const questionListModalTemplate = (divId) => `
             <div class="modal-body">
                 <div class="content-wrapper">
             
-                    <div class="question-cards-wrapper" data-direct-view="false">
-                        <div class="question-card-placeholder">
-                            <h5 class="placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <div class="placeholder-glow">
-                                <span class="placeholder col-2"></span>
-                                <span class="placeholder col-1"></span>
-                            </div>
-                        </div>
-                    
-                        <div class="question-card-placeholder">
-                            <h5 class="placeholder-glow">
-                                <span class="placeholder col-5"></span>
-                            </h5>
-                            <div class="placeholder-glow">
-                                <span class="placeholder col-1"></span>
-                                <span class="placeholder col-3"></span>
-                            </div>
-                        </div>
-                    </div>
+                    ${questionCardsWrapperTemplate(false)}
                     
                 </div>
             </div>

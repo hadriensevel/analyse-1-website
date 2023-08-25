@@ -93,11 +93,10 @@ body.polycop > :not(.grid-container) {
 h6 {
   @extend .mt-4;
   @extend .mb-3;
-  @extend .ms-1;
 }
 
 p {
-  @extend .p-1;
+  @extend .py-1;
   @extend .m-0;
 }
 
@@ -200,7 +199,9 @@ blockquote {
 @import "components/questions/question-right-column";
 @import "components/questions/question-list-modal";
 @import "components/questions/question-card";
-@import "components/questions/new-question-modal";
 @import "components/questions/new-question-view";
+@import "components/questions/new-question-modal";
+@import "components/questions/question-view";
 @import "components/questions/question-modal";
 @import "components/questions/back-button";
+@import "components/questions/send-button";

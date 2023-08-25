@@ -1,0 +1,79 @@
+// ----------------------------------
+// Question view
+// ----------------------------------
+
+@import "../../utils/icon";
+
+.question-view {
+
+  .top-bar {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .justify-content-start;
+    @extend .mb-3;
+  }
+
+  .question-header {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .justify-content-between;
+  }
+
+  .question-view-title {
+    @extend .fs-6;
+    @extend .fw-medium;
+    @extend .mb-0;
+  }
+
+  .question-title {
+    @extend .mb-1;
+  }
+
+  .question-date {
+    @extend .text-secondary;
+  }
+
+  .question-icons {
+    @extend .d-flex;
+    @extend .align-items-center;
+  }
+
+  .question-resolved {
+    @extend .d-inline;
+    @extend .text-success;
+    @extend .fs-4;
+    @extend .me-2;
+
+    &:before {
+      @include icon('\F633');
+    }
+  }
+
+  .question-likes {
+    @extend .d-inline;
+    @extend .text-secondary;
+
+    &:before {
+      @include icon('\F415');
+      @extend .me-1;
+    }
+  }
+
+  .question-body {
+    @extend .mt-3;
+  }
+
+  .question-image-wrapper {
+    @extend .d-flex;
+    @extend .mt-2;
+  }
+
+  .question-image {
+    @extend .img-fluid;
+    @extend .mx-auto;
+  }
+
+  form {
+    @extend .mt-4;
+  }
+}
