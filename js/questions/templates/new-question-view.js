@@ -12,8 +12,8 @@ const newQuestionFormTemplate = (divId) => `
             <div class="invalid-feedback">Merci de donner un titre à votre question.</div>
         </div>
         <div class="mb-3">
-            <label for="question-text" class="form-label">Question</label>
-            <textarea class="form-control form-control-sm" id="question-text" name="question-text" rows="5" required></textarea>
+            <label for="question-body" class="form-label">Question</label>
+            <textarea class="form-control form-control-sm" id="question-body" name="question-body" rows="5" required></textarea>
             <div class="invalid-feedback">Merci d'écrire ici votre question.</div>
         </div>
         <div class="mb-3">
@@ -31,17 +31,17 @@ const newQuestionFormTemplate = (divId) => `
     </form>
         
     <div class="toast form-toast success" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">La question a été envoyée!</div>
-        <button type="button" data-bs-dismiss="toast" aria-label="Fermer"></button>
-    </div>
+        <div class="d-flex">
+            <div class="toast-body">La question a été envoyée!</div>
+            <button type="button" data-bs-dismiss="toast" aria-label="Fermer"></button>
+        </div>
     </div>
 
     <div class="toast form-toast error" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-        <div class="toast-body">Erreur, la question n'a pas été envoyée...</div>
-        <button type="button" data-bs-dismiss="toast"" aria-label="Fermer"></button>
-    </div>
+        <div class="d-flex">
+            <div class="toast-body">Erreur, la question n'a pas été envoyée...</div>
+            <button type="button" data-bs-dismiss="toast"" aria-label="Fermer"></button>
+        </div>
     </div>
 <div
 `;

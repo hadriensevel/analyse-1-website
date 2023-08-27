@@ -12,6 +12,7 @@ function getFileName() {
 const Sort = {
   DATE: 'date',
   LIKES: 'likes',
+  RESOLVED: 'resolved',
 }
 
 // Enum for the location of the question
@@ -21,4 +22,31 @@ const QuestionLocation = {
   EXERCISE: 'exercise',
 }
 
-export {getFileName, Sort, QuestionLocation};
+// Escape HTML and keep the newlines
+function escapeHTML(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
+}
+
+// Update the preview when the user types in the textarea
+function updatePreview(textarea, preview, previewBody, previewBodyText) {
+  // If the textarea is empty, hide the preview
+  const isEmpty = !textarea.value;
+  const hasImage = !!previewBody.querySelector('img');
+  if (isEmpty) {
+    previewBodyText.textContent = '';
+    if (!hasImage) {
+      preview.classList.add('d-none');
+    }
+  } else {
+    preview.classList.remove('d-none');
+    // Escape HTML and render LaTeX but take the newlines into account
+    previewBodyText.innerHTML = escapeHTML(textarea.value);
+    renderMathInElement(previewBodyText);
+  }
+}
+
+export {getFileName, Sort, QuestionLocation, updatePreview};

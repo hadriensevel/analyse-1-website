@@ -2,18 +2,21 @@
 // HANDLE View FOR NEW QUESTIONS
 // ----------------------------------
 
-import {createElementFromTemplate, closeModal} from "./templates/utils.js";
-import {newQuestionFormTemplate, newQuestionModalTemplate} from "./templates/new-question-view.js";
+import {createElementFromTemplate, closeModal} from './templates/utils.js';
+import {newQuestionFormTemplate, newQuestionModalTemplate} from './templates/new-question-view.js';
 import {getAuthData} from './auth';
 import {getFileName} from './utils';
+import {updatePreview} from './utils';
+import {baseUrl} from '../utils/config';
 
-// Escape HTML and keep the newlines
-function escapeHTML(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\n/g, '<br>');
+import axios from 'axios';
+
+async function sendQuestion(formData) {
+  try {
+    return await axios.post(`${baseUrl}/api/question/new`, formData);
+  } catch {
+    return null;
+  }
 }
 
 function scrollToTop(form, directView) {
@@ -34,24 +37,6 @@ function scrollToTop(form, directView) {
     if (modalBody) {
       modalBody.scrollTo({top: 0, behavior: 'smooth'});
     }
-  }
-}
-
-// Update the preview when the user types in the textarea
-function updatePreview(textarea, preview, previewBody, previewBodyText) {
-  // If the textarea is empty, hide the preview
-  const isEmpty = !textarea.value;
-  const hasImage = !!previewBody.querySelector('img');
-  if (isEmpty) {
-    previewBodyText.textContent = '';
-    if (!hasImage) {
-      preview.classList.add('d-none');
-    }
-  } else {
-    preview.classList.remove('d-none');
-    // Escape HTML and render LaTeX but take the newlines into account
-    previewBodyText.innerHTML = escapeHTML(textarea.value);
-    renderMathInElement(previewBodyText);
   }
 }
 
@@ -109,7 +94,7 @@ function handleFileInput(fileInput, preview, previewBody, textarea) {
 }
 
 // Handle the form submission
-function handleFormSubmission(form, questionLocation, successToastElement, errorToastElement, previewBody, previewBodyText, preview) {
+async function handleFormSubmission(form, questionLocation, successToastElement, errorToastElement, previewBody, previewBodyText, preview) {
   const formData = new FormData(form);
   const toastOptions = {delay: 5000};
   const authData = getAuthData();
@@ -118,26 +103,29 @@ function handleFormSubmission(form, questionLocation, successToastElement, error
   if (true /*authData && authData.sciper*/) {
     // Append the question data to the form data
     //formData.append('sciper', authData.sciper);
-    formData.append('section', getFileName());
-    formData.append('questionLocation', questionLocation);
+    formData.append('sciper', '315940');
+    formData.append('page', getFileName());
+    formData.append('question-location', questionLocation);
 
-    // TODO: send the form data to the server with axios
     // Send the form data to the server with axios
-    //const response = sendQuestion(formData);
+    const response = await sendQuestion(formData);
 
-    const successToast = new bootstrap.Toast(successToastElement, toastOptions);
-    successToast.show();
+    if (response.status === 200) {
+      const successToast = new bootstrap.Toast(successToastElement, toastOptions);
+      successToast.show();
 
-    // Reset the form
-    previewBodyText.textContent = '';
-    if (previewBody.querySelector('img')) previewBody.querySelector('img').remove();
-    preview.classList.add('d-none');
-    form.classList.remove('was-validated');
-    form.reset();
-  } else {
-    const errorToast = new bootstrap.Toast(errorToastElement, toastOptions);
-    errorToast.show();
+      // Reset the form
+      previewBodyText.textContent = '';
+      if (previewBody.querySelector('img')) previewBody.querySelector('img').remove();
+      preview.classList.add('d-none');
+      form.classList.remove('was-validated');
+      form.reset();
+      return;
+    }
   }
+
+  const errorToast = new bootstrap.Toast(errorToastElement, toastOptions);
+  errorToast.show();
 }
 
 function addFormSubmitEventListener(form, questionLocation, successToastElement, errorToastElement, previewBody, previewBodyText, preview, directView) {
@@ -173,7 +161,7 @@ function addDirectViewEventListeners(newQuestionView) {
   const topBar = document.createElement('div');
   topBar.classList.add('top-bar');
   topBar.innerHTML = `
-    <a class="back-button" href="#" aria-label="Retour"></a>
+    <a class="back-button" href="#" aria-label="Retour" title="Retour"></a>
     <h1 class="new-question-view-title">Nouvelle question</h1>
   `;
 

@@ -7,7 +7,7 @@ import {questionCardTemplate} from './templates/question-card';
 import {handleQuestionView} from './handle-question-view';
 import {handleNewQuestionView} from './handle-new-question-view';
 import {noQuestionMessages} from './no-question-messages';
-import {QuestionLocation, Sort} from './utils';
+import {getFileName, QuestionLocation, Sort} from './utils';
 import {getFeatureFlag} from '../utils/feature-flags';
 import {getAuthData} from './auth';
 
@@ -16,14 +16,14 @@ import {baseUrl} from '../utils/config';
 import moment from 'moment/src/moment';
 import 'moment/src/locale/fr-ch';
 
-async function fetchQuestions(divId) {
+async function fetchQuestions(pageId, divId) {
   try {
-    const response = await axios.get(`${baseUrl}/api/question/polycop-div/${divId}`, {
+    const response = await axios.get(`${baseUrl}/api/get-questions/${pageId}/${divId}`, {
       headers: {
         Accept: 'application/json',
       },
     });
-    return response.data;
+    return response.data.questions;
   } catch {
     return null;
   }
@@ -37,9 +37,20 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
     // Moment.js is used to format the date
     moment.locale('fr-ch');
 
-    // Sort the questions (by default, by date)
-    if (sort === Sort.LIKES) questions.sort((a, b) => b.likes - a.likes);
-    else if (sort === Sort.DATE) questions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Sort the questions by date, likes (then date) or resolved (then date) (by default, sort by date)
+    if (sort === Sort.DATE) {
+      questions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sort === Sort.LIKES) {
+      questions.sort((a, b) => {
+        if (b.likes !== a.likes) return b.likes - a.likes;
+        return new Date(b.date) - new Date(a.date);
+      });
+    } else if (sort === Sort.RESOLVED) {
+      questions.sort((a, b) => {
+        if (b.resolved !== a.resolved) return b.resolved - a.resolved;
+        return new Date(b.date) - new Date(a.date);
+      });
+    }
 
     // Clear the questions body (placeholder and questions)
     questionCardsWrapper.innerHTML = '';
@@ -47,9 +58,9 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
     // Add the questions to the questions body
     questions.forEach((question) => {
       // Convert the date to a relative date
-      const date = moment(question.date).fromNow();
+      question.relativeDate = moment(question.date).fromNow();
       // Create the question card
-      const questionCard = createElementFromTemplate(questionCardTemplate(question.id, question.title, question.resolved, question.author, date, question.comments, question.likes));
+      const questionCard = createElementFromTemplate(questionCardTemplate(question));
       questionCardsWrapper.appendChild(questionCard);
     });
 
@@ -58,6 +69,7 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
 
     // Use event delegation to handle click events on question cards
     questionCardsWrapper.addEventListener('click', (e) => {
+      e.preventDefault();
       const questionCard = e.target.closest('.question-card');
       if (questionCard) {
         handleQuestionView(questionCard.dataset.questionId, directView);
@@ -87,28 +99,6 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
 
 // Load the question cards to the modal and add them to the modal
 async function loadQuestionCards(divId, questionsBody, questionLocation) {
-  // Mock questions
-  const questions = [
-    {
-      id: 1,
-      title: 'Définition de la limite \\( \\lim_{x \\to 0} \\frac{\\sin x}{x} \\)',
-      resolved: false,
-      author: '',
-      date: '2023-06-20T12:00:44.541Z',
-      comments: 2,
-      likes: 28,
-    },
-    {
-      id: 2,
-      title: 'G pa compri koman on fé',
-      resolved: true,
-      author: '',
-      date: '2023-08-21T06:34:23.541Z',
-      comments: 3,
-      likes: 17,
-    }];
-  //const questions = [];
-
   // Get the questions body element
   const questionsBodyElement = document.querySelector(questionsBody);
 
@@ -132,8 +122,9 @@ async function loadQuestionCards(divId, questionsBody, questionLocation) {
                 Date
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Date</a></li>
-                <li><a class="dropdown-item" href="#">Likes</a></li>
+                <li><a class="dropdown-item" data-sort="${Sort.DATE}" href="#">Date</a></li>
+                <li><a class="dropdown-item" data-sort="${Sort.LIKES}" href="#">Likes</a></li>
+                <li><a class="dropdown-item" data-sort="${Sort.RESOLVED}" href="#">Résolues</a></li>
             </ul>
         </div>
         <div class="new-question"></div>
@@ -152,7 +143,8 @@ async function loadQuestionCards(divId, questionsBody, questionLocation) {
         dropdownItem.addEventListener('click', (e) => {
           e.preventDefault();
           sortDropdown.textContent = dropdownItem.textContent;
-          renderQuestions(questions, questionCardsWrapper, dropdownItem.textContent === 'Date' ? Sort.DATE : Sort.LIKES);
+          const sort = dropdownItem.dataset.sort;
+          renderQuestions(questions, questionCardsWrapper, sort);
         });
       });
     });
@@ -177,11 +169,10 @@ async function loadQuestionCards(divId, questionsBody, questionLocation) {
     });
   }
 
-  // Add some delay to simulate a real request
-  //await new Promise((resolve) => setTimeout(resolve, 1000));
+  const pageId = getFileName();
 
   // Get the questions from the backend
-  //const questions = await fetchQuestions(divId);
+  const questions = await fetchQuestions(pageId, divId);
 
   // Get the questions wrapper
   const questionCardsWrapper = questionsBodyElement.querySelector('.question-cards-wrapper');

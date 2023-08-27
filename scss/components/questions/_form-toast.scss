@@ -1,0 +1,26 @@
+// ----------------------------------
+// Form Toast
+// ----------------------------------
+
+.form-toast {
+  @extend .position-absolute;
+  @extend .bottom-0;
+  @extend .end-0;
+  @extend .border-0;
+  @extend .m-2;
+
+  &.success {
+    @extend .text-bg-success;
+  }
+
+  &.error {
+    @extend .text-bg-danger;
+  }
+
+  button {
+    @extend .btn-close;
+    @extend .btn-close-white;
+    @extend .me-2;
+    @extend .m-auto;
+  }
+}

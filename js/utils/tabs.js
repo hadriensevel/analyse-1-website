@@ -6,7 +6,24 @@ import {getFeatureFlag} from './feature-flags';
 import {questionCardsWrapperTemplate} from '../questions/templates/question-cards-wrapper';
 import {loadQuestionCards} from '../questions/handle-question-card';
 import {createElementFromTemplate} from '../questions/templates/utils';
-import {QuestionLocation} from '../questions/utils';
+import {getFileName, QuestionLocation} from '../questions/utils';
+import {baseUrl} from './config';
+
+import axios from 'axios';
+
+async function fetchNumberOfQuestions() {
+  const page = getFileName();
+  try {
+    const response = await axios.get(`${baseUrl}/api/get-questions-count/${page}`, {
+      headers: {
+        Accept: 'application/json',
+      },
+    });
+    return response.data.questions_count;
+  } catch {
+    return null;
+  }
+}
 
 async function tabs() {
   const tabButtons = document.querySelectorAll('.exercise-tab-link');
@@ -31,7 +48,7 @@ async function tabs() {
       // Update the badge with the number of questions
       const badge = document.querySelector('.exercise-tab-link[data-target="questions"] .questions-badge');
       // TODO: fetch the number of questions
-      badge.textContent = '2';
+      badge.textContent = await fetchNumberOfQuestions();
     }
   }
 

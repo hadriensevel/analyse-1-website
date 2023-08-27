@@ -7,13 +7,13 @@ import {questionListModalTemplate} from './templates/question-list-modal.js';
 import {loadQuestionCards} from './handle-question-card';
 import {QuestionLocation} from './utils';
 
-function handleQuestionListModal(divId) {
+function handleQuestionListModal(divId, count) {
   // Ensure only one modal instance exists at a time.
   const existingModal = document.querySelector('.question-list-modal');
   if (existingModal) existingModal.remove();
 
   // Create the modal
-  const questionListModal = createElementFromTemplate(questionListModalTemplate(divId));
+  const questionListModal = createElementFromTemplate(questionListModalTemplate(divId, count));
   document.body.appendChild(questionListModal);
 
   // Add the event listeners for the close button

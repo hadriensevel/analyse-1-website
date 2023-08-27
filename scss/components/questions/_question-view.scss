@@ -59,6 +59,14 @@
       @extend .me-1;
       @extend .fs-6;
     }
+
+    &.clickable {
+      cursor: pointer;
+    }
+
+    &.liked {
+      @extend .text-danger;
+    }
   }
 
   .question-body {
@@ -75,11 +83,53 @@
     @extend .mx-auto;
   }
 
+  .answer {
+    @extend .border-start;
+    @extend .border-2;
+    @extend .border-secondary;
+    @extend .ps-1;
+    @extend .mb-3;
+  }
+
+  .answer-date {
+    @extend .text-secondary;
+    @extend .d-inline;
+    font-size: 0.8rem;
+  }
+
+  .answer-accepted {
+    @extend .d-inline;
+    @extend .text-success;
+
+    &:before {
+      @include icon('\F633');
+    }
+  }
+
   form {
     @extend .mt-4;
 
     .form-label {
       @extend .fw-medium;
+    }
+
+    .preview {
+      @extend .mb-3;
+
+      .preview-title {
+        @extend .fw-medium;
+        @extend .mb-2;
+      }
+
+      .preview-body {
+        @extend .d-flex;
+        @extend .flex-column;
+      }
+
+      .preview-text {
+        @extend .w-100;
+        @extend .p-0;
+      }
     }
   }
 }
