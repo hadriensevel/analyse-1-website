@@ -12,3 +12,8 @@
     @include icon('\F504', $black);
   }
 }
+
+.popover-header {
+  @extend .fst-italic;
+  @extend .fw-normal;
+}

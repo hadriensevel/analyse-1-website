@@ -9,6 +9,10 @@
   margin: 0 auto;
   --plyr-video-controls-background: none;
   --plyr-range-thumb-height: 10px;
+
+  &+.div-container {
+    cursor: pointer;
+  }
 }
 
 // Buttons

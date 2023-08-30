@@ -54,8 +54,8 @@
     @extend .mb-3;
   }
 
-  .#{$prefix}-sidebar-nav-section.special {
-    background-color: lightsteelblue;
+  .#{$prefix}-sidebar-nav-section.section {
+    background-color: #cfe2ff !important;
   }
 
   .#{$prefix}-sidebar-nav {
@@ -130,6 +130,10 @@
 
     &.active > a, &:hover > a {
       color: #7386D5 !important;
+    }
+
+    &.active > a {
+      @extend .fw-bold;
     }
 
     &.#{$prefix}-pdf-link > a {

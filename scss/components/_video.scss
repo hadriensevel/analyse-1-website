@@ -9,6 +9,10 @@ $video-font-size: $font-size;
   @extend .my-2;
   min-width: 0 !important;
 
+  &.semestre > .video-button {
+    background: #ad84f45e;
+  }
+
   .video-button {
     @extend .btn;
     @extend .btn-outline-secondary;

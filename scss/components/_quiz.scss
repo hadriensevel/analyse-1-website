@@ -41,25 +41,6 @@ $quiz-multicols-margin-top: 15px;
     @extend .border-0;
   }
 
-  .multicolsTHREE {
-    margin-top: $quiz-multicols-margin-top;
-    column-count: 3;
-  }
-
-  .multicolsTWO {
-    margin-top: $quiz-multicols-margin-top;
-    column-count: 2;
-  }
-
-  @include media-breakpoint-down(md) {
-    .multicolsTHREE {
-      column-count: 2;
-    }
-    .multicolsTWO {
-      column-count: 1;
-    }
-  }
-
   .quiz-answer-user {
     @extend .d-inline;
     cursor: pointer;

@@ -8,7 +8,7 @@
   text-decoration: none;
 
   &[data-asked-questions]:before {
-    @include icon('\F5D4', $blue); // dot
+    @include icon('\F287', $blue); // dot
   }
 
   .grid-container:hover &:before, &:hover::before, &:focus::before {

@@ -138,6 +138,7 @@ div, p {
 @mixin list-styles {
   li {
     padding-right: 10px;
+    margin-bottom: .5rem;
   }
   grid-column-start: 1;
 }
@@ -168,6 +169,28 @@ blockquote {
      }
   }
 }
+
+// Colonnes multiples
+.multicolsTHREE {
+  margin-top: 1rem;
+  column-count: 3;
+}
+
+.multicolsTWO {
+  margin-top: 1rem;
+  column-count: 2;
+}
+
+@include media-breakpoint-down(md) {
+  .multicolsTHREE {
+    column-count: 2;
+  }
+  .multicolsTWO {
+    column-count: 1;
+  }
+}
+
+
 
 // Résout les équations coupées mais les empêche de scroller
 // .katex-display > .katex > .katex-html {

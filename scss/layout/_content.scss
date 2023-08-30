@@ -28,7 +28,7 @@
     height: calc(100dvh - $header-height);
   }
 
-  @include media-breakpoint-down(xxl) {
+  @include media-breakpoint-down(xl) {
     .#{$prefix}-right-iframe {
       display: none !important;
     }

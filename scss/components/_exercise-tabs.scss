@@ -2,6 +2,8 @@
 // Exercise Tabs
 // ----------------------------------
 
+@import "../utils/icon";
+
 .exercise-tabs {
   @extend .nav;
   @extend .flex-nowrap;
@@ -20,6 +22,7 @@
     @extend .nav-item;
     @extend .text-center;
     @extend .p-0;
+    @extend .mb-0;
     @extend .w-100;
   }
 
@@ -32,6 +35,15 @@
 
     &:hover, &:focus, &.active {
       @extend .bg-white;
+    }
+
+    &[data-target=solution] {
+      color: #ef9e38 !important;
+
+      &:after {
+        @include icon('\F3E2');
+        @extend .ms-1;
+      }
     }
   }
 
@@ -54,7 +66,7 @@
   @extend .fw-bold;
   @extend .text-black;
   @extend .border-0;
-  background: #f8f4ff;
+  background: #fadab2;
   font-size: $video-font-size;
 
   &:before {
@@ -69,6 +81,6 @@
   }
 
   &:hover {
-    background-color: pink;
+    background-color: #f4b15d;
   }
 }
