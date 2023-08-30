@@ -5,12 +5,11 @@
 import {baseUrl, featureFlags} from './config';
 import axios from 'axios';
 
-const featureFlagsUrl = `${baseUrl}/api/feature-flags`;
 const sessionStorageKey = 'featureFlags';
 
 async function fetchFeatureFlags() {
   try {
-    const response = await axios.get(featureFlagsUrl, {
+    const response = await axios.get(`${baseUrl}/api/feature-flags`, {
       headers: {
         Accept: 'application/json',
       }
@@ -18,8 +17,10 @@ async function fetchFeatureFlags() {
     const data = response.data;
 
     // Loop through feature flags and set them to true if they are enabled
-    featureFlags.forEach((featureFlag) => {
-      featureFlags[featureFlag] = data[featureFlag] === true;
+    data.forEach(item => {
+      if (featureFlags.hasOwnProperty(item.name)) {
+        featureFlags[item.name] = item.enabled === 1;
+      }
     });
   } catch (error) {}
 

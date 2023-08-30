@@ -92,4 +92,18 @@
     @extend .border-dark;
     @extend .rounded-0;
   }
+
+  .refresh-button {
+    @extend .ms-1;
+    text-decoration: none;
+
+    &:before {
+      @include icon('\F116');
+      @extend .text-secondary;
+    }
+
+    &:hover::before {
+      @extend .text-dark;
+    }
+  }
 }

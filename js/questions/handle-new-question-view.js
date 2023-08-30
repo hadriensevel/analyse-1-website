@@ -97,13 +97,10 @@ function handleFileInput(fileInput, preview, previewBody, textarea) {
 async function handleFormSubmission(form, questionLocation, successToastElement, errorToastElement, previewBody, previewBodyText, preview) {
   const formData = new FormData(form);
   const toastOptions = {delay: 5000};
-  const authData = getAuthData();
 
   // TODO: don't forget to uncomment this
-  if (true /*authData && authData.sciper*/) {
+  if (getAuthData()) {
     // Append the question data to the form data
-    //formData.append('sciper', authData.sciper);
-    formData.append('sciper', '315940');
     formData.append('page', getFileName());
     formData.append('question-location', questionLocation);
 
@@ -171,6 +168,8 @@ function addDirectViewEventListeners(newQuestionView) {
       e.preventDefault();
       topBar.remove();
       newQuestionView.remove();
+
+      // TODO: reload the question cards
 
       document.querySelector('.top-bar').classList.remove('d-none');
       document.querySelector('.question-cards-wrapper').classList.remove('d-none');

@@ -47,7 +47,6 @@ async function tabs() {
 
       // Update the badge with the number of questions
       const badge = document.querySelector('.exercise-tab-link[data-target="questions"] .questions-badge');
-      // TODO: fetch the number of questions
       badge.textContent = await fetchNumberOfQuestions();
     }
   }
