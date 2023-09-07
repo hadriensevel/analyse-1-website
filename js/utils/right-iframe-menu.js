@@ -64,6 +64,7 @@ async function rightIframeMenu() {
   menu.querySelector('.offcanvas-body').appendChild(polycopMenu);
   sidebar(menu);
   document.body.appendChild(menu);
+  renderMathInElement(menu);
 }
 
 export {rightIframeMenu};
