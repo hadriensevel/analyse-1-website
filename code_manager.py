@@ -5,6 +5,18 @@ import shutil
 BASE_PATH = os.getcwd()
 WEB_PATH = "../../web"
 
+class TerminalColor:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+successMessage = "\U00002705 " + TerminalColor.OKGREEN + "Done!" + TerminalColor.ENDC
+
 def pull_latest_changes():
     try:
         result = subprocess.run(["git", "pull"], check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -40,8 +52,6 @@ def clear_all_contents(directory):
         else:
             os.remove(item_path)
 
-
-
 def copy_files_and_folders(src, dest, clear_subfolders=False):
     if not os.path.exists(src):
         print(f"Warning: Source directory {src} does not exist.")
@@ -74,40 +84,40 @@ def push_changes():
 
 def main():
     while True:
-        print("\nChoose an action:")
+        print(TerminalColor.HEADER + "\nChoose an action:" + TerminalColor.ENDC)
         print("[U] Update (Pull and then Copy)")
         print("[P] Pull Latest Changes")
         print("[C] Copy Files")
         print("[S] Push Changes")
         print("[Q] Quit")
 
-        choice = input("Your choice: ").lower()
+        choice = input().lower()
 
         if choice == 'u':
             if pull_latest_changes():
                 run_npm_commands()
                 copy_files_and_folders(os.path.join(BASE_PATH, "dist", "js"), os.path.join(WEB_PATH, "js"))
                 copy_files_and_folders(os.path.join(BASE_PATH, "dist", "css"), os.path.join(WEB_PATH, "css"), clear_subfolders=True)
-            print("Done!")
+            print(successMessage)
             break
         elif choice == 'p':
             pull_latest_changes()
-            print("Done!")
+            print(successMessage)
             break
         elif choice == 'c':
             run_npm_commands()
             copy_files_and_folders(os.path.join(BASE_PATH, "dist", "js"), os.path.join(WEB_PATH, "js"))
             copy_files_and_folders(os.path.join(BASE_PATH, "dist", "css"), os.path.join(WEB_PATH, "css"), clear_subfolders=True)
-            print("Done!")
+            print(successMessage)
             break
         elif choice == 's':
             push_changes()
-            print("Done!")
+            print(successMessage)
             break
         elif choice == 'q':
             break
         else:
-            print("Invalid choice!")
+            print(TerminalColor.FAIL + "Invalid choice!" + TerminalColor.ENDC)
 
 if __name__ == "__main__":
     main()
