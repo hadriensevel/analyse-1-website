@@ -19,7 +19,12 @@
 
   // Background color header analyse
   .#{$prefix}-analyse & {
-    background-color: rgb(91 33 182);
+    //background-color: rgb(91 33 182);
+    background-color: #7075c4;
+  }
+
+  .#{$prefix}-algebre-lineaire & {
+    background-color: #188278;
   }
 
   // Background color header analyse semestre
@@ -29,7 +34,43 @@
 
   // Background color header analyse online
   .#{$prefix}-analyse-online & {
-    background-color: rgb(0, 0, 0);
+    //background-color: rgb(0, 0, 0);
+    background-color: #3b4d64 ;
+  }
+
+
+  // CMS:
+
+  .#{$prefix}-analyse-1-CMS & {
+    background-color: rgb(116,152,94); //vert forêt
+  }
+
+  .#{$prefix}-analyse-2-CMS & {
+    background-color: rgb(155, 182, 136); //vert forêt plus clair
+  }
+
+  .#{$prefix}-algebre-lineaire-CMS & {
+    background-color: #188278;
+  }
+
+  .#{$prefix}-geometrie-analytique-CMS & {
+    background-color: #188278;
+  }
+
+  .#{$prefix}-physique-CMS & {
+    background-color: #8e3291;
+  }
+
+  .#{$prefix}-ics-CMS & {
+    background-color: #3772ff;
+  }
+
+  .#{$prefix}-chimie-CMS & {
+    background-color: #f0c987;
+  }
+
+  .#{$prefix}-ics-CMS & {
+    background-color: #188278;
   }
 
   .#{$prefix}-navbar-title {

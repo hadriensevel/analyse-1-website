@@ -43,7 +43,8 @@
 @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
-@import "bootstrap/scss/offcanvas"; // Requires transitions
+@import "bootstrap/scss/offcanvas";
+// Requires transitions
 // @import "bootstrap/scss/placeholders";
 @import "bootstrap/scss/helpers";
 
@@ -83,7 +84,15 @@ $sidebar-width: 230px;
 .#{$prefix}-main-body {
   font-family: 'Open Sans', sans-serif;
 
-  &.#{$prefix}-analyse, &.#{$prefix}-algebre {
+  &.#{$prefix}-analyse,
+  &.#{$prefix}-algebre-lineaire,
+  &.#{$prefix}-analyse-1-CMS,
+  &.#{$prefix}-analyse-2-CMS,
+  &.#{$prefix}-algebre-lineaire-CMS,
+  &.#{$prefix}-geometrie-analytique-CMS,
+  &.#{$prefix}-physique-CMS,
+  &.#{$prefix}-chimie-CMS,
+  &.#{$prefix}-ics-CMS {
     @extend .mx-auto;
     max-width: 800px;
   }
