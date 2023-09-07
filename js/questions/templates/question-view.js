@@ -1,6 +1,16 @@
 // ----------------------------------
-// QUESTION MODAL
+// QUESTION VIEW
 // ----------------------------------
+
+const polycopDivViewTemplate = () => `
+<div class="polycop-div-view">
+    <a class="div-view-button" data-bs-toggle="collapse" href="#div-view"
+       role="button" aria-expanded="false" aria-controls="div-view">
+        Section du cours
+    </a>
+    <div class="collapse" id="div-view"></div>
+</div>
+`;
 
 const questionAnswersTemplate = (answer) => `
 <div class="answer" data-answer-id="${answer.id}">
@@ -9,8 +19,37 @@ const questionAnswersTemplate = (answer) => `
         ${answer.accepted ? '<div class="answer-accepted" title="Réponse acceptée"></div>' : ''}
         ${answer.user_role}
         <div class="answer-date">${answer.date}</div>
+        <!--<div class="answer-options"></div>-->
     </div>
 </div>
+`;
+
+const questionEditFormTemplate = (questionTitle, questionBody) => `
+<form novalidate class="edit-form">
+    <div class="mb-3">
+        <label for="question-title" class="form-label">Titre de la question</label>
+        <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" value="${questionTitle}" required>
+        <div class="invalid-feedback">Le titre de la question ne peut pas être vide</div>
+    </div>
+    <div class="mb-3">
+        <label for="question-body" class="form-label">Question</label>
+        <textarea class="form-control form-control-sm" id="question-body" name="question-body" rows="5" required>${questionBody}</textarea>
+        <div class="invalid-feedback">La question ne peut pas être vide.</div>
+    </div>
+    <!--<div class="mb-3">
+        <label for="image" class="form-label">Ajouter une image (optionnel, max 5 Mo)</label>
+        <input class="form-control form-control-sm" type="file" id="image" name="image" accept="image/*">
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="preview d-none">
+        <div class="preview-title">Prévisualisation</div>
+        <div class="preview-body">
+            <p class="preview-text"></p>
+        </div>
+    </div>-->
+    <button class="cancel-button">Annuler</button>
+    <button type="submit" class="save-button">Enregistrer</button>
+</form>
 `;
 
 const answerFormTemplate = () => `
@@ -54,6 +93,7 @@ const questionViewTemplate = (question, answerForm) => `
         </div>
         <div class="question-icons">
             ${question.resolved ? `<div class="question-resolved" title="Question résolue"></div>` : ''}
+            ${question.locked ? `<div class="question-locked" title="Question verrouillée"></div>` : ''}
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
         </div>
     </div>
@@ -90,4 +130,4 @@ const questionModalTemplate = (questionId) => `
 </div>
 `;
 
-export {questionViewTemplate, questionModalTemplate, questionAnswersTemplate};
+export {polycopDivViewTemplate, questionViewTemplate, questionModalTemplate, questionAnswersTemplate, questionEditFormTemplate};

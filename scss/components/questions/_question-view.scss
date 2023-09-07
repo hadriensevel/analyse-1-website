@@ -50,6 +50,17 @@
     }
   }
 
+  .question-locked {
+    @extend .d-inline;
+    @extend .text-warning;
+    @extend .fs-6;
+    @extend .me-2;
+
+    &:before {
+      @include icon('\F47A');
+    }
+  }
+
   .question-likes {
     @extend .d-inline;
     @extend .text-secondary;
@@ -66,6 +77,18 @@
 
     &.liked {
       @extend .text-danger;
+    }
+  }
+
+  .question-options-button {
+    @extend .d-inline;
+    @extend .text-secondary;
+    @extend .fs-4;
+    @extend .ms-2;
+    cursor: pointer;
+
+    &:before {
+      @include icon('\F5D4');
     }
   }
 
@@ -106,11 +129,47 @@
     }
   }
 
+  .answer-options {
+    @extend .d-inline;
+    @extend .text-secondary;
+    cursor: pointer;
+
+    &:before {
+      @include icon('\F5D4');
+      top: .2em;
+    }
+  }
+
   form {
-    @extend .mt-4;
+
+    &:not(.edit-form) {
+      @extend .mt-4;
+    }
 
     .form-label {
       @extend .fw-medium;
+    }
+
+    .cancel-button, .save-button {
+      @extend .btn;
+      @extend .btn-sm;
+    }
+
+    .cancel-button {
+      @extend .btn-outline-danger;
+
+      &:before {
+        @include icon('\F62A');
+      }
+    }
+
+    .save-button {
+      @extend .btn-outline-success;
+
+      &:before {
+        @include icon('\F525');
+        @extend .me-1;
+      }
     }
 
     .preview {
@@ -129,6 +188,29 @@
       .preview-text {
         @extend .w-100;
         @extend .p-0;
+      }
+    }
+  }
+
+  .polycop-div-view {
+    @extend .mb-4;
+
+    .div-view-button {
+      @extend .btn;
+      @extend .p-0;
+      @extend .d-block;
+      @extend .text-start;
+      @extend .fw-bold;
+      @extend .text-primary;
+      @extend .border-0;
+      font-size: 0.75rem;
+
+      &:before {
+        @include icon('\F282'); // chevron-down
+      }
+
+      &[aria-expanded="true"]:before {
+        content: '\F286'; // chevron-up
       }
     }
   }

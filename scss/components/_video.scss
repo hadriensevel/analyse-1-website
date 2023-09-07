@@ -2,12 +2,13 @@
 // Vidéo
 // ----------------------------------
 
+@import "../utils/icon";
+
 // Variables
 $video-font-size: $font-size;
 
 .video {
   @extend .my-2;
-  min-width: 0 !important;
 
   &.semestre > .video-button {
     background: #ad84f45e;
@@ -27,18 +28,19 @@ $video-font-size: $font-size;
     font-size: $video-font-size;
 
     &:before {
-      content: '\F282 \00a0\00a0 \F4F0 \00a0\00a0'; // chevron-down & camera
-      font-family: 'bootstrap-icons';
-      top: .125em;
-      position: relative;
+      @include icon('\F282 \00a0\00a0 \F4F0 \00a0\00a0'); // chevron-down & camera
     }
 
     &[aria-expanded="true"]:before {
-      content: '\F286 \00a0\00a0 \F4F0 \00a0\00a0'; // chevron-up & camera
+      @include icon('\F286 \00a0\00a0 \F4F0 \00a0\00a0');// chevron-up & camera
     }
 
     &:hover {
-      background-color: pink;
+      background-color: #fcb4c2;
+    }
+
+    &:first-child:active {
+      background-color: #faa0aa;
     }
   }
 

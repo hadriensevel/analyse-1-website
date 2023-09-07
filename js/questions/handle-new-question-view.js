@@ -98,7 +98,6 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
   const formData = new FormData(form);
   const toastOptions = {delay: 5000};
 
-  // TODO: don't forget to uncomment this
   if (getAuthData()) {
     // Append the question data to the form data
     formData.append('page', getFileName());
@@ -107,7 +106,7 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
     // Send the form data to the server with axios
     const response = await sendQuestion(formData);
 
-    if (response.status === 200) {
+    if (response && response.status === 200) {
       const successToast = new bootstrap.Toast(successToastElement, toastOptions);
       successToast.show();
 
@@ -168,8 +167,6 @@ function addDirectViewEventListeners(newQuestionView) {
       e.preventDefault();
       topBar.remove();
       newQuestionView.remove();
-
-      // TODO: reload the question cards
 
       document.querySelector('.top-bar').classList.remove('d-none');
       document.querySelector('.question-cards-wrapper').classList.remove('d-none');

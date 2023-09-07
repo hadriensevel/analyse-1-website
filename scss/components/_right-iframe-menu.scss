@@ -1,0 +1,18 @@
+// ----------------------------------
+// Right Iframe Menu
+// ----------------------------------
+
+.right-iframe-menu {
+
+  .offcanvas-header {
+    @extend .justify-content-end;
+  }
+
+  .offcanvas-body {
+    @extend .p-0;
+  }
+
+  .#{$prefix}-sidebar-menu {
+    @extend .pt-0;
+  }
+}

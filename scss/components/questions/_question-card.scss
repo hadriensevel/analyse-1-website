@@ -29,12 +29,21 @@
     @extend .me-2;
   }
 
-  .resolved-question {
+  .question-resolved {
     @extend .d-inline;
     @extend .text-success;
 
     &:before {
       @include icon('\F633');
+    }
+  }
+
+  .question-locked {
+    @extend .d-inline;
+    @extend .text-warning;
+
+    &:before {
+      @include icon('\F47A');
     }
   }
 

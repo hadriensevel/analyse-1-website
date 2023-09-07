@@ -24,18 +24,18 @@
     @extend .p-0;
     @extend .mb-0;
     @extend .w-100;
+    @extend .rounded;
+
+    &:hover, &:focus, &.active {
+      @extend .bg-white;
+    }
   }
 
   .exercise-tab-link {
     @extend .nav-link;
     @extend .p-1;
-    @extend .rounded;
     @extend .text-primary;
     @extend .fw-medium;
-
-    &:hover, &:focus, &.active {
-      @extend .bg-white;
-    }
 
     &[data-target=solution] {
       color: #ef9e38 !important;
@@ -82,5 +82,9 @@
 
   &:hover {
     background-color: #f4b15d;
+  }
+
+  &:first-child:active {
+    background-color: #f3a138;
   }
 }

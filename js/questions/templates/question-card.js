@@ -8,7 +8,10 @@ const questionCardTemplate = (question) => {
     <div class="question-body">
         <div class="question-header">
             <h5 class="question-title">${question.title}</h5>
-            ${question.resolved ? `<div class="resolved-question"></div>` : ''}
+            <div class="question-resolved-locked">
+                ${question.resolved ? `<div class="question-resolved"></div>` : ''}
+                ${question.locked ? `<div class="question-locked"></div>` : ''}
+            </div>
         </div>
         <div class="question-footer">
             <div class="question-author-date">

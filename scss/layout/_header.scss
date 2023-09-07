@@ -32,10 +32,6 @@
     background-color: rgb(0, 0, 0);
   }
 
-  .physique & {
-    background-color: #f80008;
-  }
-
   .#{$prefix}-navbar-title {
     @extend .navbar-brand;
     @extend .fs-4;

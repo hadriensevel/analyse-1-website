@@ -17,12 +17,15 @@ function rightIframeLink() {
       e.preventDefault();
 
       // Use window.matchMedia() to test if the window is large enough to display the right iframe
-      if (parent.window.matchMedia("(min-width: 1400px)").matches) {
+      if (parent.window.matchMedia("(min-width: 1200px)").matches) {
         // Change the right iframe's src attribute
         rightIframe.setAttribute('src', link.href);
       } else {
+        const matches = link.href.match(/([^/]+)\.html$/);
+        const fileName = matches[1];
+
         // Otherwise, open the link in a new tab
-        window.open(link.href, '_blank')
+        window.open(`../../analyse-1/?page=${fileName}`, '_blank')
       }
     });
   });

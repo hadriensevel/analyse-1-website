@@ -26,9 +26,9 @@ async function fetchNumberOfQuestions() {
 }
 
 async function tabs() {
-  const tabButtons = document.querySelectorAll('.exercise-tab-link');
+  const tabButtons = document.querySelectorAll('.exercise-tab-item');
   const tabDivs = document.querySelectorAll('.tab-div');
-  let activeTabButton = document.querySelector('.exercise-tab-link.active');
+  let activeTabButton = document.querySelector('.exercise-tab-item.active');
 
   // Check the feature flag for questions
   const questionsEnabled = await getFeatureFlag('questions');
@@ -62,7 +62,8 @@ async function tabs() {
       if (activeTabButton) activeTabButton.classList.remove('active');
 
       // Get the target tab ID from the data attribute
-      const tabId = tabButton.dataset.target;
+      const tabLink = tabButton.querySelector('.exercise-tab-link');
+      const tabId = tabLink.dataset.target;
 
       // If the button was already active, hide its content and return
       if (wasAlreadyActive) {

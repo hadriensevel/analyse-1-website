@@ -35,7 +35,7 @@
 // @import "bootstrap/scss/alert";
 // @import "bootstrap/scss/progress";
 // @import "bootstrap/scss/list-group";
-// @import "bootstrap/scss/close";
+@import "bootstrap/scss/close";
 // @import "bootstrap/scss/toasts";
 @import "bootstrap/scss/modal";
 // Requires transitions
@@ -43,7 +43,7 @@
 @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
-// @import "bootstrap/scss/offcanvas"; // Requires transitions
+@import "bootstrap/scss/offcanvas"; // Requires transitions
 // @import "bootstrap/scss/placeholders";
 @import "bootstrap/scss/helpers";
 
@@ -78,11 +78,12 @@ $sidebar-width: 230px;
 @import "layout/sidebar";
 @import "layout/content";
 @import "layout/footer";
+@import "components/right-iframe-menu";
 
 .#{$prefix}-main-body {
   font-family: 'Open Sans', sans-serif;
 
-  &.#{$prefix}-analyse {
+  &.#{$prefix}-analyse, &.#{$prefix}-algebre {
     @extend .mx-auto;
     max-width: 800px;
   }

@@ -2,12 +2,6 @@
 // Preuve
 // ----------------------------------
 
-// Variables
-$preuve-bg-color: #d2dde0;
-$preuve-hover-bg-color: lightblue;
-$preuve-font-size: $font-size;
-$preuve-height: 15px;
-
 // Base class
 .preuve {
   @extend .my-2;
@@ -16,18 +10,17 @@ $preuve-height: 15px;
   // Button class
   .preuve-button {
     @extend .btn;
-    @extend .btn-outline-secondary;
     @extend .d-flex;
     @extend .mt-2;
     @extend .rounded-3;
-    @extend .border-secondary-subtle;
     @extend .fst-italic;
     @extend .text-black;
     @extend .pt-1;
     @extend .pb-4;
-    font-size: $preuve-font-size;
-    height: $preuve-height;
-    background-color: $preuve-bg-color;
+    @extend .border-0;
+    font-size: $font-size;
+    height: 15px;
+    background-color: #d0e5e7;
 
     // Pseudo-element
     &:before {
@@ -42,7 +35,12 @@ $preuve-height: 15px;
 
     // Hover state
     &:hover {
-      background-color: $preuve-hover-bg-color;
+      background-color: #add8e6;
+    }
+
+    // Active state
+    &:first-child:active {
+      background-color: #99cde5;
     }
   }
 

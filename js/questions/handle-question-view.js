@@ -3,14 +3,24 @@
 // ----------------------------------
 
 import {createElementFromTemplate, closeModal} from './templates/utils.js';
-import {questionViewTemplate, questionModalTemplate, questionAnswersTemplate} from './templates/question-view.js';
-import {updatePreview} from './utils';
+import {
+  polycopDivViewTemplate,
+  questionViewTemplate,
+  questionModalTemplate,
+  questionAnswersTemplate,
+  questionEditFormTemplate,
+} from './templates/question-view.js';
+import {updatePreview, UserRole} from './utils';
 
 import moment from 'moment/src/moment';
 import 'moment/src/locale/fr-ch';
 import {baseUrl, supportEmail} from '../utils/config';
 import {getAuthData} from './auth';
 import axios from 'axios';
+import {UserPermissions} from './user-permissions';
+
+// Variable to keep track of the edit mode
+let editMode = false;
 
 async function sendAnswer(formData) {
   try {
@@ -40,6 +50,93 @@ async function fetchQuestion(questionId) {
   }
 }
 
+async function editQuestion(questionId, form, directView, divId, questionContainer) {
+  const formData = new FormData(form);
+
+  try {
+    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
+    // Quit the edit mode
+    editMode = false;
+    // Empty the question container
+    questionContainer.querySelector('.question-view').remove();
+    // Rerender the question
+    initializeQuestionView(questionContainer, questionId, divId, directView)
+  } catch (error) {
+    alert('Erreur lors de l\'enregistrement de la question.');
+  }
+}
+
+async function deleteQuestion(questionId, directView, questionView) {
+  if (confirm('Êtes-vous sûr de vouloir supprimer cette question?')) {
+    try {
+      await axios.delete(`${baseUrl}/api/question/delete/${questionId}`)
+      if (directView) {
+        questionView.remove();
+        document.querySelector('.top-bar').classList.remove('d-none');
+        document.querySelector('.question-cards-wrapper').classList.remove('d-none');
+      } else {
+        closeModal(questionView.closest('.question-modal'));
+      }
+    } catch {
+      alert('Erreur lors de la suppression de la question.');
+    }
+  }
+}
+
+function toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, enableEdit = true) {
+  const titleElement = questionViewElement.querySelector('.question-title');
+  const questionDate = questionViewElement.querySelector('.question-date');
+  const bodyElement = questionViewElement.querySelector('.question-body');
+
+  if (enableEdit && !editMode) {
+    // Set the edit mode to true
+    editMode = true;
+
+    // Create a form
+    const form = createElementFromTemplate(questionEditFormTemplate(titleElement.textContent, bodyElement.textContent));
+
+    // Add event listeners to the form
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+      } else {
+        editQuestion(questionId, form, directView, divId, questionContainer);
+      }
+    });
+
+    // Add event listeners to the cancel button
+    const cancelButton = form.querySelector('.cancel-button');
+    cancelButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer,false);
+    });
+
+    // Hide the title and body elements
+    titleElement.classList.add('d-none');
+    bodyElement.classList.add('d-none');
+    questionDate.classList.add('d-none');
+
+    // Append the form to the DOM
+    bodyElement.after(form);
+  } else {
+    // Remove the form
+    const form = questionViewElement.querySelector('.edit-form');
+    form?.remove();
+
+    // Show the title and body elements
+    titleElement.classList.remove('d-none');
+    bodyElement.classList.remove('d-none');
+    questionDate.classList.remove('d-none');
+
+    // Set the edit mode to false
+    editMode = false;
+  }
+}
+
+
 function showToast(toastElement, toastOptions = {delay: 5000}) {
   const toast = new bootstrap.Toast(toastElement, toastOptions);
   toast.show();
@@ -57,13 +154,12 @@ async function handleFormSubmission(elements) {
   } = elements;
   const formData = new FormData(form);
 
-  // TODO: don't forget to reactivate authentication here
   if (getAuthData()) {
     formData.append('question-id', questionId);
 
     const response = await sendAnswer(formData);
 
-    if (response.status === 200) {
+    if (response && response.status === 200) {
       showToast(successToastElement);
 
       form.reset();
@@ -107,7 +203,7 @@ function setupEventListeners(elements) {
   if (directView) {
     addDirectViewEventListeners(questionView, questionId);
   } else {
-    addModalEventListeners(questionView);
+    addModalEventListeners(questionView.closest('.question-modal'));
   }
 }
 
@@ -168,6 +264,7 @@ function addLikeButtonEventListener(questionView, questionId) {
 function addModalEventListeners(questionModal) {
   questionModal.addEventListener('click', (e) => {
     if (e.target.classList.contains('back-button') || e.target.classList.contains('btn-close')) {
+      editMode = false;
       closeModal(questionModal);
       if (e.target.classList.contains('btn-close')) {
         closeModal(document.querySelector('.question-list-modal'), true);
@@ -188,7 +285,7 @@ function addDirectViewEventListeners(questionView, questionId) {
   topBar.addEventListener('click', (e) => {
     if (e.target.classList.contains('back-button')) {
       e.preventDefault();
-      topBar.remove();
+      editMode = false;
       questionView.remove();
 
       document.querySelector('.top-bar').classList.remove('d-none');
@@ -197,7 +294,60 @@ function addDirectViewEventListeners(questionView, questionId) {
   });
 }
 
-async function initializeQuestionView(questionContainer, questionId, directView = false) {
+function initializeDivPolycopView(questionView, divId) {
+  if (!divId) return;
+
+  // If divId starts with a number, escape it
+  const divIdStartsWithNumber = /^\d/.test(divId);
+  if (divIdStartsWithNumber) divId = `\\3${divId}`;
+
+  const divViewPolycop = createElementFromTemplate(polycopDivViewTemplate())
+  const divView = divViewPolycop.querySelector('#div-view');
+  const questionDiv = document.querySelector(`#${divId} .div-container`);
+  if (questionDiv) divView.appendChild(questionDiv.cloneNode(true));
+  questionView.prepend(divViewPolycop);
+}
+
+function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, questionId, directView, divId, questionContainer) {
+  const userRole = getAuthData()?.role;
+  const userIsAdmin = getAuthData()?.is_admin;
+
+  const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: userIsAuthor});
+
+  if (userPermissions.canViewQuestionOptions()) {
+    const questionIcons = questionView.querySelector('.question-icons');
+    const questionOptionsButton = createElementFromTemplate(`
+        <div class="question-options">
+            <div class="question-options-button" data-bs-toggle="dropdown"></div>
+            <ul class="dropdown-menu">
+                ${userPermissions.canEditQuestion() ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
+                ${userPermissions.canLockQuestion() ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${questionLocked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''}
+                ${userPermissions.canDeleteQuestion() ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
+            </ul>
+        </div>
+    `);
+    questionIcons.appendChild(questionOptionsButton);
+
+    const dropdownMenu = questionView.querySelector('.dropdown-menu');
+
+    dropdownMenu.addEventListener('click', (e) => {
+      const target = e.target;
+
+      if (target.matches('.dropdown-item[data-action="edit"]')) {
+        e.preventDefault();
+        if (!editMode) toggleEditMode(questionView, questionId, directView, divId, questionContainer);
+      } else if (target.matches('.dropdown-item[data-action="lock"]')) {
+        e.preventDefault();
+        console.log('lock');
+      } else if (target.matches('.dropdown-item[data-action="delete"]')) {
+        e.preventDefault();
+        deleteQuestion(questionId, directView, questionView);
+      }
+    });
+  }
+}
+
+async function initializeQuestionView(questionContainer, questionId, divId, directView = false) {
   const question = await fetchQuestion(questionId);
 
   if (question === null) {
@@ -206,7 +356,7 @@ async function initializeQuestionView(questionContainer, questionId, directView 
       <div class="question-view">
         <h6>Oups...</h6>
         <p>Nous n'avons pas réussi à récupérer la question, peut-être qu'elle n'existe plus :(</p>
-        <p>Si vous pensez que c'est une erreur, n'hésitez pas à nous contacter ici: <a href="mailto:${supportEmail}?subject=Erreur lors du chargement de la question #${questionId}">${supportEmail}</a>.</p>
+        <p>Si le problème persiste, n'hésitez pas à nous contacter ici: <a href="mailto:${supportEmail}?subject=Erreur lors du chargement de la question #${questionId}">${supportEmail}</a>.</p>
       </div>
     `);
     questionContainer.appendChild(errorElement);
@@ -221,11 +371,14 @@ async function initializeQuestionView(questionContainer, questionId, directView 
 
   formatQuestionData(question);
 
-  // TODO: don't forget to activate authentication here
-  const questionView = createElementFromTemplate(questionViewTemplate(question, !!getAuthData()));
+  const questionView = createElementFromTemplate(questionViewTemplate(question, getAuthData() && !question.locked));
   questionContainer.appendChild(questionView);
 
   await populateAnswers(questionView, questionId);
+
+  initializeQuestionOptions(questionView, question.user_is_author, question.locked, questionId, directView, divId, questionContainer)
+
+  initializeDivPolycopView(questionView, divId);
 
   renderMathInElement(questionView);
 
@@ -272,14 +425,17 @@ function formatQuestionData(question) {
 }
 
 function formatAnswerData(answer) {
+  const userPermissions = new UserPermissions({userRole: getAuthData()?.role, isAdmin: getAuthData()?.is_admin});
+  answer.can_accept = userPermissions.canAcceptAnswer();
+
   answer.date = moment(answer.date).fromNow();
   answer.user_role = getUserRoleBadge(answer.user_role);
 }
 
 function getUserRoleBadge(role) {
   const roles = {
-    'teacher': '<span class="badge text-bg-warning">Enseignant</span>',
-    'assistant': '<span class="badge text-bg-secondary">Assistant</span>',
+    [UserRole.TEACHER]: '<span class="badge text-bg-warning">Enseignant</span>',
+    [UserRole.ASSISTANT]: '<span class="badge text-bg-secondary">Assistant</span>',
   };
   return roles[role] || '';
 }
@@ -294,14 +450,14 @@ function sortAnswers(answers) {
 
 function rolesPriority(role) {
   const priorities = {
-    'teacher': 1,
-    'assistant': 2,
-    'student': 3
+    [UserRole.TEACHER]: 1,
+    [UserRole.ASSISTANT]: 2,
+    [UserRole.STUDENT]: 3
   };
   return priorities[role] || 4;
 }
 
-function handleQuestionView(questionId, directView) {
+function handleQuestionView(questionId, directView, divId) {
   // Remove existing elements if they exist
   const existingModal = document.querySelector('.question-modal');
   if (existingModal) existingModal.remove();
@@ -311,7 +467,7 @@ function handleQuestionView(questionId, directView) {
 
   if (directView) {
     const questionContainer = document.querySelector('#questions');
-    initializeQuestionView(questionContainer, questionId, true);
+    initializeQuestionView(questionContainer, questionId, divId, true);
 
     // Hide unnecessary UI components
     document.querySelector('.top-bar').classList.add('d-none');
@@ -320,7 +476,7 @@ function handleQuestionView(questionId, directView) {
     const questionModal = createElementFromTemplate(questionModalTemplate(questionId));
     document.body.appendChild(questionModal);
     const questionContainer = questionModal.querySelector('.content-wrapper');
-    initializeQuestionView(questionContainer, questionId, false);
+    initializeQuestionView(questionContainer, questionId, divId, false);
   }
 }
 

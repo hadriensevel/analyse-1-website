@@ -3,6 +3,7 @@
 // ----------------------------------
 
 import {createElementFromTemplate} from './templates/utils';
+import {questionCardsPlaceholderTemplate} from './templates/question-cards-wrapper';
 import {questionCardTemplate} from './templates/question-card';
 import {handleQuestionView} from './handle-question-view';
 import {handleNewQuestionView} from './handle-new-question-view';
@@ -14,6 +15,9 @@ import axios from 'axios';
 import {baseUrl, supportEmail} from '../utils/config';
 import moment from 'moment/src/moment';
 import 'moment/src/locale/fr-ch';
+
+let currentQuestions = [];
+let currentSort = Sort.DATE;
 
 // Utility functions for sorting
 const sortFunctions = {
@@ -36,7 +40,7 @@ async function fetchQuestions(pageId, divId) {
   }
 }
 
-function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
+function renderQuestions(questions, questionCardsWrapper, divId, sort) {
   if (questions.length) {
     // Get if the questions are displayed directly or in a modal
     const directView = questionCardsWrapper.dataset.directView === 'true';
@@ -57,20 +61,17 @@ function renderQuestions(questions, questionCardsWrapper, sort = Sort.DATE) {
       // Create the question card
       const questionCard = createElementFromTemplate(questionCardTemplate(question));
       questionCardsWrapper.appendChild(questionCard);
+
+      questionCard.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleQuestionView(question.id, directView, divId);
+        if (!directView) new bootstrap.Modal(document.querySelector('.question-modal')).show();
+      });
     });
 
     // Render LaTeX
     renderMathInElement(questionCardsWrapper);
 
-    // Use event delegation to handle click events on question cards
-    questionCardsWrapper.addEventListener('click', (e) => {
-      e.preventDefault();
-      const questionCard = e.target.closest('.question-card');
-      if (questionCard) {
-        handleQuestionView(questionCard.dataset.questionId, directView);
-        if (!directView) new bootstrap.Modal(document.querySelector('.question-modal')).show();
-      }
-    });
   } else {
     // If there are no questions, take a message randomly from the list and
     // display it and the associated image.
@@ -98,14 +99,18 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
   // Get the questions body element
   const questionsBodyElement = document.querySelector(questionsBody);
 
+  // Get the questions wrapper and add the placeholder
+  const questionCardsWrapper = questionsBodyElement.querySelector('.question-cards-wrapper');
+  questionCardsWrapper.innerHTML = '';
+  const questionCardsPlaceholder = createElementFromTemplate(questionCardsPlaceholderTemplate());
+  questionCardsWrapper.appendChild(questionCardsPlaceholder);
+
   // Check the feature flag and authentication for new questions
   let newQuestion = false;
   const newQuestionEnabled = await getFeatureFlag('newQuestion');
   if (newQuestionEnabled) {
-    // TODO: dont forget to remove this
     // Check if the user is authenticated
     newQuestion = !!getAuthData();
-    //newQuestion = true;
   }
 
   if (createTopBar && !questionsBodyElement.querySelector('.tob-bar')) {
@@ -142,8 +147,8 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
           dropdownItem.addEventListener('click', (e) => {
             e.preventDefault();
             sortDropdown.textContent = dropdownItem.textContent;
-            const sort = dropdownItem.dataset.sort;
-            renderQuestions(questions, questionCardsWrapper, sort);
+            currentSort = dropdownItem.dataset.sort;
+            renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort);
           });
         });
       });
@@ -180,6 +185,7 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
 
   // Get the questions from the backend
   const questions = await fetchQuestions(pageId, divId);
+  currentQuestions = questions || [];
 
   if (questions === null) {
     // Display an error message
@@ -195,11 +201,8 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
     return;
   }
 
-  // Get the questions wrapper
-  const questionCardsWrapper = questionsBodyElement.querySelector('.question-cards-wrapper');
-
   // Render the questions
-  renderQuestions(questions, questionCardsWrapper);
+  renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort);
 }
 
 export {loadQuestionCards, renderQuestions};

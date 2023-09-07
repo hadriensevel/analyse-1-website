@@ -110,6 +110,10 @@ div, p {
   grid-template-columns: auto 25px;
   column-gap: .5rem;
   overflow-x: hidden;
+
+  & > * {
+    grid-column-start: 1;
+  }
 }
 
 .grid-container, .div-container {
@@ -117,7 +121,6 @@ div, p {
 }
 
 .div-container {
-  grid-column-start: 1;
   overflow-x: auto;
 }
 
@@ -126,25 +129,25 @@ div, p {
   @extend .border-start;
   @extend .border-dark-subtle;
   @extend .rounded-end;
-  background: #ffffff;
-  grid-column-start: 2;
+  @extend .bg-white;
+  grid-column-start: 2 !important;
 
   .grid-container:hover > &, &:hover {
-    background-color: #f2f3f4;
+    background-color: #f2f3f4 !important;
   }
 }
 
 // Lists
-@mixin list-styles {
-  li {
-    padding-right: 10px;
-    margin-bottom: .5rem;
-  }
-  grid-column-start: 1;
-}
-
 ol, ul {
-  @include list-styles;
+  @extend .my-2;
+
+  li {
+    @extend .mb-2;
+  }
+
+  &.dropdown-menu > li {
+    @extend .mb-0;
+  }
 }
 
 blockquote {

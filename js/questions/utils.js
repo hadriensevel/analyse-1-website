@@ -22,6 +22,13 @@ const QuestionLocation = {
   EXERCISE: 'exercise',
 }
 
+// Enum for the user role
+const UserRole = {
+  STUDENT: 'student',
+  ASSISTANT: 'assistant',
+  TEACHER: 'teacher',
+}
+
 // Escape HTML and keep the newlines
 function escapeHTML(str) {
   return str
@@ -49,4 +56,4 @@ function updatePreview(textarea, preview, previewBody, previewBodyText) {
   }
 }
 
-export {getFileName, Sort, QuestionLocation, updatePreview};
+export {getFileName, Sort, QuestionLocation, UserRole, updatePreview};

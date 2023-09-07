@@ -2,8 +2,8 @@
 // QUESTION CARDS WRAPPER
 // ----------------------------------
 
-const questionCardsWrapperTemplate = (directView) => `
-<div class="question-cards-wrapper" data-direct-view="${directView}">
+const questionCardsPlaceholderTemplate = () => `
+<div>
     <div class="question-card-placeholder mt-2">
         <h5 class="placeholder-glow">
             <span class="placeholder col-8"></span>
@@ -25,4 +25,9 @@ const questionCardsWrapperTemplate = (directView) => `
 </div>
 `;
 
-export {questionCardsWrapperTemplate};
+const questionCardsWrapperTemplate = (directView) => `
+<div class="question-cards-wrapper" data-direct-view="${directView}">
+</div>
+`;
+
+export {questionCardsPlaceholderTemplate, questionCardsWrapperTemplate};
