@@ -75,7 +75,7 @@ def copy_files_and_folders(src, dest, clear_subfolders=False):
 
 def push_changes():
     try:
-        message = input("Enter your commit message: ")
+        message = input("\nEnter your commit message: ")
         subprocess.run(["git", "add", "."], check=True)
         subprocess.run(["git", "commit", "-m", message], check=True)
         subprocess.run(["git", "push"], check=True)
