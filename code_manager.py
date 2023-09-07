@@ -3,6 +3,7 @@ import subprocess
 import shutil
 
 BASE_PATH = os.getcwd()
+WEB_PATH = "../../web"
 
 def pull_latest_changes():
     try:
@@ -20,12 +21,18 @@ def run_npm_commands():
     subprocess.run(["npm", "run", "build"], check=True)
 
 def clear_only_files(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     for item in os.listdir(directory):
         item_path = os.path.join(directory, item)
         if os.path.isfile(item_path):
             os.remove(item_path)
 
 def clear_all_contents(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
     for item in os.listdir(directory):
         item_path = os.path.join(directory, item)
         if os.path.isdir(item_path):
@@ -33,16 +40,27 @@ def clear_all_contents(directory):
         else:
             os.remove(item_path)
 
-def copy_files(src, dest, clear_subfolders=False):
+
+
+def copy_files_and_folders(src, dest, clear_subfolders=False):
+    if not os.path.exists(src):
+        print(f"Warning: Source directory {src} does not exist.")
+        return
+    
     if clear_subfolders:
         clear_all_contents(dest)
     else:
         clear_only_files(dest)
 
+    if not os.path.exists(dest):
+        os.makedirs(dest)
+
     for item in os.listdir(src):
         s = os.path.join(src, item)
         d = os.path.join(dest, item)
-        if not os.path.isdir(s):
+        if os.path.isdir(s):
+            copy_files_and_folders(s, d)
+        else:
             shutil.copy2(s, d)
 
 def push_changes():
@@ -68,20 +86,24 @@ def main():
         if choice == 'u':
             if pull_latest_changes():
                 run_npm_commands()
-                copy_files(os.path.join(BASE_PATH, "dist", "js"), "../../../../web/js")
-                copy_files(os.path.join(BASE_PATH, "dist", "css"), "../../../../web/css", clear_subfolders=True)
+                copy_files_and_folders(os.path.join(BASE_PATH, "dist", "js"), os.path.join(WEB_PATH, "js"))
+                copy_files_and_folders(os.path.join(BASE_PATH, "dist", "css"), os.path.join(WEB_PATH, "css"), clear_subfolders=True)
             print("Done!")
+            break
         elif choice == 'p':
             pull_latest_changes()
             print("Done!")
+            break
         elif choice == 'c':
             run_npm_commands()
-            copy_files(os.path.join(BASE_PATH, "dist", "js"), "../../../../web/js")
-            copy_files(os.path.join(BASE_PATH, "dist", "css"), "../../../../web/css", clear_subfolders=True)
+            copy_files_and_folders(os.path.join(BASE_PATH, "dist", "js"), os.path.join(WEB_PATH, "js"))
+            copy_files_and_folders(os.path.join(BASE_PATH, "dist", "css"), os.path.join(WEB_PATH, "css"), clear_subfolders=True)
             print("Done!")
+            break
         elif choice == 's':
             push_changes()
             print("Done!")
+            break
         elif choice == 'q':
             break
         else:
