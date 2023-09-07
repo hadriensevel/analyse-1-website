@@ -60,7 +60,7 @@ def main():
 
         choice = input("Your choice: ").lower()
 
-        elif choice == 'u':
+        if choice == 'u':
             if pull_latest_changes():
                 run_npm_commands()
                 copy_files(os.path.join(BASE_PATH, "dist", "js"), "../../../../web/js")
