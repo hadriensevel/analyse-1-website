@@ -19,6 +19,12 @@ def run_npm_commands():
     subprocess.run(["npm", "install"], check=True)
     subprocess.run(["npm", "run", "build"], check=True)
 
+def clear_only_files(directory):
+    for item in os.listdir(directory):
+        item_path = os.path.join(directory, item)
+        if os.path.isfile(item_path):
+            os.remove(item_path)
+
 def clear_all_contents(directory):
     for item in os.listdir(directory):
         item_path = os.path.join(directory, item)
@@ -38,7 +44,6 @@ def copy_files(src, dest, clear_subfolders=False):
         d = os.path.join(dest, item)
         if not os.path.isdir(s):
             shutil.copy2(s, d)
-
 
 def push_changes():
     try:
