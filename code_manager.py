@@ -15,7 +15,7 @@ class TerminalColor:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-successMessage = "\U00002705 " + TerminalColor.OKGREEN + "Done!" + TerminalColor.ENDC
+successMessage = "\n\U00002705 " + TerminalColor.OKGREEN + "Done!\n" + TerminalColor.ENDC
 
 def pull_latest_changes():
     try:
