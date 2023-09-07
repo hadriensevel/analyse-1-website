@@ -77,7 +77,11 @@
     @extend .navbar-brand;
     @extend .fs-4;
     @extend .me-0;
-    @extend .ps-1;
+    padding-left: 120px;
+    background-image: url('../media/images/images-semestre-analyse/EPFL_Logo_WHITE_PROD.svg');
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: 6px 50%;
   }
 
   .#{$prefix}-navbar-right {
