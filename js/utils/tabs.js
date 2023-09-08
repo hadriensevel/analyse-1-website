@@ -18,6 +18,7 @@ async function fetchNumberOfQuestions() {
       headers: {
         Accept: 'application/json',
       },
+      withCredentials: true,
     });
     return response.data.questions_count;
   } catch {

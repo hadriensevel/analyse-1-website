@@ -33,6 +33,7 @@ async function fetchQuestions(pageId, divId) {
       headers: {
         Accept: 'application/json',
       },
+      withCredentials: true,
     });
     return response.data.questions;
   } catch {

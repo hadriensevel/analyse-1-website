@@ -2,8 +2,6 @@
 // AUTHENTICATION FOR QUESTIONS
 // ----------------------------------
 
-import {baseUrl} from '../utils/config';
-
 // Authentication details
 let authData = null;
 
@@ -15,7 +13,8 @@ function getAuthData() {
 // When we receive a message from the main page
 const listenAuthMessage = () => {
   window.addEventListener('message', (e) => {
-    if (e.origin !== baseUrl) {
+    const url = window.location.href.split('/').slice(0, 3).join('/');
+    if (e.origin !== url) {
       return;
     }
 

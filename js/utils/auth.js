@@ -15,6 +15,7 @@ async function fetchAuthDetails() {
       headers: {
         Accept: 'application/json',
       },
+      withCredentials: true,
     });
 
     if (response.status === 401) {
@@ -70,7 +71,6 @@ function createUserDetailsButton(authData) {
 function sendMessageToIframe(iframeId, authData) {
   const iframe = document.getElementById(iframeId);
   const url = window.location.href.split('/').slice(0, 3).join('/');
-  console.log(url);
   if (iframe) {
     iframe.onload = () => {
       iframe.contentWindow.postMessage({ authDetails: authData }, url);

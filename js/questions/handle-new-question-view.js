@@ -13,7 +13,9 @@ import axios from 'axios';
 
 async function sendQuestion(formData) {
   try {
-    return await axios.post(`${baseUrl}/api/question/new`, formData);
+    return await axios.post(`${baseUrl}/api/question/new`, formData, {
+      withCredentials: true,
+    });
   } catch {
     return null;
   }

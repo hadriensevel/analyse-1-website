@@ -15,6 +15,7 @@ async function fetchQuestionsCountDivs(page) {
       headers: {
         Accept: 'application/json',
       },
+      withCredentials: true,
     });
     return response.data;
   } catch {

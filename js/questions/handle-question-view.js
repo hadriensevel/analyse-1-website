@@ -24,16 +24,24 @@ let editMode = false;
 
 async function sendAnswer(formData) {
   try {
-    return await axios.post(`${baseUrl}/api/answer/new`, formData);
+    return await axios.post(`${baseUrl}/api/answer/new`, formData, {
+      withCredentials: true,
+    });
   } catch {
     return null;
   }
 }
 
 async function sendLike(questionId, like) {
-  const endpoint = like ? 'add' : 'remove';
-  const method = like ? 'post' : 'delete';
-  axios[method](`${baseUrl}/api/like/${endpoint}/${questionId}`);
+  if (like) {
+    axios.post(`${baseUrl}/api/like/add/${questionId}`, {}, {
+      withCredentials: true,
+    });
+  } else {
+    axios.delete(`${baseUrl}/api/like/remove/${questionId}`, {
+      withCredentials: true,
+    });
+  }
 }
 
 // Fetch the question data from the API with axios
@@ -43,6 +51,7 @@ async function fetchQuestion(questionId) {
       headers: {
         Accept: 'application/json',
       },
+      withCredentials: true,
     });
     return response.data.question;
   } catch {
@@ -54,7 +63,9 @@ async function editQuestion(questionId, form, directView, divId, questionContain
   const formData = new FormData(form);
 
   try {
-    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
+    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData, {
+      withCredentials: true,
+    });
     // Quit the edit mode
     editMode = false;
     // Empty the question container
@@ -69,7 +80,9 @@ async function editQuestion(questionId, form, directView, divId, questionContain
 async function deleteQuestion(questionId, directView, questionView) {
   if (confirm('Êtes-vous sûr de vouloir supprimer cette question?')) {
     try {
-      await axios.delete(`${baseUrl}/api/question/delete/${questionId}`)
+      await axios.delete(`${baseUrl}/api/question/delete/${questionId}`, {
+        withCredentials: true,
+      })
       if (directView) {
         questionView.remove();
         document.querySelector('.top-bar').classList.remove('d-none');
@@ -111,7 +124,7 @@ function toggleEditMode(questionViewElement, questionId, directView, divId, ques
     const cancelButton = form.querySelector('.cancel-button');
     cancelButton.addEventListener('click', (e) => {
       e.preventDefault();
-      toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer,false);
+      toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, false);
     });
 
     // Hide the title and body elements
