@@ -86,7 +86,6 @@ function sendMessageToIframe(iframeId, authData, token) {
   const url = window.location.href.split('/').slice(0, 3).join('/');
   if (iframe) {
     iframe.onload = () => {
-      console.log('Sending message to iframe', authData, token)
       iframe.contentWindow.postMessage({ authDetails: authData, token: token }, url);
     };
   }
