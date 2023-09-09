@@ -14,8 +14,7 @@ async function fetchQuestionsCountDivs(page) {
     const response = await axios.get(`${baseUrl}/api/get-questions-count-divs/${page}`, {
       headers: {
         Accept: 'application/json',
-      },
-      withCredentials: true,
+      }
     });
     return response.data;
   } catch {

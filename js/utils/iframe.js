@@ -5,7 +5,17 @@
 // Change iframe src and push state to history
 function loadIframe(el) {
   const targetUrl = el.querySelector('a').href;
-  const historyUrl = `${window.location.pathname}?page=${el.id}`;
+  const currentUrl = window.location.href;
+  const baseUrl = currentUrl.split('?')[0]; // Gets the part of the URL before the query string.
+  let queryString = currentUrl.split('?')[1] || '';
+  // Remove the page parameter if it exists.
+  queryString = queryString.replace(/&?page=[^&]*/g, '');
+  // Decide whether to use '?' or '&' based on the current query string.
+  const separator = queryString ? '&' : '?';
+  // If there are leading & after removing page, remove them.
+  queryString = queryString.replace(/^&/, '');
+  const historyUrl = `${baseUrl}${queryString ? '?' + queryString : ''}${separator}page=${el.id}`;
+
   const iframe = document.getElementById('iframe');
   if (iframe) {
     iframe.setAttribute('src', targetUrl);

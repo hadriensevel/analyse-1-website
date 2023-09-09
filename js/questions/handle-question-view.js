@@ -24,24 +24,16 @@ let editMode = false;
 
 async function sendAnswer(formData) {
   try {
-    return await axios.post(`${baseUrl}/api/answer/new`, formData, {
-      withCredentials: true,
-    });
+    return await axios.post(`${baseUrl}/api/answer/new`, formData);
   } catch {
     return null;
   }
 }
 
 async function sendLike(questionId, like) {
-  if (like) {
-    axios.post(`${baseUrl}/api/like/add/${questionId}`, {}, {
-      withCredentials: true,
-    });
-  } else {
-    axios.delete(`${baseUrl}/api/like/remove/${questionId}`, {
-      withCredentials: true,
-    });
-  }
+  const endpoint = like ? 'add' : 'remove';
+  const method = like ? 'post' : 'delete';
+  axios[method](`${baseUrl}/api/like/${endpoint}/${questionId}`);
 }
 
 // Fetch the question data from the API with axios
@@ -50,8 +42,7 @@ async function fetchQuestion(questionId) {
     const response = await axios.get(`${baseUrl}/api/question/get/${questionId}`, {
       headers: {
         Accept: 'application/json',
-      },
-      withCredentials: true,
+      }
     });
     return response.data.question;
   } catch {
@@ -63,9 +54,7 @@ async function editQuestion(questionId, form, directView, divId, questionContain
   const formData = new FormData(form);
 
   try {
-    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData, {
-      withCredentials: true,
-    });
+    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
     // Quit the edit mode
     editMode = false;
     // Empty the question container
@@ -80,9 +69,7 @@ async function editQuestion(questionId, form, directView, divId, questionContain
 async function deleteQuestion(questionId, directView, questionView) {
   if (confirm('Êtes-vous sûr de vouloir supprimer cette question?')) {
     try {
-      await axios.delete(`${baseUrl}/api/question/delete/${questionId}`, {
-        withCredentials: true,
-      })
+      await axios.delete(`${baseUrl}/api/question/delete/${questionId}`);
       if (directView) {
         questionView.remove();
         document.querySelector('.top-bar').classList.remove('d-none');

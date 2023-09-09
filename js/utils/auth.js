@@ -14,8 +14,7 @@ async function fetchAuthDetails() {
       },
       headers: {
         Accept: 'application/json',
-      },
-      withCredentials: true,
+      }
     });
 
     if (response.status === 401) {
@@ -39,11 +38,25 @@ function createAuthButton(authData) {
   return authButton;
 }
 
+function redirectUrl() {
+  // Get page parameter in the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = urlParams.get('page');
+  // Get the url without the parameters
+  const url = window.location.href.split('?')[0];
+  if (page) return encodeURIComponent(`${url}?page=${page}`);
+  else return encodeURIComponent(url);
+}
+
 function createLoginButton() {
+  // Get token parameter in the URL
+  const token = new URLSearchParams(window.location.search).get('token');
+  let tokenParam = '';
+  if(token) tokenParam = `&token=${token}`;
   const authButton = createAuthButton();
   authButton.innerHTML = '<i class="had-auth-connect-icon"></i>';
   authButton.classList.add('icon-link');
-  authButton.href = `${baseUrl}/auth/login?redirect=${window.location.href}`;
+  authButton.href = `${baseUrl}/auth/login?redirect=${redirectUrl()}${tokenParam}`;
   const authLoginIcon = authButton.querySelector('i');
   authLoginIcon.dataset.bsToggle = 'tooltip';
   authLoginIcon.dataset.bsPlacement = 'bottom';
@@ -60,7 +73,7 @@ function createUserDetailsButton(authData) {
   authUserIcon.dataset.bsToggle = 'popover';
   authUserIcon.dataset.bsPlacement = 'bottom';
   authUserIcon.dataset.bsTitle = authData.name;
-  authUserIcon.dataset.bsContent = `<a href="${baseUrl}/auth/logout?redirect=${window.location.href}">Se déconnecter</a>`;
+  authUserIcon.dataset.bsContent = `<a href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>`;
   new bootstrap.Popover(authUserIcon, {
     container: 'body',
     html: true,
@@ -68,17 +81,40 @@ function createUserDetailsButton(authData) {
   return authButton;
 }
 
-function sendMessageToIframe(iframeId, authData) {
+function sendMessageToIframe(iframeId, authData, token) {
   const iframe = document.getElementById(iframeId);
   const url = window.location.href.split('/').slice(0, 3).join('/');
   if (iframe) {
     iframe.onload = () => {
-      iframe.contentWindow.postMessage({ authDetails: authData }, url);
+      console.log('Sending message to iframe', authData, token)
+      iframe.contentWindow.postMessage({ authDetails: authData, token: token }, url);
     };
   }
 }
 
 async function authentication() {
+  // Get the token parameter in the URL if there is one, store it in localStorage and remove it from the URL
+  const token = new URLSearchParams(window.location.search).get('token');
+  if (token) {
+    // Store the token in localStorage
+    sessionStorage.setItem('token', token);
+
+    // Remove the token from the URL but keep the other parameters
+    const url = window.location.href.split('?')[0];
+    const params = new URLSearchParams(window.location.search);
+    params.delete('token');
+    const paramsString = params.toString() ? `?${params.toString()}` : '';
+    const newUrl = `${url}${paramsString}`;
+    window.history.replaceState({}, '', newUrl);
+  }
+
+  // Get token from localStorage
+  const sessionStorageToken = sessionStorage.getItem('token');
+  if (sessionStorageToken) {
+    // Add the token to the headers of the requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorageToken}`;
+  }
+
   const authData = await fetchAuthDetails();
   const usernameDiv = document.querySelector('.had-auth-info');
   let authButton;
@@ -95,8 +131,8 @@ async function authentication() {
 
   usernameDiv.appendChild(authButton);
 
-  sendMessageToIframe("iframe", authData);
-  sendMessageToIframe("right-iframe", authData);
+  sendMessageToIframe("iframe", authData, sessionStorageToken);
+  sendMessageToIframe("right-iframe", authData, sessionStorageToken);
 }
 
 export {authentication};

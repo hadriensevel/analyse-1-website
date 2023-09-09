@@ -32,8 +32,7 @@ async function fetchQuestions(pageId, divId) {
     const response = await axios.get(`${baseUrl}/api/get-questions/${pageId}/${divId}`, {
       headers: {
         Accept: 'application/json',
-      },
-      withCredentials: true,
+      }
     });
     return response.data.questions;
   } catch {
