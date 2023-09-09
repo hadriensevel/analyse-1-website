@@ -84,12 +84,20 @@ function createUserDetailsButton(authData) {
 function sendMessageToIframe(iframeId, authData, token) {
   const iframe = document.getElementById(iframeId);
   const url = window.location.href.split('/').slice(0, 3).join('/');
+
   if (iframe) {
-    iframe.onload = () => {
+    const sendMessage = () => {
       iframe.contentWindow.postMessage({ authDetails: authData, token: token }, url);
     };
+
+    if (iframe.contentWindow.document.readyState === 'complete') {
+      sendMessage();
+    } else {
+      iframe.onload = sendMessage;
+    }
   }
 }
+
 
 async function authentication() {
   // Get the token parameter in the URL if there is one, store it in localStorage and remove it from the URL
