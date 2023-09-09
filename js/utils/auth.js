@@ -73,11 +73,27 @@ function createUserDetailsButton(authData) {
   authUserIcon.dataset.bsToggle = 'popover';
   authUserIcon.dataset.bsPlacement = 'bottom';
   authUserIcon.dataset.bsTitle = authData.name;
-  authUserIcon.dataset.bsContent = `<a href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>`;
+  authUserIcon.dataset.bsContent = `<a id="logout-link" href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>`;
+
   new bootstrap.Popover(authUserIcon, {
     container: 'body',
     html: true,
   });
+
+  authUserIcon.addEventListener('shown.bs.popover', () => {
+    const logoutLink = document.getElementById('logout-link');
+    logoutLink.addEventListener('click', function(event) {
+      // Prevent the default action of the link
+      event.preventDefault();
+      // Clear the token from session storage
+      sessionStorage.removeItem('token');
+      // Remove the token from the headers of the requests
+      delete axios.defaults.headers.common['Authorization'];
+      // Navigate to the logout page
+      window.location.href = logoutLink.getAttribute('href');
+    });
+  });
+
   return authButton;
 }
 
