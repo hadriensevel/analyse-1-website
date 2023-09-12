@@ -169,6 +169,12 @@
         @include icon('\F525');
         @extend .me-1;
       }
+
+      &.sending {
+        &:before {
+          content: '';
+        }
+      }
     }
 
     .preview {

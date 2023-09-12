@@ -24,13 +24,13 @@ const questionAnswersTemplate = (answer) => `
 </div>
 `;
 
-const questionEditFormTemplate = (questionTitle, questionBody) => `
+const questionEditFormTemplate = (questionBody) => `
 <form novalidate class="edit-form">
-    <div class="mb-3">
+    <!--<div class="mb-3">
         <label for="question-title" class="form-label">Titre de la question</label>
-        <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" value="${questionTitle}" required>
+        <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" value="" required>
         <div class="invalid-feedback">Le titre de la question ne peut pas être vide</div>
-    </div>
+    </div>-->
     <div class="mb-3">
         <label for="question-body" class="form-label">Question</label>
         <textarea class="form-control form-control-sm" id="question-body" name="question-body" rows="5" required>${questionBody}</textarea>
@@ -40,13 +40,13 @@ const questionEditFormTemplate = (questionTitle, questionBody) => `
         <label for="image" class="form-label">Ajouter une image (optionnel, max 5 Mo)</label>
         <input class="form-control form-control-sm" type="file" id="image" name="image" accept="image/*">
         <div class="invalid-feedback"></div>
-    </div>
+    </div>-->
     <div class="preview d-none">
         <div class="preview-title">Prévisualisation</div>
         <div class="preview-body">
             <p class="preview-text"></p>
         </div>
-    </div>-->
+    </div>
     <button class="cancel-button">Annuler</button>
     <button type="submit" class="save-button">Enregistrer</button>
 </form>
@@ -97,7 +97,7 @@ const questionViewTemplate = (question, answerForm) => `
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
         </div>
     </div>
-    <div class="question-body">${question.formatted_body}</div>
+    <div class="question-body" data-body="${question.body}">${question.formatted_body}</div>
     <div class="question-image-wrapper">
         ${question.image}
     </div>

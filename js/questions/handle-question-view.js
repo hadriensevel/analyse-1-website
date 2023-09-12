@@ -54,6 +54,16 @@ async function fetchQuestion(questionId) {
 async function editQuestion(questionId, form, directView, divId, questionContainer) {
   const formData = new FormData(form);
 
+  // Add a spinner to the submit button
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.setAttribute('disabled', '');
+  submitButton.classList.add('sending');
+  const submitButtonContent = submitButton.innerHTML;
+  submitButton.innerHTML = `
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span role="status">Envoi...</span>
+  `;
+
   try {
     await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
     // Quit the edit mode
@@ -64,6 +74,11 @@ async function editQuestion(questionId, form, directView, divId, questionContain
     initializeQuestionView(questionContainer, questionId, divId, directView)
   } catch (error) {
     alert('Erreur lors de l\'enregistrement de la question.');
+
+    // Remove the spinner from the submit button
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('sending');
+    submitButton.innerHTML = submitButtonContent;
   }
 }
 
@@ -85,7 +100,7 @@ async function deleteQuestion(questionId, directView, questionView) {
 }
 
 function toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, enableEdit = true) {
-  const titleElement = questionViewElement.querySelector('.question-title');
+  //const titleElement = questionViewElement.querySelector('.question-title');
   const questionDate = questionViewElement.querySelector('.question-date');
   const bodyElement = questionViewElement.querySelector('.question-body');
 
@@ -94,7 +109,7 @@ function toggleEditMode(questionViewElement, questionId, directView, divId, ques
     editMode = true;
 
     // Create a form
-    const form = createElementFromTemplate(questionEditFormTemplate(titleElement.textContent, bodyElement.textContent));
+    const form = createElementFromTemplate(questionEditFormTemplate(bodyElement.dataset.body));
 
     // Add event listeners to the form
     form.addEventListener('submit', async (e) => {
@@ -115,8 +130,14 @@ function toggleEditMode(questionViewElement, questionId, directView, divId, ques
       toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, false);
     });
 
+    // Add event listener on the textarea to update the preview
+    const textarea = form.querySelector('textarea');
+    textarea.addEventListener('input', () => {
+      updatePreview(textarea, form.querySelector('.preview'), form.querySelector('.preview-body'), form.querySelector('.preview-text'));
+    });
+
     // Hide the title and body elements
-    titleElement.classList.add('d-none');
+    //titleElement.classList.add('d-none');
     bodyElement.classList.add('d-none');
     questionDate.classList.add('d-none');
 
@@ -128,7 +149,7 @@ function toggleEditMode(questionViewElement, questionId, directView, divId, ques
     form?.remove();
 
     // Show the title and body elements
-    titleElement.classList.remove('d-none');
+    //titleElement.classList.remove('d-none');
     bodyElement.classList.remove('d-none');
     questionDate.classList.remove('d-none');
 
@@ -314,7 +335,7 @@ function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, q
 
   const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: userIsAuthor});
 
-  if (userPermissions.canViewQuestionOptions()) {
+  if (userPermissions.canEditQuestion() || userPermissions.canLockQuestion() || userPermissions.canDeleteQuestion()) {
     const questionIcons = questionView.querySelector('.question-icons');
     const questionOptionsButton = createElementFromTemplate(`
         <div class="question-options">
@@ -406,6 +427,13 @@ async function populateAnswers(questionView, questionId) {
 
   const question = await fetchQuestion(questionId);
   const answers = question.answers;
+
+  // Initialize the options for the answers
+  const userRole = getAuthData()?.role;
+  const userIsAdmin = getAuthData()?.is_admin;
+  const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin});
+
+
 
   sortAnswers(answers).forEach(answer => {
     formatAnswerData(answer);

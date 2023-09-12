@@ -11,12 +11,6 @@ class UserPermissions {
     this.isAuthor = isAuthor;
   }
 
-  canViewQuestionOptions() {
-    return this.isAdmin || this.isAuthor ||
-      this.userRole === UserRole.ASSISTANT ||
-      this.userRole === UserRole.TEACHER;
-  }
-
   canEditQuestion() {
     return this.isAdmin || this.isAuthor ||
       this.userRole === UserRole.ASSISTANT ||
