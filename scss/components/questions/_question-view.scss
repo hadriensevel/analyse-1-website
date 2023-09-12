@@ -10,7 +10,6 @@
     @extend .d-flex;
     @extend .align-items-center;
     @extend .justify-content-start;
-    @extend .mb-3;
   }
 
   .question-header {
@@ -52,7 +51,7 @@
 
   .question-locked {
     @extend .d-inline;
-    @extend .text-warning;
+    @extend .text-secondary;
     @extend .fs-6;
     @extend .me-2;
 

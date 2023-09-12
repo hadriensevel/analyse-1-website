@@ -11,6 +11,7 @@ import {
   questionEditFormTemplate,
 } from './templates/question-view.js';
 import {updatePreview, UserRole} from './utils';
+import {processLineBreaks, escapeHTML} from './utils';
 
 import moment from 'moment/src/moment';
 import 'moment/src/locale/fr-ch';
@@ -135,7 +136,6 @@ function toggleEditMode(questionViewElement, questionId, directView, divId, ques
     editMode = false;
   }
 }
-
 
 function showToast(toastElement, toastOptions = {delay: 5000}) {
   const toast = new bootstrap.Toast(toastElement, toastOptions);
@@ -418,6 +418,7 @@ async function populateAnswers(questionView, questionId) {
 
 function formatQuestionData(question) {
   moment.locale('fr-ch');
+  question.formatted_body = processLineBreaks(question.body);
   question.date = moment(question.date).fromNow();
   question.image = question.image ?
     `<img class="question-image" src="${baseUrl}/api/image/${question.image}" alt="Image de la question">` :

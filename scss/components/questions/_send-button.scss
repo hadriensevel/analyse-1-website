@@ -14,5 +14,11 @@ form {
       @include icon('\F6C0');
       @extend .me-1;
     }
+
+    &.sending {
+      &:before {
+        content: '';
+      }
+    }
   }
 }

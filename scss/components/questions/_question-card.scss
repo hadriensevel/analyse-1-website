@@ -17,7 +17,7 @@
     @extend .card-body;
   }
 
-  .question-header, .question-footer {
+  .question-footer {
     @extend .d-flex;
     @extend .justify-content-between;
   }
@@ -27,6 +27,11 @@
     @extend .fs-6;
     @extend .m-0;
     @extend .me-2;
+  }
+
+  .question-resolved-locked {
+    @extend .d-inline;
+    @extend .me-3;
   }
 
   .question-resolved {
@@ -40,10 +45,10 @@
 
   .question-locked {
     @extend .d-inline;
-    @extend .text-warning;
 
     &:before {
       @include icon('\F47A');
+      @extend .ms-1;
     }
   }
 
@@ -54,6 +59,8 @@
   .question-author, .question-date {
     @extend .d-inline;
     @extend .px-0;
+    @extend .text-secondary;
+    font-size: .8rem;
   }
 
   .question-author {

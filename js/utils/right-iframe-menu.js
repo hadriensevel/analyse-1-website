@@ -51,6 +51,10 @@ function setupLinkListeners(menu) {
       offcanvas.hide();
     });
   });
+
+  menu.querySelectorAll('.had-pdf-link > a').forEach(link => {
+    link.href = `/analyse-1/${link.getAttribute('href')}`;
+  });
 }
 
 async function rightIframeMenu() {

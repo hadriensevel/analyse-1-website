@@ -6,7 +6,7 @@ const polycopDivViewTemplate = () => `
 <div class="polycop-div-view">
     <a class="div-view-button" data-bs-toggle="collapse" href="#div-view"
        role="button" aria-expanded="false" aria-controls="div-view">
-        Section du cours
+        Afficher la section du cours
     </a>
     <div class="collapse" id="div-view"></div>
 </div>
@@ -88,7 +88,7 @@ const questionViewTemplate = (question, answerForm) => `
 
     <div class="question-header">
         <div class="question-title-date">
-            <h5 class="question-title">${question.title}</h5>
+            <!--<h5 class="question-title">${question.title}</h5>-->
             <div class="question-date">${question.date}</div>
         </div>
         <div class="question-icons">
@@ -97,7 +97,7 @@ const questionViewTemplate = (question, answerForm) => `
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
         </div>
     </div>
-    <div class="question-body">${question.body}</div>
+    <div class="question-body">${question.formatted_body}</div>
     <div class="question-image-wrapper">
         ${question.image}
     </div>

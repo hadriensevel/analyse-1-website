@@ -2,6 +2,8 @@
 // PAGE WIDTH UTILS
 // ----------------------------------
 
+const increment = 150;
+
 // Cookie utility
 const cookieUtils = {
   set: (name, value, days) => {
@@ -21,7 +23,7 @@ const cookieUtils = {
 // Change width of the page with buttons
 function changeWidth(a) {
   const bodyWidth = parseInt(getComputedStyle(document.body).maxWidth);
-  let newWidth = bodyWidth + a * 250;
+  let newWidth = bodyWidth + a * increment;
   if (newWidth < 800) newWidth = 800;
   if (newWidth > window.innerWidth) newWidth = window.innerWidth;
   setWidth(newWidth);

@@ -6,11 +6,11 @@ const newQuestionFormTemplate = (divId) => `
 <div class="new-question-view">
     <form novalidate>
         <input type="hidden" name="div-id" value="${divId}">
-        <div class="mb-3">
+        <!--<div class="mb-3">
             <label for="question-title" class="form-label">Titre de la question</label>
             <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" required>
             <div class="invalid-feedback">Merci de donner un titre à votre question.</div>
-        </div>
+        </div>-->
         <div class="mb-3">
             <label for="question-body" class="form-label">Question</label>
             <textarea class="form-control form-control-sm" id="question-body" name="question-body" rows="5" required></textarea>

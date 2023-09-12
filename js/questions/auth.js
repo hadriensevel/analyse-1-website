@@ -2,14 +2,20 @@
 // AUTHENTICATION FOR QUESTIONS
 // ----------------------------------
 
-// Authentication details
-import axios from 'axios';
+import {getTokenFromSessionStorage, fetchAuthDetails, authentication} from '../utils/auth';
 
 let authData = null;
 
 // Get authentication details
 function getAuthData() {
   return authData;
+}
+
+// Get authentication from server
+async function iframeAuthentication() {
+  getTokenFromSessionStorage();
+  authData = await fetchAuthDetails();
+  authData = authData === 401 ? null : authData;
 }
 
 // When we receive a message from the main page
@@ -36,4 +42,4 @@ const listenAuthMessage = () => {
   });
 }
 
-export {listenAuthMessage, getAuthData};
+export {iframeAuthentication, listenAuthMessage, getAuthData};

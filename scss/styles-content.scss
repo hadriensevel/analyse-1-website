@@ -42,7 +42,7 @@
 @import "bootstrap/scss/tooltip";
 @import "bootstrap/scss/popover";
 // @import "bootstrap/scss/carousel";
-// @import "bootstrap/scss/spinners";
+@import "bootstrap/scss/spinners";
 // @import "bootstrap/scss/offcanvas"; // Requires transitions
 @import "bootstrap/scss/placeholders";
 @import "bootstrap/scss/helpers";
@@ -82,6 +82,12 @@ body {
   }
 
   @extend .p-3;
+
+  &.polycop {
+    @extend .py-3;
+    @extend .ps-3;
+    @extend .pe-1;
+  }
 }
 
 // Pour créer virtuellement la 3e colonne pour le polycop

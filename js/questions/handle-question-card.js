@@ -7,7 +7,7 @@ import {questionCardsPlaceholderTemplate} from './templates/question-cards-wrapp
 import {questionCardTemplate} from './templates/question-card';
 import {handleQuestionView} from './handle-question-view';
 import {handleNewQuestionView} from './handle-new-question-view';
-import {getFileName, QuestionLocation, Sort} from './utils';
+import {getFileName, processLineBreaks, QuestionLocation, Sort} from './utils';
 import {getFeatureFlag} from '../utils/feature-flags';
 import {getAuthData} from './auth';
 
@@ -200,6 +200,11 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
     questionsBodyElement.appendChild(errorElement);
     return;
   }
+
+  // Process the line breaks in the preview
+  questions.forEach((question) => {
+    question.formatted_preview = processLineBreaks(question.preview);
+  });
 
   // Render the questions
   renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort);

@@ -98,6 +98,16 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
   const formData = new FormData(form);
   const toastOptions = {delay: 5000};
 
+  // Add a spinner to the submit button
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.setAttribute('disabled', '');
+  submitButton.classList.add('sending');
+  const submitButtonContent = submitButton.innerHTML;
+  submitButton.innerHTML = `
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span role="status">Envoi...</span>
+  `;
+
   if (getAuthData()) {
     // Append the question data to the form data
     formData.append('page', getFileName());
@@ -116,9 +126,20 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
       preview.classList.add('d-none');
       form.classList.remove('was-validated');
       form.reset();
+
+      // Remove the spinner from the submit button
+      submitButton.removeAttribute('disabled');
+      submitButton.classList.remove('sending');
+      submitButton.innerHTML = submitButtonContent;
+
       return;
     }
   }
+
+  // Remove the spinner from the submit button
+  submitButton.removeAttribute('disabled');
+  submitButton.classList.remove('sending');
+  submitButton.innerHTML = submitButtonContent;
 
   const errorToast = new bootstrap.Toast(errorToastElement, toastOptions);
   errorToast.show();

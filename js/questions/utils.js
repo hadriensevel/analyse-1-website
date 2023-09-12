@@ -34,8 +34,38 @@ function escapeHTML(str) {
   return str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\n/g, '<br>');
+    .replace(/>/g, '&gt;');
+}
+
+function processLineBreaks(content) {
+  // Regular expression to match both inline and block LaTeX content
+  const regex = /\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g;
+
+  let lastIndex = 0;
+  const processedParts = [];
+
+  // Find LaTeX chunks
+  let match;
+  while ((match = regex.exec(content)) !== null) {
+    // Add plain text before the LaTeX chunk (if any) after converting line breaks
+    if (match.index > lastIndex) {
+      const plainText = content.slice(lastIndex, match.index).replace(/\n/g, '<br>');
+      processedParts.push(plainText);
+    }
+
+    // Add the LaTeX chunk without converting line breaks
+    processedParts.push(match[0]);
+
+    lastIndex = regex.lastIndex;
+  }
+
+  // Add any remaining plain text after the last LaTeX chunk
+  if (lastIndex < content.length) {
+    const plainText = content.slice(lastIndex).replace(/\n/g, '<br>');
+    processedParts.push(plainText);
+  }
+
+  return processedParts.join('');
 }
 
 // Update the preview when the user types in the textarea
@@ -51,9 +81,9 @@ function updatePreview(textarea, preview, previewBody, previewBodyText) {
   } else {
     preview.classList.remove('d-none');
     // Escape HTML and render LaTeX but take the newlines into account
-    previewBodyText.innerHTML = escapeHTML(textarea.value);
+    previewBodyText.innerHTML = processLineBreaks(escapeHTML(textarea.value));
     renderMathInElement(previewBodyText);
   }
 }
 
-export {getFileName, Sort, QuestionLocation, UserRole, updatePreview};
+export {getFileName, Sort, QuestionLocation, UserRole, escapeHTML, processLineBreaks, updatePreview};

@@ -63,6 +63,19 @@ function iframe() {
     setActiveState(button);
     closeSidebar();
   });
+
+  // If "dev" class on the sidebar buttons, a hover on the buttons will change the iframe src
+  // but when the mouse is not over the buttons, the iframe src will be the active button's href
+  const devButtons = document.querySelectorAll('.had-nav-link-toplevel.dev, .had-nav-link-secondlevel.dev');
+  devButtons.forEach(button => {
+    button.addEventListener('mouseover', () => {
+      loadIframe(button)
+    });
+    button.addEventListener('mouseout', () => {
+      const activeButton = document.querySelector('.had-nav-link-toplevel.active, .had-nav-link-secondlevel.active');
+      loadIframe(activeButton)
+    });
+  });
 }
 
 export {iframe};

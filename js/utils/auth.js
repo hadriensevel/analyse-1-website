@@ -114,6 +114,14 @@ function sendMessageToIframe(iframeId, authData, token) {
   }
 }
 
+function getTokenFromSessionStorage() {
+  // Get token from localStorage
+  const sessionStorageToken = sessionStorage.getItem('token');
+  if (sessionStorageToken) {
+    // Add the token to the headers of the requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorageToken}`;
+  }
+}
 
 async function authentication() {
   // Get the token parameter in the URL if there is one, store it in localStorage and remove it from the URL
@@ -131,12 +139,7 @@ async function authentication() {
     window.history.replaceState({}, '', newUrl);
   }
 
-  // Get token from localStorage
-  const sessionStorageToken = sessionStorage.getItem('token');
-  if (sessionStorageToken) {
-    // Add the token to the headers of the requests
-    axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorageToken}`;
-  }
+  getTokenFromSessionStorage();
 
   const authData = await fetchAuthDetails();
   const usernameDiv = document.querySelector('.had-auth-info');
@@ -154,8 +157,8 @@ async function authentication() {
 
   usernameDiv.appendChild(authButton);
 
-  sendMessageToIframe("iframe", authData, sessionStorageToken);
-  sendMessageToIframe("right-iframe", authData, sessionStorageToken);
+  //sendMessageToIframe("iframe", authData, sessionStorageToken);
+  //sendMessageToIframe("right-iframe", authData, sessionStorageToken);
 }
 
-export {authentication};
+export {authentication, fetchAuthDetails, getTokenFromSessionStorage};
