@@ -5,7 +5,7 @@
 // Get the file name of the HTML page
 function getFileName() {
   const path = window.location.pathname;
-  return path.split('/').pop();
+  return path.split('/').pop().replace('.html', '');
 }
 
 // Enum for the sorting of the questions
