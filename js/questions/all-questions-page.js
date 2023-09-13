@@ -18,8 +18,13 @@ function allQuestions() {
   const scriptTag =   document.body.querySelector('script');
   scriptTag.before(questionsDiv);
 
+  // Add message that the feature is not implemented yet
+  const message = document.createElement('div');
+  message.innerHTML = `<p>La page "Toutes les questions" n'est pas encore implémentée.</p>`;
+  questionsDiv.appendChild(message);
+
   // Load the question cards
-  loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
+  //loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
