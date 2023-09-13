@@ -22,5 +22,3 @@ function allQuestions() {
 document.addEventListener('DOMContentLoaded', () => {
   allQuestions();
 });
-
-export {allQuestions};
