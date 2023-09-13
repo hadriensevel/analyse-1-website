@@ -201,11 +201,6 @@ async function loadQuestionCards(divId, questionsBody, questionLocation, createT
     return;
   }
 
-  // Process the line breaks in the preview
-  questions.forEach((question) => {
-    question.formatted_preview = processLineBreaks(question.preview);
-  });
-
   // Render the questions
   renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort);
 }

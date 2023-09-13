@@ -8,7 +8,7 @@ const questionCardTemplate = (question) => {
     <div class="question-body">
         <div class="question-header">
             <!--<h5 class="question-title">${question.title}</h5>-->
-            <div class="question-preview">${question.formatted_preview}</div>
+            <div class="question-preview">${question.preview}</div>
         </div>
         <div class="question-footer">
             <div class="question-author-date">
