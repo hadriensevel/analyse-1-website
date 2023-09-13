@@ -13,7 +13,10 @@ function allQuestions() {
   questionsDiv.id = 'questions';
   const questionCardsWrapper = createElementFromTemplate(questionCardsWrapperTemplate(true));
   questionsDiv.appendChild(questionCardsWrapper);
-  document.body.firstChild.before(questionsDiv);
+
+  // Select the first script tag and insert the questions div before it
+  const scriptTag =   document.body.querySelector('script');
+  scriptTag.before(questionsDiv);
 
   // Load the question cards
   loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
