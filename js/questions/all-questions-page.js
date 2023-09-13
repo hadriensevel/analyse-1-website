@@ -1,5 +1,5 @@
 // ----------------------------------
-// ALL QUESTIONS
+// ALL QUESTIONS PAGE
 // ----------------------------------
 
 import {createElementFromTemplate} from './templates/utils.js';
