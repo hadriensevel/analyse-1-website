@@ -9,19 +9,18 @@ import {
   questionModalTemplate,
   questionAnswersTemplate,
   questionEditFormTemplate,
+  answerEditFormTemplate,
 } from './templates/question-view.js';
 import {updatePreview, UserRole} from './utils';
-import {processLineBreaks, escapeHTML} from './utils';
+import {processLineBreaks} from './utils';
 
 import moment from 'moment/src/moment';
 import 'moment/src/locale/fr-ch';
 import {baseUrl, supportEmail} from '../utils/config';
-import {getAuthData} from './auth';
+import {getAuthData} from '../utils/auth';
 import axios from 'axios';
 import {UserPermissions} from './user-permissions';
-
-// Variable to keep track of the edit mode
-let editMode = false;
+import {rightIframeLink} from '../utils/right-iframe-link';
 
 async function sendAnswer(formData) {
   try {
@@ -51,35 +50,80 @@ async function fetchQuestion(questionId) {
   }
 }
 
-async function editQuestion(questionId, form, directView, divId, questionContainer) {
-  const formData = new FormData(form);
+async function editQuestion(questionViewElement, questionId) {
+  const questionBody = questionViewElement.querySelector('.question-body');
+  const questionHeader = questionViewElement.querySelector('.question-header');
 
-  // Add a spinner to the submit button
-  const submitButton = form.querySelector('button[type="submit"]');
-  submitButton.setAttribute('disabled', '');
-  submitButton.classList.add('sending');
-  const submitButtonContent = submitButton.innerHTML;
-  submitButton.innerHTML = `
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    <span role="status">Envoi...</span>
-  `;
+  // Create a form
+  const form = createElementFromTemplate(questionEditFormTemplate(questionBody.dataset.body));
 
-  try {
-    await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
-    // Quit the edit mode
-    editMode = false;
-    // Empty the question container
-    questionContainer.querySelector('.question-view').remove();
-    // Rerender the question
-    initializeQuestionView(questionContainer, questionId, divId, directView)
-  } catch (error) {
-    alert('Erreur lors de l\'enregistrement de la question.');
+  // Add event listeners to the form
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    // Remove the spinner from the submit button
-    submitButton.removeAttribute('disabled');
-    submitButton.classList.remove('sending');
-    submitButton.innerHTML = submitButtonContent;
-  }
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      form.classList.add('was-validated');
+    } else {
+      const formData = new FormData(form);
+
+      // Add a spinner to the submit button
+      const submitButton = form.querySelector('button[type="submit"]');
+      submitButton.setAttribute('disabled', '');
+      submitButton.classList.add('sending');
+      const submitButtonContent = submitButton.innerHTML;
+      submitButton.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span role="status">Envoi...</span>
+      `;
+
+      try {
+        await axios.post(`${baseUrl}/api/question/edit/${questionId}`, formData);
+
+        // Replace the question body with the new body
+        questionBody.innerHTML = processLineBreaks(formData.get('question-body'));
+        questionBody.dataset.body = formData.get('question-body');
+
+        // Remove the form and show the body and header elements
+        form.remove();
+        questionBody.classList.remove('d-none');
+        questionHeader.classList.remove('d-none');
+
+        renderMathInElement(questionBody);
+      } catch (error) {
+        alert('Erreur lors de l\'enregistrement de la question.');
+
+        // Remove the spinner from the submit button
+        submitButton.removeAttribute('disabled');
+        submitButton.classList.remove('sending');
+        submitButton.innerHTML = submitButtonContent;
+      }
+    }
+  });
+
+  // Add event listeners to the cancel button
+  const cancelButton = form.querySelector('.cancel-button');
+  cancelButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Remove the form and show the body and header elements
+    form.remove();
+    questionBody.classList.remove('d-none');
+    questionHeader.classList.remove('d-none');
+  });
+
+  // Add event listener on the textarea to update the preview
+  const textarea = form.querySelector('textarea');
+  textarea.addEventListener('input', () => {
+    updatePreview(textarea, form.querySelector('.preview'), form.querySelector('.preview-body'), form.querySelector('.preview-text'));
+  });
+
+  // Hide the header and body elements
+  questionHeader.classList.add('d-none');
+  questionBody.classList.add('d-none');
+
+  // Append the form to the DOM
+  questionBody.after(form);
 }
 
 async function deleteQuestion(questionId, directView, questionView) {
@@ -99,62 +143,106 @@ async function deleteQuestion(questionId, directView, questionView) {
   }
 }
 
-function toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, enableEdit = true) {
-  //const titleElement = questionViewElement.querySelector('.question-title');
-  const questionDate = questionViewElement.querySelector('.question-date');
-  const bodyElement = questionViewElement.querySelector('.question-body');
+async function editAnswer(answerElement, questionId, answerId) {
+  const answerBody = answerElement.querySelector('.answer-body');
+  const answerFooter = answerElement.querySelector('.answer-footer');
 
-  if (enableEdit && !editMode) {
-    // Set the edit mode to true
-    editMode = true;
+  // Create a form
+  const form = createElementFromTemplate(answerEditFormTemplate(answerElement.dataset.body));
 
-    // Create a form
-    const form = createElementFromTemplate(questionEditFormTemplate(bodyElement.dataset.body));
+  // Add event listeners to the form
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    // Add event listeners to the form
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      form.classList.add('was-validated');
+    } else {
+      const formData = new FormData(form);
 
-      if (!form.checkValidity()) {
-        e.stopPropagation();
-        form.classList.add('was-validated');
-      } else {
-        editQuestion(questionId, form, directView, divId, questionContainer);
+      // Add a spinner to the submit button
+      const submitButton = form.querySelector('button[type="submit"]');
+      submitButton.setAttribute('disabled', '');
+      submitButton.classList.add('sending');
+      const submitButtonContent = submitButton.innerHTML;
+      submitButton.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span role="status">Envoi...</span>
+      `;
+
+      try {
+        await axios.post(`${baseUrl}/api/answer/edit/${answerId}`, formData);
+
+        // Replace the answer body with the new body
+        answerBody.innerHTML = processLineBreaks(formData.get('answer-body'));
+        answerBody.dataset.body = formData.get('answer-body');
+
+        // Remove the form and show the body and footer elements
+        form.remove();
+        answerBody.classList.remove('d-none');
+        answerFooter.classList.remove('d-none');
+
+        renderMathInElement(answerBody);
+      } catch {
+        alert('Erreur lors de l\'enregistrement de la réponse.');
+
+        // Remove the spinner from the submit button
+        submitButton.removeAttribute('disabled');
+        submitButton.classList.remove('sending');
+        submitButton.innerHTML = submitButtonContent;
       }
-    });
+    }
+  });
 
-    // Add event listeners to the cancel button
-    const cancelButton = form.querySelector('.cancel-button');
-    cancelButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleEditMode(questionViewElement, questionId, directView, divId, questionContainer, false);
-    });
+  // Add event listeners to the cancel button
+  const cancelButton = form.querySelector('.cancel-button');
+  cancelButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    form.remove();
+    answerBody.classList.remove('d-none');
+    answerFooter.classList.remove('d-none');
+  });
 
-    // Add event listener on the textarea to update the preview
-    const textarea = form.querySelector('textarea');
-    textarea.addEventListener('input', () => {
-      updatePreview(textarea, form.querySelector('.preview'), form.querySelector('.preview-body'), form.querySelector('.preview-text'));
-    });
+  // Add event listener on the textarea to update the preview
+  const textarea = form.querySelector('textarea');
+  textarea.addEventListener('input', () => {
+    updatePreview(textarea, form.querySelector('.preview'), form.querySelector('.preview-body'), form.querySelector('.preview-text'));
+  });
 
-    // Hide the title and body elements
-    //titleElement.classList.add('d-none');
-    bodyElement.classList.add('d-none');
-    questionDate.classList.add('d-none');
+  // Hide the body and footer elements
+  answerBody.classList.add('d-none');
+  answerFooter.classList.add('d-none');
 
-    // Append the form to the DOM
-    bodyElement.after(form);
-  } else {
-    // Remove the form
-    const form = questionViewElement.querySelector('.edit-form');
-    form?.remove();
+  // Append the form to the DOM
+  answerBody.before(form);
+}
 
-    // Show the title and body elements
-    //titleElement.classList.remove('d-none');
-    bodyElement.classList.remove('d-none');
-    questionDate.classList.remove('d-none');
+async function deleteAnswer(answerElement, answerId) {
+  if (confirm('Êtes-vous sûr de vouloir supprimer cette réponse?')) {
+    try {
+      await axios.delete(`${baseUrl}/api/answer/delete/${answerId}`);
+      answerElement.remove();
 
-    // Set the edit mode to false
-    editMode = false;
+      // Update the answer count
+      const answerCountElement = document.querySelector('.count-answers');
+      const answerCount = parseInt(answerCountElement.textContent);
+      answerCountElement.textContent = answerCount - 1;
+    } catch {
+      alert('Erreur lors de la suppression de la réponse.');
+    }
+  }
+}
+
+async function acceptAnswer(answerElement, answerId) {
+  const answerAcceptedElement = answerElement.querySelector('.answer-accepted');
+  const accepted = answerAcceptedElement.dataset.accepted === 'true';
+
+  try {
+    await axios.post(`${baseUrl}/api/answer/${accepted ? 'unaccept' : 'accept'}/${answerId}`);
+
+    answerAcceptedElement.dataset.accepted = accepted ? 'false' : 'true';
+  } catch {
+    alert('Erreur lors de la mise à jour de la réponse.');
   }
 }
 
@@ -163,37 +251,56 @@ function showToast(toastElement, toastOptions = {delay: 5000}) {
   toast.show();
 }
 
-async function handleFormSubmission(elements) {
+async function handleAnswerFormSubmission(elements) {
   const {
     form,
     questionId,
-    successToastElement,
-    errorToastElement,
     previewBodyText,
     preview,
     questionView
   } = elements;
   const formData = new FormData(form);
 
-  if (getAuthData()) {
+  // Add a spinner to the submit button
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.setAttribute('disabled', '');
+  submitButton.classList.add('sending');
+  const submitButtonContent = submitButton.innerHTML;
+  submitButton.innerHTML = `
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    <span role="status">Envoi...</span>
+  `;
+
     formData.append('question-id', questionId);
 
-    const response = await sendAnswer(formData);
+  try {
+    await axios.post(`${baseUrl}/api/answer/new`, formData);
 
-    if (response && response.status === 200) {
-      showToast(successToastElement);
+    form.reset();
+    previewBodyText.textContent = '';
+    preview.classList.add('d-none');
+    form.classList.remove('was-validated');
 
-      form.reset();
-      previewBodyText.textContent = '';
-      preview.classList.add('d-none');
-      form.classList.remove('was-validated');
+    // Rerender the question
+    await populateAnswers(questionView, questionId);
 
-      // Rerender the question
-      await populateAnswers(questionView, questionId);
-      return;
-    }
+    // Update the answer count
+    const answerCountElement = questionView.querySelector('.count-answers');
+    const answerCount = parseInt(answerCountElement.textContent);
+    answerCountElement.textContent = answerCount + 1;
+
+    // Remove the spinner from the submit button
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('sending');
+    submitButton.innerHTML = submitButtonContent;
+  } catch {
+    alert('Erreur lors de l\'envoi de la réponse.');
+
+    // Remove the spinner from the submit button
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('sending');
+    submitButton.innerHTML = submitButtonContent;
   }
-  showToast(errorToastElement);
 }
 
 function setupEventListeners(elements) {
@@ -241,7 +348,7 @@ function addFormSubmitEventListener(elements) {
       e.stopPropagation();
       form.classList.add('was-validated');
     } else {
-      handleFormSubmission(elements);
+      handleAnswerFormSubmission(elements);
     }
   });
 }
@@ -285,7 +392,6 @@ function addLikeButtonEventListener(questionView, questionId) {
 function addModalEventListeners(questionModal) {
   questionModal.addEventListener('click', (e) => {
     if (e.target.classList.contains('back-button') || e.target.classList.contains('btn-close')) {
-      editMode = false;
       closeModal(questionModal);
       if (e.target.classList.contains('btn-close')) {
         closeModal(document.querySelector('.question-list-modal'), true);
@@ -300,13 +406,13 @@ function addDirectViewEventListeners(questionView, questionId) {
   topBar.innerHTML = `
     <a class="back-button" href="#" aria-label="Retour" title="Retour"></a>
     <h1 class="question-view-title">Question #${questionId}</h1>
+    <div class="question-link"></div>
   `;
 
   questionView.prepend(topBar);
   topBar.addEventListener('click', (e) => {
     if (e.target.classList.contains('back-button')) {
       e.preventDefault();
-      editMode = false;
       questionView.remove();
 
       document.querySelector('.top-bar').classList.remove('d-none');
@@ -330,45 +436,40 @@ function initializeDivPolycopView(questionView, divId) {
 }
 
 function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, questionId, directView, divId, questionContainer) {
-  const userRole = getAuthData()?.role;
-  const userIsAdmin = getAuthData()?.is_admin;
+  const dropdownMenu = questionView.querySelector('.dropdown-menu');
 
-  const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: userIsAuthor});
+  if (!dropdownMenu) return;
+  dropdownMenu.addEventListener('click', (e) => {
+    const target = e.target;
 
-  if (userPermissions.canEditQuestion() || userPermissions.canLockQuestion() || userPermissions.canDeleteQuestion()) {
-    const questionIcons = questionView.querySelector('.question-icons');
-    const questionOptionsButton = createElementFromTemplate(`
-        <div class="question-options">
-            <div class="question-options-button" data-bs-toggle="dropdown"></div>
-            <ul class="dropdown-menu">
-                ${userPermissions.canEditQuestion() ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
-                ${userPermissions.canLockQuestion() ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${questionLocked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''}
-                ${userPermissions.canDeleteQuestion() ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
-            </ul>
-        </div>
-    `);
-    questionIcons.appendChild(questionOptionsButton);
-
-    const dropdownMenu = questionView.querySelector('.dropdown-menu');
-
-    dropdownMenu.addEventListener('click', (e) => {
-      const target = e.target;
-
-      if (target.matches('.dropdown-item[data-action="edit"]')) {
-        e.preventDefault();
-        if (!editMode) toggleEditMode(questionView, questionId, directView, divId, questionContainer);
-      } else if (target.matches('.dropdown-item[data-action="lock"]')) {
-        e.preventDefault();
-        console.log('lock');
-      } else if (target.matches('.dropdown-item[data-action="delete"]')) {
-        e.preventDefault();
-        deleteQuestion(questionId, directView, questionView);
-      }
-    });
-  }
+    if (target.matches('.dropdown-item[data-action="edit"]')) {
+      e.preventDefault();
+      editQuestion(questionView, questionId);
+    } else if (target.matches('.dropdown-item[data-action="lock"]')) {
+      e.preventDefault();
+      console.log('lock');
+    } else if (target.matches('.dropdown-item[data-action="delete"]')) {
+      e.preventDefault();
+      deleteQuestion(questionId, directView, questionView);
+    }
+  });
 }
 
-async function initializeQuestionView(questionContainer, questionId, divId, directView = false) {
+function initializeQuestionLink(questionView, page, divId, location) {
+  const link = location === 'course' ? `../../analyse-1/resources/sections/${page}.html` : `${window.parent.location.pathname}?page=${page}`;
+
+  // Add the link in the top bar
+  const topBarLink = questionView.querySelector('.top-bar > .question-link');
+  const linkElement = document.createElement('a');
+  if (location === 'course') linkElement.classList.add('right-iframe-link');
+  else linkElement.target = '_blank';
+  linkElement.href = link;
+  topBarLink.appendChild(linkElement);
+
+  rightIframeLink();
+}
+
+async function initializeQuestionView(questionContainer, questionId, divId, directView = false, questionLocation = null) {
   const question = await fetchQuestion(questionId);
 
   if (question === null) {
@@ -389,6 +490,14 @@ async function initializeQuestionView(questionContainer, questionId, divId, dire
     }
     return;
   }
+
+  // Initialize permissions for the current user
+  const userRole = getAuthData()?.role;
+  const userIsAdmin = getAuthData()?.is_admin;
+  const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: question.user_is_author});
+  question.can_edit = userPermissions.canEditQuestion();
+  question.can_delete = userPermissions.canDeleteQuestion();
+  question.can_lock = userPermissions.canLockQuestion();
 
   formatQuestionData(question);
 
@@ -416,6 +525,8 @@ async function initializeQuestionView(questionContainer, questionId, divId, dire
   };
 
   setupEventListeners(elements);
+
+  if (questionLocation === '') initializeQuestionLink(questionView, question.page_id, question.div_id, question.location);
 }
 
 async function populateAnswers(questionView, questionId) {
@@ -428,20 +539,50 @@ async function populateAnswers(questionView, questionId) {
   const question = await fetchQuestion(questionId);
   const answers = question.answers;
 
-  // Initialize the options for the answers
+  // Initialize permissions for the current user
   const userRole = getAuthData()?.role;
   const userIsAdmin = getAuthData()?.is_admin;
-  const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin});
-
-
 
   sortAnswers(answers).forEach(answer => {
-    formatAnswerData(answer);
+    // Initialize permissions for the current answer
+    const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: answer.user_is_author});
+    answer.can_edit = userPermissions.canEditAnswer();
+    answer.can_delete = userPermissions.canDeleteAnswer();
+    answer.can_accept = userPermissions.canAcceptAnswer();
+
+    // Format the answer data
+    answer.date = moment(answer.date).fromNow();
+    answer.user_role = getUserRoleBadge(answer.user_role);
+    answer.formatted_body = processLineBreaks(answer.body);
+
     const answerElement = createElementFromTemplate(questionAnswersTemplate(answer));
     answersContainer.appendChild(answerElement);
+
+    initializeAnswerOptions(answerElement, questionId, answer.accepted);
   });
 
   renderMathInElement(answersContainer);
+}
+
+function initializeAnswerOptions(answerElement, questionId) {
+  const dropdownMenu = answerElement.querySelector('.dropdown-menu');
+
+  if (!dropdownMenu) return;
+  dropdownMenu.addEventListener('click', (e) => {
+    const target = e.target;
+    const answerId = answerElement.dataset.answerId;
+
+    if (target.matches('.dropdown-item[data-action="edit"]')) {
+      e.preventDefault();
+      editAnswer(answerElement, questionId, answerId);
+    } else if (target.matches('.dropdown-item[data-action="accept"]')) {
+      e.preventDefault();
+      acceptAnswer(answerElement, answerId);
+    } else if (target.matches('.dropdown-item[data-action="delete"]')) {
+      e.preventDefault();
+      deleteAnswer(answerElement, answerId);
+    }
+  });
 }
 
 function formatQuestionData(question) {
@@ -451,14 +592,6 @@ function formatQuestionData(question) {
   question.image = question.image ?
     `<img class="question-image" src="${baseUrl}/api/image/${question.image}" alt="Image de la question">` :
     '';
-}
-
-function formatAnswerData(answer) {
-  const userPermissions = new UserPermissions({userRole: getAuthData()?.role, isAdmin: getAuthData()?.is_admin});
-  answer.can_accept = userPermissions.canAcceptAnswer();
-
-  answer.date = moment(answer.date).fromNow();
-  answer.user_role = getUserRoleBadge(answer.user_role);
 }
 
 function getUserRoleBadge(role) {
@@ -486,7 +619,7 @@ function rolesPriority(role) {
   return priorities[role] || 4;
 }
 
-function handleQuestionView(questionId, directView, divId) {
+function handleQuestionView(questionId, directView, divId, questionLocation) {
   // Remove existing elements if they exist
   const existingModal = document.querySelector('.question-modal');
   if (existingModal) existingModal.remove();
@@ -495,8 +628,8 @@ function handleQuestionView(questionId, directView, divId) {
   if (existingView) existingView.remove();
 
   if (directView) {
-    const questionContainer = document.querySelector('#questions');
-    initializeQuestionView(questionContainer, questionId, divId, true);
+    const questionContainer = document.querySelector('#questions, #all-questions');
+    initializeQuestionView(questionContainer, questionId, divId, true, questionLocation);
 
     // Hide unnecessary UI components
     document.querySelector('.top-bar').classList.add('d-none');

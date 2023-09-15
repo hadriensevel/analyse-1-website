@@ -1,0 +1,44 @@
+// ----------------------------------
+// Timeline
+// ----------------------------------
+
+.grid-semaine {
+  display: grid;
+  grid-template-columns: 50px  auto;
+  background-color: white;
+  padding: 0;
+}
+
+.grid-titre-semaine {
+  text-align: center;
+  border: 1px solid lightgray;
+  font-size: 14px;
+  color: gray;
+  writing-mode: sideways-lr;
+}
+
+.grid-cours {
+  display: grid;
+  grid-template-columns: 80px auto;
+  background-color: white;
+  margin-right: 20px;
+  /*filter: blur(3px);*/
+}
+
+.grid-titre-cours {
+  display: grid;
+  background-color: #e6f3ff;
+  border: 1px solid lightgray;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 5px;
+  /*writing-mode: vertical-rl;*/
+  /*writing-mode: sideways-lr;*/
+}
+
+.links-matiere {
+  padding: 0;
+  border-style: dotted;
+  border-width: 2px 2px 0 0;
+  border-color: #f4f0ec;
+}

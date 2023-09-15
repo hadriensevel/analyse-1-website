@@ -5,6 +5,12 @@
 import axios from 'axios';
 import {baseUrl} from './config';
 
+let authData = null;
+
+function getAuthData() {
+  return authData;
+}
+
 // Fetch authentication details
 async function fetchAuthDetails() {
   try {
@@ -73,7 +79,20 @@ function createUserDetailsButton(authData) {
   authUserIcon.dataset.bsToggle = 'popover';
   authUserIcon.dataset.bsPlacement = 'bottom';
   authUserIcon.dataset.bsTitle = authData.name;
-  authUserIcon.dataset.bsContent = `<a id="logout-link" href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>`;
+  const role = (() => {
+    switch (authData.role) {
+      case 'teacher':
+        return 'Enseignant';
+      case 'assistant':
+        return 'Assistant';
+      default:
+        return '';
+    }
+  });
+  authUserIcon.dataset.bsContent = `
+    <div class="had-user-role">${role()} ${authData.is_admin ? '(admin)' : ''}</div>
+    <a id="logout-link" href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>
+  `;
 
   new bootstrap.Popover(authUserIcon, {
     container: 'body',
@@ -97,23 +116,6 @@ function createUserDetailsButton(authData) {
   return authButton;
 }
 
-function sendMessageToIframe(iframeId, authData, token) {
-  const iframe = document.getElementById(iframeId);
-  const url = window.location.href.split('/').slice(0, 3).join('/');
-
-  if (iframe) {
-    const sendMessage = () => {
-      iframe.contentWindow.postMessage({ authDetails: authData, token: token }, url);
-    };
-
-    if (iframe.contentWindow.document.readyState === 'complete') {
-      sendMessage();
-    } else {
-      iframe.onload = sendMessage;
-    }
-  }
-}
-
 function getTokenFromSessionStorage() {
   // Get token from localStorage
   const sessionStorageToken = sessionStorage.getItem('token');
@@ -121,6 +123,13 @@ function getTokenFromSessionStorage() {
     // Add the token to the headers of the requests
     axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorageToken}`;
   }
+}
+
+// Get authentication from server
+async function iframeAuthentication() {
+  getTokenFromSessionStorage();
+  authData = await fetchAuthDetails();
+  authData = authData === 401 ? null : authData;
 }
 
 async function authentication() {
@@ -161,4 +170,4 @@ async function authentication() {
   //sendMessageToIframe("right-iframe", authData, sessionStorageToken);
 }
 
-export {authentication, fetchAuthDetails, getTokenFromSessionStorage};
+export {authentication, iframeAuthentication, fetchAuthDetails, getAuthData, getTokenFromSessionStorage};

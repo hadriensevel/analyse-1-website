@@ -4,10 +4,9 @@
 
 import {createElementFromTemplate, closeModal} from './templates/utils.js';
 import {newQuestionFormTemplate, newQuestionModalTemplate} from './templates/new-question-view.js';
-import {getAuthData} from './auth';
-import {getFileName} from './utils';
-import {updatePreview} from './utils';
+import {getFileName, updatePreview} from './utils';
 import {baseUrl} from '../utils/config';
+import {getAuthData} from '../utils/auth';
 
 import axios from 'axios';
 

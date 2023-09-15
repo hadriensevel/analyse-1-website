@@ -2,7 +2,6 @@
 // HANDLE RIGHT COLUMN FOR QUESTIONS
 // ----------------------------------
 
-import {loadQuestionCards} from './handle-question-card';
 import {handleQuestionListModal} from './handle-question-list-modal';
 import {getFileName} from './utils';
 import {baseUrl} from '../utils/config';

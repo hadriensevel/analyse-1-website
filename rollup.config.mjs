@@ -7,7 +7,7 @@ export default [
     output: {
       dir: 'dist/js',
       format: 'es',
-      //sourcemap: true
+      sourcemap: true
     },
     plugins: [resolve({browser: true}), terser({format: {comments: false}})]
   },
@@ -16,7 +16,7 @@ export default [
     output: {
       file: 'dist/js/bundle.js',
       format: 'iife',
-      //sourcemap: true
+      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   },
@@ -25,7 +25,7 @@ export default [
     output: {
       file: 'dist/js/bundle2.js',
       format: 'iife',
-      //sourcemap: true
+      sourcemap: true
     },
     plugins: [terser({format: {comments: false}})]
   }

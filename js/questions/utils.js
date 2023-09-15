@@ -13,6 +13,8 @@ const Sort = {
   DATE: 'date',
   LIKES: 'likes',
   RESOLVED: 'resolved',
+  NON_RESOLVED: 'non-resolved',
+  NO_ANSWER: 'no-answer',
 }
 
 // Enum for the location of the question

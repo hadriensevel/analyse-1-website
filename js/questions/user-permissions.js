@@ -12,9 +12,7 @@ class UserPermissions {
   }
 
   canEditQuestion() {
-    return this.isAdmin || this.isAuthor ||
-      this.userRole === UserRole.ASSISTANT ||
-      this.userRole === UserRole.TEACHER;
+    return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT || this.isAuthor;
   }
 
   canLockQuestion() {
@@ -22,15 +20,19 @@ class UserPermissions {
   }
 
   canDeleteQuestion() {
-    return this.isAdmin || this.userRole === UserRole.TEACHER;
+    return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT;
   }
 
   canEditAnswer() {
-    return this.isAdmin || this.userRole === UserRole.TEACHER;
+    return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT || this.isAuthor;
   }
 
   canAcceptAnswer() {
     return this.isAdmin || this.userRole === UserRole.TEACHER;
+  }
+
+  canDeleteAnswer() {
+    return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT;
   }
 }
 

@@ -10,12 +10,12 @@ import {QuestionLocation} from './utils';
 function myQuestions() {
   // Create wrapper for the questions
   const questionsDiv = document.createElement('div');
-  questionsDiv.id = 'questions';
+  questionsDiv.id = 'my-questions';
   const questionCardsWrapper = createElementFromTemplate(questionCardsWrapperTemplate(true));
   questionsDiv.appendChild(questionCardsWrapper);
 
   // Select the first script tag and insert the questions div before it
-  const scriptTag =   document.body.querySelector('script');
+  const scriptTag = document.body.querySelector('script');
   scriptTag.before(questionsDiv);
 
   // Add message that the feature is not implemented yet

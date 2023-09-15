@@ -13,26 +13,45 @@ const polycopDivViewTemplate = () => `
 `;
 
 const questionAnswersTemplate = (answer) => `
-<div class="answer" data-answer-id="${answer.id}">
-    ${answer.body}
+<div class="answer" data-answer-id="${answer.id}" data-body="${answer.body}">
+    <div class="answer-body">${answer.formatted_body}</div>
     <div class="answer-footer">
-        ${answer.accepted ? '<div class="answer-accepted" title="Réponse acceptée"></div>' : ''}
+        <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
         ${answer.user_role}
-        <div class="answer-date">${answer.date}</div>
-        <!--<div class="answer-options"></div>-->
+        <span class="answer-date">${answer.user_is_author ? 'vous, ' : ''}${answer.date}</span>
+        ${(answer.can_edit || answer.can_delete || answer.can_accept) ? `
+        <div class="answer-options" data-bs-toggle="dropdown"></div>
+        <ul class="dropdown-menu">
+            ${answer.can_edit ? `<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>` : ''}
+            ${answer.can_accept ? `<li><a class="dropdown-item" data-action="accept" href="#">${answer.accepted ? 'Invalider la réponse' : 'Valider la réponse'}</a></li>` : ''}
+            ${answer.can_delete ? `<li><a class="dropdown-item" data-action="delete" href="#">Supprimer</a></li>` : ''}
+        </ul>
+        ` : ''}
     </div>
 </div>
 `;
 
+const answerEditFormTemplate = (answerBody) => `
+<form novalidate class="edit-form">
+    <div class="my-3">
+        <label for="answer-body" class="form-label">Éditer la réponse</label>
+        <textarea class="form-control form-control-sm" id="answer-body" name="answer-body" rows="5" required>${answerBody}</textarea>
+        <div class="invalid-feedback">La réponse ne peut pas être vide.</div>
+    </div>
+    <div class="preview d-none">
+        <div class="preview-title">Prévisualisation</div>
+        <div class="preview-body">
+            <p class="preview-text"></p>
+        </div>
+    </div>
+    <button class="cancel-button">Annuler</button>
+    <button type="submit" class="save-button">Enregistrer</button>
+</form>
+`;
+
 const questionEditFormTemplate = (questionBody) => `
 <form novalidate class="edit-form">
-    <!--<div class="mb-3">
-        <label for="question-title" class="form-label">Titre de la question</label>
-        <input type="text" class="form-control form-control-sm" id="question-title" name="question-title" value="" required>
-        <div class="invalid-feedback">Le titre de la question ne peut pas être vide</div>
-    </div>-->
-    <div class="mb-3">
-        <label for="question-body" class="form-label">Question</label>
+    <div class="my-3">
         <textarea class="form-control form-control-sm" id="question-body" name="question-body" rows="5" required>${questionBody}</textarea>
         <div class="invalid-feedback">La question ne peut pas être vide.</div>
     </div>
@@ -89,12 +108,21 @@ const questionViewTemplate = (question, answerForm) => `
     <div class="question-header">
         <div class="question-title-date">
             <!--<h5 class="question-title">${question.title}</h5>-->
-            <div class="question-date">${question.date}</div>
+            <div class="question-date">${question.user_is_author ? 'vous, ' : ''}${question.date}</div>
         </div>
         <div class="question-icons">
             ${question.resolved ? `<div class="question-resolved" title="Question résolue"></div>` : ''}
             ${question.locked ? `<div class="question-locked" title="Question verrouillée"></div>` : ''}
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
+            ${question.can_edit || question.can_delete || question.can_lock ? `
+            <div class="question-options">
+                <div class="question-options-button" data-bs-toggle="dropdown"></div>
+                <ul class="dropdown-menu">
+                    ${question.can_edit ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
+                    ${question.can_lock ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${question.locked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''}
+                    ${question.can_delete ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
+                </ul>
+            </div>` : ''}
         </div>
     </div>
     <div class="question-body" data-body="${question.body}">${question.formatted_body}</div>
@@ -102,7 +130,7 @@ const questionViewTemplate = (question, answerForm) => `
         ${question.image}
     </div>
     
-    <h6>${question.answers.length > 1 ? `${question.answers.length} réponses` : `${question.answers.length} réponse`}</h6>
+    <h6><span class="count-answers">${question.answers.length}</span> ${question.answers.length > 1 ? 'réponses' : 'réponse'}</h6>
     <div class="answers">
     </div>
     
@@ -130,4 +158,4 @@ const questionModalTemplate = (questionId) => `
 </div>
 `;
 
-export {polycopDivViewTemplate, questionViewTemplate, questionModalTemplate, questionAnswersTemplate, questionEditFormTemplate};
+export {polycopDivViewTemplate, questionViewTemplate, questionModalTemplate, questionAnswersTemplate, questionEditFormTemplate, answerEditFormTemplate};
