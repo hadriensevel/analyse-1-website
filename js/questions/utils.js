@@ -14,6 +14,7 @@ const Sort = {
   LIKES: 'likes',
   RESOLVED: 'resolved',
   NON_RESOLVED: 'non-resolved',
+  ANSWERS: 'answers',
   NO_ANSWER: 'no-answer',
 }
 
@@ -22,6 +23,8 @@ const Sort = {
 const QuestionLocation = {
   COURSE: 'course',
   EXERCISE: 'exercise',
+  ALL_QUESTIONS: 'all-questions',
+  MY_QUESTIONS: 'my-questions',
 }
 
 // Enum for the user role

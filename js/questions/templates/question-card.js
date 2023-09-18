@@ -39,12 +39,23 @@ const noQuestionsMessageTemplate = (baseUrl) => `
 </div>
 `;
 
+const notAuthenticatedMessageTemplate = (baseUrl) => `
+<div class="no-question container-md h-100">
+  <div class="row h-100">
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center h-100">
+      <img src="${baseUrl}/api/image/not-authenticated.png" class="mb-2 mb-md-0 mr-md-2 img-fluid" width="300" alt="Pas connecté">
+      <p class="text-secondary text-center text-md-start">Merci de vous connecter pour pouvoir accéder à vos questions.</p>
+    </div>
+  </div>
+</div>
+`;
+
 const errorMessageTemplate = (supportEmail) => `
 <div class="error-message">
   <h6>Oups...</h6>
   <p>Une erreur est survenue lors du chargement des questions :(</p>
-  <p>Si le problème persiste, n'hésitez pas à nous contacter ici: <a href="mailto:${supportEmail}?subject=Erreur lors du chargement des questions (${pageId}${divId ? `, ${divId}` : ''})">${supportEmail}</a>.</p>
+  <p>Si le problème persiste, n'hésitez pas à nous contacter ici: <a href="mailto:${supportEmail}">${supportEmail}</a>.</p>
 </div>
 `;
 
-export {questionCardTemplate, noQuestionsMessageTemplate, errorMessageTemplate};
+export {questionCardTemplate, noQuestionsMessageTemplate, notAuthenticatedMessageTemplate, errorMessageTemplate};

@@ -6,6 +6,10 @@ import {createElementFromTemplate} from './templates/utils';
 import {questionCardsWrapperTemplate} from './templates/question-cards-wrapper';
 import {loadQuestionCards} from './handle-question-card';
 import {QuestionLocation} from './utils';
+import {getFeatureFlag} from '../utils/feature-flags';
+import {getAuthData, iframeAuthentication} from '../utils/auth';
+import {baseUrl} from '../utils/config';
+import {notAuthenticatedMessageTemplate} from './templates/question-card';
 
 function myQuestions() {
   // Create wrapper for the questions
@@ -18,15 +22,26 @@ function myQuestions() {
   const scriptTag = document.body.querySelector('script');
   scriptTag.before(questionsDiv);
 
-  // Add message that the feature is not implemented yet
-  const message = document.createElement('div');
-  message.innerHTML = `<p>La page "Mes questions" n'est pas encore implémentée.</p>`;
-  questionsDiv.appendChild(message);
+  const user = getAuthData();
+
+  if (!user) {
+    // If the user is not authenticated, display a message
+    const notAuthenticatedMessage = createElementFromTemplate(notAuthenticatedMessageTemplate(baseUrl));
+    questionCardsWrapper.innerHTML = '';
+    questionCardsWrapper.appendChild(notAuthenticatedMessage);
+    return;
+  }
 
   // Load the question cards
-  //loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.MY_QUESTIONS);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check if authentication
+  const isAuthEnabled = await getFeatureFlag('authentication');
+  if (isAuthEnabled) {
+    await iframeAuthentication();
+  }
+
   myQuestions();
 });

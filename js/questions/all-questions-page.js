@@ -2,9 +2,10 @@
 // ALL QUESTIONS PAGE
 // ----------------------------------
 
-import {createElementFromTemplate} from './templates/utils.js';
+import {createElementFromTemplate} from './templates/utils';
 import {questionCardsWrapperTemplate} from './templates/question-cards-wrapper';
 import {loadQuestionCards} from './handle-question-card';
+import {QuestionLocation} from './utils';
 
 function allQuestions() {
   // Create wrapper for the questions
@@ -18,7 +19,7 @@ function allQuestions() {
   scriptTag.before(questionsDiv);
 
   // Load the question cards
-  loadQuestionCards('#all-questions', '');
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

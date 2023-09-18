@@ -22,7 +22,7 @@ import 'moment/src/locale/fr-ch';
 
 let currentQuestions = [];
 let currentSort = Sort.DATE;
-let savedScrollPosition = 100;
+let savedScrollPosition = 0;
 
 // Utility functions for sorting
 const sortFunctions = {
@@ -30,13 +30,25 @@ const sortFunctions = {
   [Sort.LIKES]: (a, b) => b.likes - a.likes || new Date(b.date) - new Date(a.date),
   [Sort.RESOLVED]: (a, b) => b.resolved - a.resolved || new Date(b.date) - new Date(a.date),
   [Sort.NON_RESOLVED]: (a, b) => a.resolved - b.resolved || new Date(b.date) - new Date(a.date),
+  [Sort.ANSWERS]: (a, b) => b.answers - a.answers || new Date(b.date) - new Date(a.date),
   [Sort.NO_ANSWER]: (a, b) => a.answers - b.answers || new Date(b.date) - new Date(a.date),
 };
 
 // Fetch the questions from the backend
-async function fetchQuestions(pageId, divId) {
+// TODO
+async function fetchQuestions(questionLocation, pageId, divId) {
+  const url = (() => {
+    if (questionLocation === QuestionLocation.ALL_QUESTIONS) {
+      return `${baseUrl}/api/get-questions/all-questions`;
+    } else if (questionLocation === QuestionLocation.MY_QUESTIONS) {
+      return `${baseUrl}/api/get-questions/my-questions`;
+    } else {
+      return `${baseUrl}/api/get-questions/${pageId}${divId ? `/${divId}` : ''}`;
+    }
+  })();
+
   try {
-    const response = await axios.get(`${baseUrl}/api/get-questions/${pageId}/${divId}`, {
+    const response = await axios.get(url, {
       headers: {
         Accept: 'application/json',
       }
@@ -52,7 +64,7 @@ function scrollToSavedPosition() {
   document.documentElement.scrollTo({top: savedScrollPosition, behavior: 'auto'});
 }
 
-function renderQuestions(questions, questionCardsWrapper, divId, sort, questionLocation) {
+function renderQuestions(questions, questionCardsWrapper, questionLocation, divId, sort) {
   if (questions.length) {
     // Get if the questions are displayed directly or in a modal
     const directView = questionCardsWrapper.dataset.directView === 'true';
@@ -71,7 +83,7 @@ function renderQuestions(questions, questionCardsWrapper, divId, sort, questionL
       // Convert the date to a relative date
       question.relativeDate = moment(question.date).fromNow();
 
-      if (questionLocation !== '') {
+      if (questionLocation === QuestionLocation.COURSE || questionLocation === QuestionLocation.EXERCISE) {
         delete question.section_name;
       }
 
@@ -82,7 +94,7 @@ function renderQuestions(questions, questionCardsWrapper, divId, sort, questionL
       questionCard.addEventListener('click', (e) => {
         e.preventDefault();
         savedScrollPosition = document.documentElement.scrollTop;
-        handleQuestionView(question.id, directView, divId, questionLocation);
+        handleQuestionView(question.id, questionLocation, directView, divId);
         if (!directView) new bootstrap.Modal(document.querySelector('.question-modal')).show();
       });
     });
@@ -106,7 +118,7 @@ function displayNoQuestionsMessage(questionCardsWrapper) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(questionsBody, divId, questionLocation = '', createTopBar = true) {
+async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true) {
   // Get the questions body element
   const questionsBodyElement = document.querySelector(questionsBody);
 
@@ -118,12 +130,11 @@ async function loadQuestionCards(questionsBody, divId, questionLocation = '', cr
 
   // Check the feature flag and authentication for new questions
   let newQuestion = false;
-  const newQuestionEnabled = await getFeatureFlag('newQuestion') && questionLocation !== '';
-  if (newQuestionEnabled) {
-    // Check if the user is authenticated
-    newQuestion = !!getAuthData();
+  if (questionLocation !== QuestionLocation.ALL_QUESTIONS && questionLocation !== QuestionLocation.MY_QUESTIONS) {
+      newQuestion = !!getAuthData() && await getFeatureFlag('newQuestion');
   }
 
+  // Create the top bar with the sort dropdown and the new question button (if needed)
   if (createTopBar && !questionsBodyElement.querySelector('.tob-bar')) {
 
     // Add the top bar with the sort dropdown
@@ -143,7 +154,7 @@ async function loadQuestionCards(questionsBody, divId, questionLocation = '', cr
             e.preventDefault();
             sortDropdown.textContent = dropdownItem.textContent;
             currentSort = dropdownItem.dataset.sort;
-            renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort, questionLocation);
+            renderQuestions(currentQuestions, questionCardsWrapper, questionLocation, divId, currentSort);
           });
         });
       });
@@ -152,7 +163,7 @@ async function loadQuestionCards(questionsBody, divId, questionLocation = '', cr
       const refreshButton = topBar.querySelector('.refresh-button');
       refreshButton.addEventListener('click', (e) => {
         e.preventDefault();
-        loadQuestionCards(questionsBody, divId, questionLocation, false);
+        loadQuestionCards(questionsBody, questionLocation, divId, false);
       });
     }
 
@@ -164,20 +175,20 @@ async function loadQuestionCards(questionsBody, divId, questionLocation = '', cr
 
       // Add the event listener to the new question button
       newQuestionButton.addEventListener('click', () => {
-        if (questionLocation === QuestionLocation.EXERCISE) {
-          handleNewQuestionView(divId, questionLocation, true);
-        } else {
+        if (questionLocation === QuestionLocation.COURSE) {
           handleNewQuestionView(divId, questionLocation);
           new bootstrap.Modal(document.querySelector('.new-question-modal')).show();
+        } else {
+          handleNewQuestionView(divId, questionLocation, true);
         }
       });
     }
   }
 
-  const pageId = questionLocation === '' ? '' : getFileName();
+  const pageId = (questionLocation === QuestionLocation.COURSE || questionLocation === QuestionLocation.EXERCISE) ? getFileName() : '';
 
   // Get the questions from the backend
-  const questions = await fetchQuestions(pageId, divId);
+  const questions = await fetchQuestions(questionLocation, pageId, divId);
   currentQuestions = questions || [];
 
   if (questions === null) {
@@ -189,7 +200,7 @@ async function loadQuestionCards(questionsBody, divId, questionLocation = '', cr
   }
 
   // Render the questions
-  renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort, questionLocation);
+  renderQuestions(currentQuestions, questionCardsWrapper, questionLocation, divId, currentSort);
 }
 
 export {loadQuestionCards, renderQuestions, scrollToSavedPosition};

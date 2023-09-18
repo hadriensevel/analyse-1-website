@@ -9,7 +9,7 @@ function solutions() {
 
   if (solutionElement) {
     const user = getAuthData();
-    if (!getAuthData() || user.role === 'student') {
+    if (!user || user.role === 'student') {
       solutionElement.innerHTML = '<p>La solution de l\'exercice n\'est pas encore disponible.</p>';
     }
   }

@@ -14,6 +14,7 @@ const questionCardsTopBarTemplate = (Sort) => `
             <li><a class="dropdown-item" data-sort="${Sort.LIKES}" href="#">Likes</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.RESOLVED}" href="#">Résolues</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.NON_RESOLVED}" href="#">Non résolues</a></li>
+            <li><a class="dropdown-item" data-sort="${Sort.ANSWERS}" href="#">Le plus de réponses</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.NO_ANSWER}" href="#">Sans réponse</a></li>
         </ul>
         <a class="refresh-button" href="#" aria-label="Recharger les questions" title="Recharger les questions"></a>

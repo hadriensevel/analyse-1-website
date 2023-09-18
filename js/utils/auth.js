@@ -58,7 +58,7 @@ function createLoginButton() {
   // Get token parameter in the URL
   const token = new URLSearchParams(window.location.search).get('token');
   let tokenParam = '';
-  if(token) tokenParam = `&token=${token}`;
+  if (token) tokenParam = `&token=${token}`;
   const authButton = createAuthButton();
   authButton.innerHTML = '<i class="had-auth-connect-icon"></i>';
   authButton.classList.add('icon-link');
@@ -167,6 +167,14 @@ async function authentication() {
   }
 
   usernameDiv.appendChild(authButton);
+
+  // Add the button in the sidebar for mobile
+  // const sidebarMenu = document.querySelector('.had-sidebar-menu');
+  // if (sidebarMenu) {
+  //   const sidebarAuthButton = authButton.cloneNode(true);
+  //   sidebarAuthButton.classList.add('had-sidebar-auth-button');
+  //   sidebarMenu.firstChild.before(sidebarAuthButton);
+  // }
 }
 
 export {authentication, iframeAuthentication, fetchAuthDetails, getAuthData};

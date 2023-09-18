@@ -16,6 +16,7 @@ const questionAnswersTemplate = (answer) => `
 <div class="answer" data-answer-id="${answer.id}" data-body="${answer.body}">
     <div class="answer-body">${answer.formatted_body}</div>
     <div class="answer-footer">
+        <!--<div class="answer-likes"></div>-->
         <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
         ${answer.user_role}
         <span class="answer-date">${answer.user_is_author ? 'vous, ' : ''}${answer.date}</span>
@@ -107,7 +108,6 @@ const questionViewTemplate = (question, answerForm) => `
 
     <div class="question-header">
         <div class="question-title-date">
-            <!--<h5 class="question-title">${question.title}</h5>-->
             <div class="question-date">${question.user_is_author ? 'vous, ' : ''}${question.date}</div>
         </div>
         <div class="question-icons">

@@ -11,7 +11,7 @@ import {
   questionEditFormTemplate,
   answerEditFormTemplate,
 } from './templates/question-view.js';
-import {updatePreview, UserRole} from './utils';
+import {QuestionLocation, updatePreview, UserRole} from './utils';
 import {processLineBreaks} from './utils';
 
 import moment from 'moment/src/moment';
@@ -479,7 +479,7 @@ function initializeQuestionLink(questionView, page, divId, location, sectionName
   rightIframeLink();
 }
 
-async function initializeQuestionView(questionContainer, questionId, divId, directView = false, questionLocation = null) {
+async function initializeQuestionView(questionContainer, questionId, questionLocation, divId, directView = false) {
   const question = await fetchQuestion(questionId);
 
   if (question === null) {
@@ -536,7 +536,9 @@ async function initializeQuestionView(questionContainer, questionId, divId, dire
 
   setupEventListeners(elements);
 
-  if (questionLocation === '') initializeQuestionLink(questionView, question.page_id, question.div_id, question.location, question.section_name);
+  if (questionLocation !== QuestionLocation.COURSE || questionLocation !== QuestionLocation.EXERCISE) {
+    initializeQuestionLink(questionView, question.page_id, question.div_id, question.location, question.section_name);
+  }
 }
 
 async function populateAnswers(questionView, questionId) {
@@ -629,7 +631,7 @@ function rolesPriority(role) {
   return priorities[role] || 4;
 }
 
-function handleQuestionView(questionId, directView, divId, questionLocation) {
+function handleQuestionView(questionId, questionLocation, directView, divId) {
   // Remove existing elements if they exist
   const existingModal = document.querySelector('.question-modal');
   if (existingModal) existingModal.remove();
@@ -638,8 +640,8 @@ function handleQuestionView(questionId, directView, divId, questionLocation) {
   if (existingView) existingView.remove();
 
   if (directView) {
-    const questionContainer = document.querySelector('#questions, #all-questions');
-    initializeQuestionView(questionContainer, questionId, divId, true, questionLocation);
+    const questionContainer = document.querySelector('#questions, #all-questions, #my-questions');
+    initializeQuestionView(questionContainer, questionId, questionLocation, divId, true);
 
     // Hide unnecessary UI components
     document.querySelector('.top-bar').classList.add('d-none');
@@ -648,7 +650,7 @@ function handleQuestionView(questionId, directView, divId, questionLocation) {
     const questionModal = createElementFromTemplate(questionModalTemplate(questionId));
     document.body.appendChild(questionModal);
     const questionContainer = questionModal.querySelector('.content-wrapper');
-    initializeQuestionView(questionContainer, questionId, divId, false);
+    initializeQuestionView(questionContainer, questionId, QuestionLocation.COURSE, divId, false);
   }
 }
 
