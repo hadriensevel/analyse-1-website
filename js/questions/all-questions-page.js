@@ -18,7 +18,7 @@ function allQuestions() {
   scriptTag.before(questionsDiv);
 
   // Load the question cards
-  loadQuestionCards('', '#all-questions');
+  loadQuestionCards('#all-questions', '');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

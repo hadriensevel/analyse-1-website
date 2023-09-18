@@ -20,13 +20,12 @@
   .question-footer {
     @extend .d-flex;
     @extend .justify-content-between;
+    @extend .mt-1;
   }
 
-  .question-title {
-    @extend .d-inline;
-    @extend .fs-6;
-    @extend .m-0;
-    @extend .me-2;
+  .question-section-name {
+    @extend .fw-medium;
+    @extend .mb-1;
   }
 
   .question-resolved-locked {
@@ -54,6 +53,11 @@
 
   .question-author-date {
     @extend .me-2;
+  }
+
+  .question-id {
+    @extend .me-1;
+    font-size: .8rem;
   }
 
   .question-author, .question-date {

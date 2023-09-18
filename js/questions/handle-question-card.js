@@ -22,6 +22,7 @@ import 'moment/src/locale/fr-ch';
 
 let currentQuestions = [];
 let currentSort = Sort.DATE;
+let savedScrollPosition = 100;
 
 // Utility functions for sorting
 const sortFunctions = {
@@ -46,6 +47,11 @@ async function fetchQuestions(pageId, divId) {
   }
 }
 
+// Scroll to the saved scroll position
+function scrollToSavedPosition() {
+  document.documentElement.scrollTo({top: savedScrollPosition, behavior: 'auto'});
+}
+
 function renderQuestions(questions, questionCardsWrapper, divId, sort, questionLocation) {
   if (questions.length) {
     // Get if the questions are displayed directly or in a modal
@@ -64,12 +70,18 @@ function renderQuestions(questions, questionCardsWrapper, divId, sort, questionL
     questions.forEach((question) => {
       // Convert the date to a relative date
       question.relativeDate = moment(question.date).fromNow();
+
+      if (questionLocation !== '') {
+        delete question.section_name;
+      }
+
       // Create the question card
       const questionCard = createElementFromTemplate(questionCardTemplate(question));
       questionCardsWrapper.appendChild(questionCard);
 
       questionCard.addEventListener('click', (e) => {
         e.preventDefault();
+        savedScrollPosition = document.documentElement.scrollTop;
         handleQuestionView(question.id, directView, divId, questionLocation);
         if (!directView) new bootstrap.Modal(document.querySelector('.question-modal')).show();
       });
@@ -94,7 +106,7 @@ function displayNoQuestionsMessage(questionCardsWrapper) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(divId, questionsBody, questionLocation = '', createTopBar = true) {
+async function loadQuestionCards(questionsBody, divId, questionLocation = '', createTopBar = true) {
   // Get the questions body element
   const questionsBodyElement = document.querySelector(questionsBody);
 
@@ -140,7 +152,7 @@ async function loadQuestionCards(divId, questionsBody, questionLocation = '', cr
       const refreshButton = topBar.querySelector('.refresh-button');
       refreshButton.addEventListener('click', (e) => {
         e.preventDefault();
-        loadQuestionCards(divId, questionsBody, questionLocation, false);
+        loadQuestionCards(questionsBody, divId, questionLocation, false);
       });
     }
 
@@ -180,4 +192,4 @@ async function loadQuestionCards(divId, questionsBody, questionLocation = '', cr
   renderQuestions(currentQuestions, questionCardsWrapper, divId, currentSort, questionLocation);
 }
 
-export {loadQuestionCards, renderQuestions};
+export {loadQuestionCards, renderQuestions, scrollToSavedPosition};

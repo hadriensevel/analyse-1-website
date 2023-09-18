@@ -104,8 +104,8 @@ function createUserDetailsButton(authData) {
     logoutLink.addEventListener('click', function(event) {
       // Prevent the default action of the link
       event.preventDefault();
-      // Clear the token from session storage
-      sessionStorage.removeItem('token');
+      // Delete the token cookie
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
       // Remove the token from the headers of the requests
       delete axios.defaults.headers.common['Authorization'];
       // Navigate to the logout page
@@ -116,18 +116,18 @@ function createUserDetailsButton(authData) {
   return authButton;
 }
 
-function getTokenFromSessionStorage() {
-  // Get token from localStorage
-  const sessionStorageToken = sessionStorage.getItem('token');
-  if (sessionStorageToken) {
+function getTokenFromCookie() {
+  // Get token from cookie
+  const cookieToken = document.cookie.split('; ').find(row => row.startsWith('token='));
+  if (cookieToken) {
     // Add the token to the headers of the requests
-    axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorageToken}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${cookieToken.split('=')[1]}`;
   }
 }
 
 // Get authentication from server
 async function iframeAuthentication() {
-  getTokenFromSessionStorage();
+  getTokenFromCookie();
   authData = await fetchAuthDetails();
   authData = authData === 401 ? null : authData;
 }
@@ -135,9 +135,11 @@ async function iframeAuthentication() {
 async function authentication() {
   // Get the token parameter in the URL if there is one, store it in localStorage and remove it from the URL
   const token = new URLSearchParams(window.location.search).get('token');
+
+
   if (token) {
-    // Store the token in localStorage
-    sessionStorage.setItem('token', token);
+    // Store the token in a session cookie
+    document.cookie = `token=${token}; path=/; SameSite=Strict; secure`;
 
     // Remove the token from the URL but keep the other parameters
     const url = window.location.href.split('?')[0];
@@ -148,7 +150,7 @@ async function authentication() {
     window.history.replaceState({}, '', newUrl);
   }
 
-  getTokenFromSessionStorage();
+  getTokenFromCookie();
 
   const authData = await fetchAuthDetails();
   const usernameDiv = document.querySelector('.had-auth-info');
@@ -165,9 +167,6 @@ async function authentication() {
   }
 
   usernameDiv.appendChild(authButton);
-
-  //sendMessageToIframe("iframe", authData, sessionStorageToken);
-  //sendMessageToIframe("right-iframe", authData, sessionStorageToken);
 }
 
-export {authentication, iframeAuthentication, fetchAuthDetails, getAuthData, getTokenFromSessionStorage};
+export {authentication, iframeAuthentication, fetchAuthDetails, getAuthData};

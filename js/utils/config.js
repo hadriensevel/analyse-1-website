@@ -2,7 +2,6 @@
 // CONFIGURATION
 // ----------------------------------
 
-//const baseUrl = 'https://localhost';
 const baseUrl = 'https://hadri1sev.com';
 //const baseUrl = 'https://dev.hadri1sev.com';
 

@@ -21,6 +21,7 @@ import {getAuthData} from '../utils/auth';
 import axios from 'axios';
 import {UserPermissions} from './user-permissions';
 import {rightIframeLink} from '../utils/right-iframe-link';
+import {scrollToSavedPosition} from './handle-question-card';
 
 async function sendAnswer(formData) {
   try {
@@ -417,6 +418,7 @@ function addDirectViewEventListeners(questionView, questionId) {
 
       document.querySelector('.top-bar').classList.remove('d-none');
       document.querySelector('.question-cards-wrapper').classList.remove('d-none');
+      scrollToSavedPosition();
     }
   });
 }
@@ -455,16 +457,24 @@ function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, q
   });
 }
 
-function initializeQuestionLink(questionView, page, divId, location) {
-  const link = location === 'course' ? `../../analyse-1/resources/sections/${page}.html` : `${window.parent.location.pathname}?page=${page}`;
+function initializeQuestionLink(questionView, page, divId, location, sectionName) {
+  const link = location === 'course' ? `../../analyse-1/resources/sections/${page}.html?div=${divId}` : `${window.parent.location.pathname}?page=${page}`;
 
-  // Add the link in the top bar
+  // Add the name of the section to the top bar
   const topBarLink = questionView.querySelector('.top-bar > .question-link');
+  const sectionTitleElement = document.createElement('span');
+  sectionTitleElement.textContent = sectionName ? ` - ${sectionName}` : '';
+
+  // Add the link to the top bar
   const linkElement = document.createElement('a');
   if (location === 'course') linkElement.classList.add('right-iframe-link');
   else linkElement.target = '_blank';
   linkElement.href = link;
+
+  topBarLink.appendChild(sectionTitleElement);
   topBarLink.appendChild(linkElement);
+
+  renderMathInElement(topBarLink);
 
   rightIframeLink();
 }
@@ -526,7 +536,7 @@ async function initializeQuestionView(questionContainer, questionId, divId, dire
 
   setupEventListeners(elements);
 
-  if (questionLocation === '') initializeQuestionLink(questionView, question.page_id, question.div_id, question.location);
+  if (questionLocation === '') initializeQuestionLink(questionView, question.page_id, question.div_id, question.location, question.section_name);
 }
 
 async function populateAnswers(questionView, questionId) {

@@ -92,7 +92,7 @@ async function tabs() {
 
       // If the tab is the questions tab, load the questions
       if (tabId === 'questions' && questionsEnabled) {
-        loadQuestionCards('', '#questions', QuestionLocation.EXERCISE);
+        loadQuestionCards('#questions', '', QuestionLocation.EXERCISE);
       }
     });
   });

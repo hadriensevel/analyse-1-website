@@ -27,7 +27,7 @@ function handleQuestionListModal(divId, count) {
   questionListModalBootstrap.show();
 
   // Load the question cards and add them in the modal
-  loadQuestionCards(divId, '.question-list-modal .content-wrapper', QuestionLocation.COURSE);
+  loadQuestionCards('.question-list-modal .content-wrapper', divId, QuestionLocation.COURSE);
 }
 
 export {handleQuestionListModal};

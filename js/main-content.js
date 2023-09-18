@@ -13,8 +13,10 @@ import {handleRightColumn} from './questions/handle-right-column';
 import {iframeAuthentication} from './utils/auth';
 import {getFeatureFlag} from './utils/feature-flags';
 import {authentication} from './utils/auth';
+import {scrollToDiv} from './utils/scroll-div';
+import {solutions} from './utils/solutions';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   plyrInit();
   quizzes();
   enablePopovers();
@@ -24,14 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
   rightIframeLink();
 
   // Check if authentication and questions are enabled
-  (async function() {
-    const isAuthEnabled = await getFeatureFlag('authentication');
-    const areQuestionsEnabled = await getFeatureFlag('questions');
-    if (isAuthEnabled) {
-      iframeAuthentication();
-    }
-    if (areQuestionsEnabled) {
-      handleRightColumn();
-    }
-  })();
+  const isAuthEnabled = await getFeatureFlag('authentication');
+  const areQuestionsEnabled = await getFeatureFlag('questions');
+  if (isAuthEnabled) {
+    await iframeAuthentication();
+  }
+  if (areQuestionsEnabled) {
+    await handleRightColumn();
+  }
+
+  solutions();
+  scrollToDiv();
 });

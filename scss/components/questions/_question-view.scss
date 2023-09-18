@@ -12,6 +12,12 @@
     @extend .justify-content-start;
   }
 
+  .question-link > span {
+    @extend .fs-6;
+    @extend .fw-medium;
+    @extend .ms-1;
+  }
+
   .question-link > a {
     @extend .text-decoration-none;
     @extend .text-dark;

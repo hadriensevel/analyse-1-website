@@ -7,12 +7,12 @@ const questionCardTemplate = (question) => {
 <div class="question-card" data-question-id="${question.id}">
     <div class="question-body">
         <div class="question-header">
-            <!--<h5 class="question-title">${question.title}</h5>-->
+            ${question.section_name ? `<div class="question-section-name">${question.section_name}</div>`: ''}
             <div class="question-preview">${question.preview}</div>
         </div>
         <div class="question-footer">
             <div class="question-author-date">
-                <!--<p class="question-author"></p>-->
+                <span class="question-id">#${question.id}</span>
                 <p class="question-date">${question.user_is_author ? 'vous, ' : ''}${question.relativeDate}</p>
             </div>
             <div class="question-comments-likes">

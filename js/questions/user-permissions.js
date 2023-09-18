@@ -28,7 +28,7 @@ class UserPermissions {
   }
 
   canAcceptAnswer() {
-    return this.isAdmin || this.userRole === UserRole.TEACHER;
+    return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT;
   }
 
   canDeleteAnswer() {

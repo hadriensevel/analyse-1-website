@@ -67,7 +67,7 @@
   @extend .text-black;
   @extend .border-0;
   background: #fadab2;
-  font-size: $video-font-size;
+  font-size: $font-size;
 
   &:before {
     content: '\F282\00a0'; // chevron-down
@@ -86,5 +86,13 @@
 
   &:first-child:active {
     background-color: #f3a138;
+  }
+
+  & + div {
+    @extend .card-body;
+    @extend .m-0;
+    @extend .p-1;
+    @extend .border;
+    @extend .rounded-2;
   }
 }
