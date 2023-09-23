@@ -25,6 +25,7 @@
     @extend .m-auto;
     @extend .border-0;
     @extend .border-end;
+    height: calc(100vh - $header-height); // Fall back for browsers that do not support dvh
     height: calc(100dvh - $header-height);
   }
 

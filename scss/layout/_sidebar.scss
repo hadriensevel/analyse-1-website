@@ -14,6 +14,7 @@
   @extend .bg-white;
   @extend .border-start;
   @extend .border-end;
+  height: calc(100vh - $header-height); // Fall back for browsers that do not support dvh
   height: calc(100dvh - $header-height);
   width: $sidebar-width;
   z-index: 100;
