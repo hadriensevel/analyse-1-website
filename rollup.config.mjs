@@ -9,6 +9,7 @@ export default [
       'js/main-content.js',
       'js/questions/all-questions-page.js',
       'js/questions/my-questions-page.js',
+      'js/questions/general-questions-page.js',
       'js/utils/latex-preview.js',
     ],
     output: {

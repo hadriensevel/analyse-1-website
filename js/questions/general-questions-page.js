@@ -1,0 +1,35 @@
+// ----------------------------------
+// GENERAL QUESTIONS PAGE
+// ----------------------------------
+
+import {createElementFromTemplate} from './templates/utils';
+import {questionCardsWrapperTemplate} from './templates/question-cards-wrapper';
+import {loadQuestionCards} from './handle-question-card';
+import {QuestionLocation} from './utils';
+import {getFeatureFlag} from '../utils/feature-flags';
+import {iframeAuthentication} from '../utils/auth';
+
+function generalQuestions() {
+  // Create wrapper for the questions
+  const questionsDiv = document.createElement('div');
+  questionsDiv.id = 'general-questions';
+  const questionCardsWrapper = createElementFromTemplate(questionCardsWrapperTemplate(true));
+  questionsDiv.appendChild(questionCardsWrapper);
+
+  // Select the first script tag and insert the questions div before it
+  const scriptTag = document.body.querySelector('script');
+  scriptTag.before(questionsDiv);
+
+  // Load the question cards
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.EXERCISE);
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check if authentication
+  const isAuthEnabled = await getFeatureFlag('authentication');
+  if (isAuthEnabled) {
+    await iframeAuthentication();
+  }
+
+  generalQuestions();
+});
