@@ -23,14 +23,6 @@ import {UserPermissions} from './user-permissions';
 import {rightIframeLink} from '../utils/right-iframe-link';
 import {scrollToSavedPosition} from './handle-question-card';
 
-async function sendAnswer(formData) {
-  try {
-    return await axios.post(`${baseUrl}/api/answer/new`, formData);
-  } catch {
-    return null;
-  }
-}
-
 async function sendLike(questionId, like, answer = false) {
   const endpoint = like ? 'add' : 'remove';
   const method = like ? 'post' : 'delete';
@@ -144,9 +136,8 @@ async function deleteQuestion(questionId, directView, questionView) {
   }
 }
 
-async function lockQuestion(questionView, questionId) {
-
-}
+// async function lockQuestion(questionView, questionId) {
+// }
 
 async function editAnswer(answerElement, questionId, answerId) {
   const answerBody = answerElement.querySelector('.answer-body');
