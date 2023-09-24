@@ -13,7 +13,7 @@ function scrollToDiv() {
   const divElement = document.querySelector(`#${divId} .div-container`);
   if (divElement) {
     divElement.scrollIntoView({behavior: 'smooth', block: 'start'});
-    divElement.style.outline = '2px solid #FFC107';
+    divElement.style.border = 'rgba(215, 164, 10, 0.4) solid 2px';
   }
 }
 
