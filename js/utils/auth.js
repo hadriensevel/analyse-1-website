@@ -38,7 +38,7 @@ async function fetchAuthDetails() {
   }
 }
 
-function createAuthButton(authData) {
+function createAuthButton() {
   const authButton = document.createElement('a');
   authButton.classList.add('had-auth-button');
   return authButton;
