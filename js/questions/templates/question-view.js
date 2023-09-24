@@ -12,15 +12,15 @@ const polycopDivViewTemplate = () => `
 </div>
 `;
 
-const questionAnswersTemplate = (answer) => `
+const questionAnswersTemplate = (answer, questionLocked) => `
 <div class="answer" data-answer-id="${answer.id}" data-body="${answer.body}">
     <div class="answer-body">${answer.formatted_body}</div>
     <div class="answer-footer">
-        <!--<div class="answer-likes"></div>-->
         <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
-        ${answer.user_role}
+        <div class="answer-likes ${answer.user_liked ? 'liked' : ''}">${answer.likes}</div>
+        ${answer.user_badge}
         <span class="answer-date">${answer.user_is_author ? 'vous, ' : ''}${answer.date}</span>
-        ${(answer.can_edit || answer.can_delete || answer.can_accept) ? `
+        ${((answer.can_edit || answer.can_delete || answer.can_accept) && !questionLocked) ? `
         <div class="answer-options" data-bs-toggle="dropdown"></div>
         <ul class="dropdown-menu">
             ${answer.can_edit ? `<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>` : ''}
@@ -111,16 +111,16 @@ const questionViewTemplate = (question, answerForm) => `
             <div class="question-date">${question.user_is_author ? 'vous, ' : ''}${question.date}</div>
         </div>
         <div class="question-icons">
-            ${question.resolved ? `<div class="question-resolved" title="Question résolue"></div>` : ''}
-            ${question.locked ? `<div class="question-locked" title="Question verrouillée"></div>` : ''}
+            <div class="question-resolved" title="Question résolue" data-resolved="${question.resolved ? 'true' : 'false'}"></div>
+            <div class="question-locked" title="Question verrouillée" data-locked="${question.locked ? 'true' : 'false'}"></div>
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
             ${question.can_edit || question.can_delete || question.can_lock ? `
             <div class="question-options">
                 <div class="question-options-button" data-bs-toggle="dropdown"></div>
                 <ul class="dropdown-menu">
-                    ${question.can_edit ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
+                    ${question.can_edit && !question.locked ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
                     ${question.can_lock ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${question.locked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''}
-                    ${question.can_delete ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
+                    ${question.can_delete && !question.locked ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
                 </ul>
             </div>` : ''}
         </div>

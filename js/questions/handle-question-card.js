@@ -35,7 +35,6 @@ const sortFunctions = {
 };
 
 // Fetch the questions from the backend
-// TODO
 async function fetchQuestions(questionLocation, pageId, divId) {
   const url = (() => {
     if (questionLocation === QuestionLocation.ALL_QUESTIONS) {
@@ -61,7 +60,7 @@ async function fetchQuestions(questionLocation, pageId, divId) {
 
 // Scroll to the saved scroll position
 function scrollToSavedPosition() {
-  document.documentElement.scrollTo({top: savedScrollPosition, behavior: 'auto'});
+  document.documentElement.scrollTo({top: savedScrollPosition, behavior: 'instant'});
 }
 
 function renderQuestions(questions, questionCardsWrapper, questionLocation, divId, sort) {
@@ -141,6 +140,12 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
     if (!questionsBodyElement.querySelector('.top-bar')) {
       const topBar = createElementFromTemplate(questionCardsTopBarTemplate(Sort));
       questionsBodyElement.prepend(topBar);
+
+      // Add the popover to the website info button
+      new bootstrap.Popover(topBar.querySelector('.website-info'), {
+        container: 'body',
+        html: true,
+      });
 
       // Add the event listener to the sort dropdown and the dropdown items
       // (when click on the dropdown, the dropdown items are shown. When click on

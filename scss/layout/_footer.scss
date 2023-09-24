@@ -3,6 +3,9 @@
 // ----------------------------------
 
 .#{$prefix}-footer {
+  @extend .d-flex;
+  @extend .flex-row;
+  @extend .justify-content-between;
   @extend .position-absolute;
   @extend .start-0;
   @extend .bottom-0;
@@ -18,5 +21,39 @@
     @extend .p-2;
     @extend .m-0;
     font-size: .75rem;
+  }
+
+  .#{$prefix}-auth-button {
+    @extend .d-md-none;
+    @extend .d-block;
+    @extend .p-2;
+  }
+
+  .#{$prefix}-auth-info {
+    @extend .d-inline;
+    @extend .me-3;
+    font-size: .9rem;
+  }
+
+  .#{$prefix}-auth-connect-icon {
+    @extend .bi-box-arrow-in-right;
+  }
+
+  .#{$prefix}-auth-user-icon {
+    @extend .bi-person-square;
+    cursor: pointer;
+  }
+
+  .#{$prefix}-auth-connect-icon, .#{$prefix}-auth-user-icon {
+    @extend .bi;
+    @extend .text-secondary;
+
+    &:before {
+      vertical-align: 0.125em;
+    }
+
+    &:hover {
+      @extend .text-black;
+    }
   }
 }

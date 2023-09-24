@@ -31,10 +31,10 @@ async function sendAnswer(formData) {
   }
 }
 
-async function sendLike(questionId, like) {
+async function sendLike(questionId, like, answer = false) {
   const endpoint = like ? 'add' : 'remove';
   const method = like ? 'post' : 'delete';
-  axios[method](`${baseUrl}/api/like/${endpoint}/${questionId}`);
+  axios[method](`${baseUrl}/api/like/${endpoint}${answer ? '-answer' : ''}/${questionId}`);
 }
 
 // Fetch the question data from the API with axios
@@ -144,6 +144,10 @@ async function deleteQuestion(questionId, directView, questionView) {
   }
 }
 
+async function lockQuestion(questionView, questionId) {
+
+}
+
 async function editAnswer(answerElement, questionId, answerId) {
   const answerBody = answerElement.querySelector('.answer-body');
   const answerFooter = answerElement.querySelector('.answer-footer');
@@ -242,6 +246,11 @@ async function acceptAnswer(answerElement, answerId) {
     await axios.post(`${baseUrl}/api/answer/${accepted ? 'unaccept' : 'accept'}/${answerId}`);
 
     answerAcceptedElement.dataset.accepted = accepted ? 'false' : 'true';
+
+    // Update the dropdown menu
+    const dropdownMenu = answerElement.querySelector('.dropdown-menu');
+    const acceptButton = dropdownMenu.querySelector('.dropdown-item[data-action="accept"]');
+    acceptButton.textContent = accepted ? 'Valider la réponse' : 'Invalider la réponse';
   } catch {
     alert('Erreur lors de la mise à jour de la réponse.');
   }
@@ -389,6 +398,42 @@ function addLikeButtonEventListener(questionView, questionId) {
   }
 }
 
+function addAnswerLikeEventListener(answerContainer) {
+  if (getAuthData()) {
+
+    // Add clickable class to all the like buttons
+    const likeButtons = answerContainer.querySelectorAll('.answer-likes');
+    likeButtons.forEach((likeButton) => {
+      likeButton.classList.add('clickable');
+    });
+
+    // Add the event listener to the like buttons
+    answerContainer.addEventListener('click', (e) => {
+      const target = e.target;
+
+      // Get the answer id
+      const answerId = target.closest('.answer').dataset.answerId;
+
+      if (target.matches('.answer-likes')) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const likeCountValue = parseInt(target.textContent);
+
+        if (target.classList.contains('liked')) {
+          target.textContent = likeCountValue - 1;
+          target.classList.remove('liked');
+          sendLike(answerId, false, true);
+        } else {
+          target.textContent = likeCountValue + 1;
+          target.classList.add('liked');
+          sendLike(answerId, true, true);
+        }
+      }
+    });
+  }
+}
+
 // Add the event listeners to the back button and the close button of the modal
 function addModalEventListeners(questionModal) {
   questionModal.addEventListener('click', (e) => {
@@ -437,7 +482,7 @@ function initializeDivPolycopView(questionView, divId) {
   questionView.prepend(divViewPolycop);
 }
 
-function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, questionId, directView, divId, questionContainer) {
+function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, questionId, directView) {
   const dropdownMenu = questionView.querySelector('.dropdown-menu');
 
   if (!dropdownMenu) return;
@@ -449,7 +494,7 @@ function initializeQuestionOptions(questionView, userIsAuthor, questionLocked, q
       editQuestion(questionView, questionId);
     } else if (target.matches('.dropdown-item[data-action="lock"]')) {
       e.preventDefault();
-      console.log('lock');
+      //lockQuestion(questionView, questionId);
     } else if (target.matches('.dropdown-item[data-action="delete"]')) {
       e.preventDefault();
       deleteQuestion(questionId, directView, questionView);
@@ -536,7 +581,7 @@ async function initializeQuestionView(questionContainer, questionId, questionLoc
 
   setupEventListeners(elements);
 
-  if (questionLocation !== QuestionLocation.COURSE || questionLocation !== QuestionLocation.EXERCISE) {
+  if (questionLocation !== QuestionLocation.COURSE && questionLocation !== QuestionLocation.EXERCISE) {
     initializeQuestionLink(questionView, question.page_id, question.div_id, question.location, question.section_name);
   }
 }
@@ -564,14 +609,17 @@ async function populateAnswers(questionView, questionId) {
 
     // Format the answer data
     answer.date = moment(answer.date).fromNow();
-    answer.user_role = getUserRoleBadge(answer.user_role);
+    answer.user_badge = getUserBadge(answer.user_role, answer.is_op);
     answer.formatted_body = processLineBreaks(answer.body);
 
-    const answerElement = createElementFromTemplate(questionAnswersTemplate(answer));
+    const answerElement = createElementFromTemplate(questionAnswersTemplate(answer, question.locked));
     answersContainer.appendChild(answerElement);
 
     initializeAnswerOptions(answerElement, questionId, answer.accepted);
   });
+
+  // Add the event listener for the likes of the answers
+  addAnswerLikeEventListener(answersContainer);
 
   renderMathInElement(answersContainer);
 }
@@ -606,19 +654,20 @@ function formatQuestionData(question) {
     '';
 }
 
-function getUserRoleBadge(role) {
+function getUserBadge(role, isOp) {
   const roles = {
     [UserRole.TEACHER]: '<span class="badge text-bg-warning">Enseignant</span>',
     [UserRole.ASSISTANT]: '<span class="badge text-bg-secondary">Assistant</span>',
+    [UserRole.STUDENT]: isOp ? '<span class="badge text-bg-light">Auteur original</span>' : '',
   };
   return roles[role] || '';
 }
 
 function sortAnswers(answers) {
   return answers.sort((a, b) => {
-    if (a.accepted !== b.accepted) return b.accepted - a.accepted;
-    if (a.user_role !== b.user_role) return rolesPriority(a.user_role) - rolesPriority(b.user_role);
-    return new Date(b.date) - new Date(a.date);
+    //if (a.accepted !== b.accepted) return b.accepted - a.accepted;
+    //if (a.user_role !== b.user_role) return rolesPriority(a.user_role) - rolesPriority(b.user_role);
+    return new Date(a.date) - new Date(b.date);
   });
 }
 
@@ -636,11 +685,11 @@ function handleQuestionView(questionId, questionLocation, directView, divId) {
   const existingModal = document.querySelector('.question-modal');
   if (existingModal) existingModal.remove();
 
-  const existingView = document.querySelector('#questions .question-view');
+  const existingView = document.querySelector('.question-view');
   if (existingView) existingView.remove();
 
   if (directView) {
-    const questionContainer = document.querySelector('#questions, #all-questions, #my-questions');
+    const questionContainer = document.querySelector('#questions, #all-questions, #my-questions, #general-questions');
     initializeQuestionView(questionContainer, questionId, questionLocation, divId, true);
 
     // Hide unnecessary UI components

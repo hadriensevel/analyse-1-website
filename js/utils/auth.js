@@ -67,8 +67,12 @@ function createLoginButton() {
   authLoginIcon.dataset.bsToggle = 'tooltip';
   authLoginIcon.dataset.bsPlacement = 'bottom';
   authLoginIcon.dataset.bsTitle = 'Se connecter';
-  new bootstrap.Tooltip(authLoginIcon);
   return authButton;
+}
+
+function attachLoginEvents(button) {
+  const authLoginIcon = button.querySelector('i');
+  new bootstrap.Tooltip(authLoginIcon);
 }
 
 function createUserDetailsButton(authData) {
@@ -94,6 +98,11 @@ function createUserDetailsButton(authData) {
     <a id="logout-link" href="${baseUrl}/auth/logout?redirect=${redirectUrl()}">Se déconnecter</a>
   `;
 
+  return authButton;
+}
+
+function attachUserDetailsEvents(button) {
+  const authUserIcon = button.querySelector('i');
   new bootstrap.Popover(authUserIcon, {
     container: 'body',
     html: true,
@@ -101,19 +110,19 @@ function createUserDetailsButton(authData) {
 
   authUserIcon.addEventListener('shown.bs.popover', () => {
     const logoutLink = document.getElementById('logout-link');
-    logoutLink.addEventListener('click', function(event) {
-      // Prevent the default action of the link
-      event.preventDefault();
-      // Delete the token cookie
-      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
-      // Remove the token from the headers of the requests
-      delete axios.defaults.headers.common['Authorization'];
-      // Navigate to the logout page
-      window.location.href = logoutLink.getAttribute('href');
-    });
+    if (logoutLink) {
+      logoutLink.addEventListener('click', function(event) {
+        // Prevent the default action of the link
+        event.preventDefault();
+        // Delete the token cookie
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;';
+        // Remove the token from the headers of the requests
+        delete axios.defaults.headers.common['Authorization'];
+        // Navigate to the logout page
+        window.location.href = logoutLink.getAttribute('href');
+      });
+    }
   });
-
-  return authButton;
 }
 
 function getTokenFromCookie() {
@@ -162,19 +171,25 @@ async function authentication() {
 
   if (authData === 401) {
     authButton = createLoginButton();
+    attachLoginEvents(authButton);
   } else {
     authButton = createUserDetailsButton(authData);
+    attachUserDetailsEvents(authButton);
   }
 
   usernameDiv.appendChild(authButton);
 
   // Add the button in the sidebar for mobile
-  // const sidebarMenu = document.querySelector('.had-sidebar-menu');
-  // if (sidebarMenu) {
-  //   const sidebarAuthButton = authButton.cloneNode(true);
-  //   sidebarAuthButton.classList.add('had-sidebar-auth-button');
-  //   sidebarMenu.firstChild.before(sidebarAuthButton);
-  // }
+  const sidebarMenuFooter = document.querySelector('.had-footer');
+  if (sidebarMenuFooter) {
+    const sidebarAuthButton = authButton.cloneNode(true);
+    if (authData === 401) {
+      attachLoginEvents(sidebarAuthButton);
+    } else {
+      attachUserDetailsEvents(sidebarAuthButton);
+    }
+    sidebarMenuFooter.appendChild(sidebarAuthButton);
+  }
 }
 
 export {authentication, iframeAuthentication, fetchAuthDetails, getAuthData};

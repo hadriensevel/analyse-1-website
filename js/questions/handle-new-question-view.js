@@ -241,11 +241,11 @@ function handleNewQuestionView(divId = '', questionLocation, directView = false)
   const existingModal = document.querySelector('.new-question-modal');
   if (existingModal) existingModal.remove();
 
-  const existingForm = document.querySelector('#questions .new-question-view');
+  const existingForm = document.querySelector('#questions .new-question-view, #general-questions .new-question-view');
   if (existingForm) existingForm.remove();
 
   if (directView) {
-    const questionsContainer = document.querySelector('#questions');
+    const questionsContainer = document.querySelector('#questions, #general-questions');
     appendAndInitializeForm(questionsContainer, questionLocation, true);
 
     // Hide unnecessary UI components

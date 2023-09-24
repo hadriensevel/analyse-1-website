@@ -60,7 +60,7 @@
   }
 
   .question-resolved {
-    @extend .d-inline;
+    @extend .d-none;
     @extend .text-success;
     @extend .fs-4;
     @extend .me-2;
@@ -68,16 +68,24 @@
     &:before {
       @include icon('\F633');
     }
+
+    &[data-resolved="true"] {
+      @extend .d-inline;
+    }
   }
 
   .question-locked {
-    @extend .d-inline;
+    @extend .d-none;
     @extend .text-secondary;
     @extend .fs-6;
     @extend .me-2;
 
     &:before {
       @include icon('\F47A');
+    }
+
+    &[data-locked="true"] {
+      @extend .d-inline;
     }
   }
 
@@ -129,17 +137,18 @@
   .answer {
     @extend .border-start;
     @extend .border-2;
-    @extend .border-secondary;
-    @extend .ps-1;
-    @extend .mb-3;
+    @extend .ps-2;
+    @extend .mb-4;
+    border-color: #6c757d;
   }
 
   .answer-footer {
+    @extend .mt-1;
 
     .answer-likes {
       @extend .d-inline;
       @extend .text-secondary;
-      @extend .me-1 ;
+      //@extend .me-1 ;
       font-size: 0.8rem;
 
       &:before {
@@ -188,7 +197,7 @@
   form {
 
     &:not(.edit-form) {
-      @extend .mt-4;
+      @extend .mt-5;
     }
 
     .form-label {

@@ -18,6 +18,7 @@ const questionCardsTopBarTemplate = (Sort) => `
             <li><a class="dropdown-item" data-sort="${Sort.NO_ANSWER}" href="#">Sans réponse</a></li>
         </ul>
         <a class="refresh-button" href="#" aria-label="Recharger les questions" title="Recharger les questions"></a>
+        <a role="button" class="website-info" data-bs-toggle="popover" data-bs-content="Un problème? Une suggestion?<br><a href='mailto:support-technique.analyse@groupes.epfl.ch'>Alors contactez-nous ici!</a>"></a>
     </div>
     <div class="new-question"></div>
 </div>

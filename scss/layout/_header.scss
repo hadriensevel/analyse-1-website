@@ -104,31 +104,29 @@
     @extend .d-md-none;
     right: 1rem;
   }
-}
 
-.#{$prefix}-auth-info {
-  @extend .d-inline;
-  @extend .me-3;
-  font-size: .9rem;
-}
+  .#{$prefix}-auth-info {
+    @extend .d-inline;
+    @extend .me-3;
+    font-size: .9rem;
+  }
 
-.#{$prefix}-auth-connect-icon {
-  @extend .bi-box-arrow-in-right;
-}
+  .#{$prefix}-auth-connect-icon {
+    @extend .bi-box-arrow-in-right;
+  }
 
-.#{$prefix}-auth-user-icon {
-  @extend .bi-person-square;
-  cursor: pointer;
-}
+  .#{$prefix}-auth-user-icon {
+    @extend .bi-person-square;
+    cursor: pointer;
+  }
 
-.#{$prefix}-auth-connect-icon, .#{$prefix}-auth-user-icon {
-  @extend .bi;
-  @extend .fs-4;
-  @extend .text-white;
-  top: .125em;
-  position: relative;
+  .#{$prefix}-auth-connect-icon, .#{$prefix}-auth-user-icon {
+    @extend .bi;
+    @extend .fs-4;
+    @extend .text-white;
 
-  &:hover {
-    @extend .text-white-50;
+    &:hover {
+      @extend .text-white-50;
+    }
   }
 }
