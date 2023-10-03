@@ -178,6 +178,10 @@
       }
     }
 
+    .badge {
+      vertical-align: text-bottom;
+    }
+
     .answer-options {
       @extend .d-inline;
       @extend .text-secondary;

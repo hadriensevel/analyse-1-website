@@ -18,8 +18,17 @@ function allQuestions() {
   const scriptTag = document.body.querySelector('script');
   scriptTag.before(questionsDiv);
 
+  // Get the id of the question if it is in the URL of the parent page and remove it
+  const urlParams = new URLSearchParams(window.parent.location.search);
+  const questionId = urlParams.get('question') ?? null;
+  if (questionId) {
+    urlParams.delete('question');
+    const newRelativePathQuery = window.parent.location.pathname + '?' + urlParams.toString();
+    window.parent.history.pushState(null, '', newRelativePathQuery);
+  }
+
   // Load the question cards
-  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS);
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS, undefined, undefined, questionId);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

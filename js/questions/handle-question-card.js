@@ -63,7 +63,7 @@ function scrollToSavedPosition() {
   document.documentElement.scrollTo({top: savedScrollPosition, behavior: 'instant'});
 }
 
-function renderQuestions(questions, questionCardsWrapper, questionLocation, divId, sort) {
+function renderQuestions(questions, questionCardsWrapper, questionLocation, divId, sort, loadQuestionId) {
   if (questions.length) {
     // Get if the questions are displayed directly or in a modal
     const directView = questionCardsWrapper.dataset.directView === 'true';
@@ -106,6 +106,14 @@ function renderQuestions(questions, questionCardsWrapper, questionLocation, divI
     // display it and the associated image.
     displayNoQuestionsMessage(questionCardsWrapper)
   }
+
+  // If there is a question to load, load it
+  if (loadQuestionId) {
+    const questionCard = questionCardsWrapper.querySelector(`.question-card[data-question-id="${loadQuestionId}"]`);
+    if (questionCard) {
+      questionCard.click();
+    }
+  }
 }
 
 function displayNoQuestionsMessage(questionCardsWrapper) {
@@ -117,7 +125,7 @@ function displayNoQuestionsMessage(questionCardsWrapper) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true) {
+async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true, loadQuestionId = null) {
   // Get the questions body element
   const questionsBodyElement = document.querySelector(questionsBody);
 
@@ -205,7 +213,7 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
   }
 
   // Render the questions
-  renderQuestions(currentQuestions, questionCardsWrapper, questionLocation, divId, currentSort);
+  renderQuestions(currentQuestions, questionCardsWrapper, questionLocation, divId, currentSort, loadQuestionId);
 }
 
 export {loadQuestionCards, renderQuestions, scrollToSavedPosition};

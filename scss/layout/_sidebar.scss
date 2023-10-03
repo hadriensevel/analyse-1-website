@@ -34,6 +34,7 @@
 
 .#{$prefix}-sidebar-full {
   @extend .overflow-y-auto;
+  height: calc(100vh - $header-height - $footer-height); // Fall back for browsers that do not support dvh
   height: calc(100dvh - $header-height - $footer-height);
 }
 

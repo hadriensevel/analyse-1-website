@@ -171,7 +171,7 @@ async function editAnswer(answerElement, questionId, answerId) {
 
         // Replace the answer body with the new body
         answerBody.innerHTML = processLineBreaks(formData.get('answer-body'));
-        answerBody.dataset.body = formData.get('answer-body');
+        answerElement.dataset.body = formData.get('answer-body');
 
         // Remove the form and show the body and footer elements
         form.remove();
