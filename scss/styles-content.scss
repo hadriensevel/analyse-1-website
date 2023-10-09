@@ -199,12 +199,15 @@ blockquote {
   }
 }
 
-
-
 // Résout les équations coupées mais les empêche de scroller
 // .katex-display > .katex > .katex-html {
 //   display: inline !important;
 // }
+
+// Links
+a {
+  @extend .text-decoration-none;
+}
 
 
 // ----------------------------------
