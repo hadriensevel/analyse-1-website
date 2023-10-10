@@ -11,7 +11,7 @@ import {getAuthData, iframeAuthentication} from '../utils/auth';
 import {baseUrl} from '../utils/config';
 import {notAuthenticatedMessageTemplate} from './templates/question-card';
 
-function myQuestions() {
+async function myQuestions() {
   // Create wrapper for the questions
   const questionsDiv = document.createElement('div');
   questionsDiv.id = 'my-questions';
@@ -21,6 +21,13 @@ function myQuestions() {
   // Select the first script tag and insert the questions div before it
   const scriptTag = document.body.querySelector('script');
   scriptTag.before(questionsDiv);
+
+  // Check the feature flag for the questions
+  const questionsFeatureFlag = await getFeatureFlag('questions');
+  if (questionsFeatureFlag === false) {
+    questionsDiv.innerHTML = '<p>Les questions ne sont pas disponibles pour le moment.</p>';
+    return;
+  }
 
   const user = getAuthData();
 
