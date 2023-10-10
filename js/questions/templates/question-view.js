@@ -114,7 +114,7 @@ const questionViewTemplate = (question, answerForm) => `
             <div class="question-resolved" title="Question résolue" data-resolved="${question.resolved ? 'true' : 'false'}"></div>
             <div class="question-locked" title="Question verrouillée" data-locked="${question.locked ? 'true' : 'false'}"></div>
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
-            ${question.can_edit || question.can_delete || question.can_lock ? `
+            ${(question.can_edit || question.can_delete || question.can_lock) && !question.locked ? `
             <div class="question-options">
                 <div class="question-options-button" data-bs-toggle="dropdown"></div>
                 <ul class="dropdown-menu">
