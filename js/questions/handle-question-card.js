@@ -32,6 +32,7 @@ const sortFunctions = {
   [Sort.NON_RESOLVED]: (a, b) => a.resolved - b.resolved || new Date(b.date) - new Date(a.date),
   [Sort.ANSWERS]: (a, b) => b.answers - a.answers || new Date(b.date) - new Date(a.date),
   [Sort.NO_ANSWER]: (a, b) => a.answers - b.answers || new Date(b.date) - new Date(a.date),
+  [Sort.LAST_ACTIVITY]: (a, b) => new Date(b.last_activity) - new Date(a.last_activity) || new Date(b.date) - new Date(a.date),
 };
 
 // Fetch the questions from the backend

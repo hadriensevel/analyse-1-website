@@ -11,6 +11,7 @@ const questionCardsTopBarTemplate = (Sort) => `
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" data-sort="${Sort.DATE}" href="#">Date</a></li>
+            <li><a class="dropdown-item" data-sort="${Sort.LAST_ACTIVITY}" href="#">Dernière activité</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.LIKES}" href="#">Likes</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.RESOLVED}" href="#">Résolues</a></li>
             <li><a class="dropdown-item" data-sort="${Sort.NON_RESOLVED}" href="#">Non résolues</a></li>
