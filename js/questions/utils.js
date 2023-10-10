@@ -16,6 +16,7 @@ const Sort = {
   NON_RESOLVED: 'non-resolved',
   ANSWERS: 'answers',
   NO_ANSWER: 'no-answer',
+  LAST_ACTIVITY: 'last-activity',
 }
 
 // Enum for the location of the question
