@@ -22,6 +22,7 @@ import 'moment/src/locale/fr-ch';
 
 let currentQuestions = [];
 let currentSort = Sort.DATE;
+let currentPage = 1;
 let savedScrollPosition = 0;
 
 // Utility functions for sorting
@@ -36,8 +37,8 @@ const sortFunctions = {
 };
 
 // Fetch the questions from the backend
-async function fetchQuestions(questionLocation, pageId, divId) {
-  const url = (() => {
+async function fetchQuestions(questionLocation, pageId, divId, page, sort) {
+  let url = (() => {
     if (questionLocation === QuestionLocation.ALL_QUESTIONS) {
       return `${baseUrl}/api/get-questions/all-questions`;
     } else if (questionLocation === QuestionLocation.MY_QUESTIONS) {
@@ -46,6 +47,14 @@ async function fetchQuestions(questionLocation, pageId, divId) {
       return `${baseUrl}/api/get-questions/${pageId}${divId ? `/${divId}` : ''}`;
     }
   })();
+
+  // Add the page and sort parameters if needed
+  if (page) {
+    url += `?page=${page}`;
+  }
+  if (sort) {
+    url += page ? `&sort=${sort}` : `?sort=${sort}`;
+  }
 
   try {
     const response = await axios.get(url, {
