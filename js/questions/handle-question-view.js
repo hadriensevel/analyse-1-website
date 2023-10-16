@@ -23,6 +23,8 @@ import {UserPermissions} from './user-permissions';
 import {rightIframeLink} from '../utils/right-iframe-link';
 import {scrollToSavedPosition} from './handle-question-card';
 
+let question = null;
+
 async function sendLike(questionId, like, answer = false) {
   const endpoint = like ? 'add' : 'remove';
   const method = like ? 'post' : 'delete';
@@ -48,7 +50,7 @@ async function editQuestion(questionViewElement, questionId) {
   const questionHeader = questionViewElement.querySelector('.question-header');
 
   // Create a form
-  const form = createElementFromTemplate(questionEditFormTemplate(questionBody.dataset.body));
+  const form = createElementFromTemplate(questionEditFormTemplate(question.body));
 
   // Add event listeners to the form
   form.addEventListener('submit', async (e) => {
@@ -75,7 +77,7 @@ async function editQuestion(questionViewElement, questionId) {
 
         // Replace the question body with the new body
         questionBody.innerHTML = processLineBreaks(formData.get('question-body'));
-        questionBody.dataset.body = formData.get('question-body');
+        question.body = formData.get('question-body');
 
         // Remove the form and show the body and header elements
         form.remove();
@@ -143,8 +145,11 @@ async function editAnswer(answerElement, questionId, answerId) {
   const answerBody = answerElement.querySelector('.answer-body');
   const answerFooter = answerElement.querySelector('.answer-footer');
 
+  // Get the answer from its id
+  const answer = question['answers'].find(answer => answer.id === parseInt(answerId));
+
   // Create a form
-  const form = createElementFromTemplate(answerEditFormTemplate(answerElement.dataset.body));
+  const form = createElementFromTemplate(answerEditFormTemplate(answer.body));
 
   // Add event listeners to the form
   form.addEventListener('submit', async (e) => {
@@ -171,7 +176,9 @@ async function editAnswer(answerElement, questionId, answerId) {
 
         // Replace the answer body with the new body
         answerBody.innerHTML = processLineBreaks(formData.get('answer-body'));
-        answerElement.dataset.body = formData.get('answer-body');
+
+        // Update the answer in the question object
+        answer.body = formData.get('answer-body');
 
         // Remove the form and show the body and footer elements
         form.remove();
@@ -516,7 +523,7 @@ function initializeQuestionLink(questionView, page, divId, location, sectionName
 }
 
 async function initializeQuestionView(questionContainer, questionId, questionLocation, divId, directView = false) {
-  const question = await fetchQuestion(questionId);
+  question = await fetchQuestion(questionId);
 
   if (question === null) {
     // Display an error message
@@ -545,7 +552,7 @@ async function initializeQuestionView(questionContainer, questionId, questionLoc
   question.can_delete = userPermissions.canDeleteQuestion();
   question.can_lock = userPermissions.canLockQuestion();
 
-  formatQuestionData(question);
+  formatQuestionData();
 
   const questionView = createElementFromTemplate(questionViewTemplate(question, getAuthData() && !question.locked));
   questionContainer.appendChild(questionView);
@@ -584,7 +591,10 @@ async function populateAnswers(questionView, questionId) {
     answersContainer.firstChild.remove();
   }
 
-  const question = await fetchQuestion(questionId);
+  // Fetch the answers from the API
+  const questionData = await fetchQuestion(questionId);
+  question.answers = questionData.answers;
+
   const answers = question.answers;
 
   // Initialize permissions for the current user
@@ -612,6 +622,9 @@ async function populateAnswers(questionView, questionId) {
   // Add the event listener for the likes of the answers
   addAnswerLikeEventListener(answersContainer);
 
+  // Add event listeners for the right iframe links
+  rightIframeLink();
+
   renderMathInElement(answersContainer);
 }
 
@@ -636,11 +649,11 @@ function initializeAnswerOptions(answerElement, questionId) {
   });
 }
 
-function formatQuestionData(question) {
+function formatQuestionData() {
   moment.locale('fr-ch');
   question.formatted_body = processLineBreaks(question.body);
   question.date = moment(question.date).fromNow();
-  question.image = question.image ?
+  question.image_tag = question.image ?
     `<img class="question-image" src="${baseUrl}/api/image/${question.image}" alt="Image de la question">` :
     '';
 }
@@ -660,15 +673,6 @@ function sortAnswers(answers) {
     //if (a.user_role !== b.user_role) return rolesPriority(a.user_role) - rolesPriority(b.user_role);
     return new Date(a.date) - new Date(b.date);
   });
-}
-
-function rolesPriority(role) {
-  const priorities = {
-    [UserRole.TEACHER]: 1,
-    [UserRole.ASSISTANT]: 2,
-    [UserRole.STUDENT]: 3
-  };
-  return priorities[role] || 4;
 }
 
 function handleQuestionView(questionId, questionLocation, directView, divId) {

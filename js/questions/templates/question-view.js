@@ -13,7 +13,7 @@ const polycopDivViewTemplate = () => `
 `;
 
 const questionAnswersTemplate = (answer, questionLocked) => `
-<div class="answer" data-answer-id="${answer.id}" data-body="${answer.body}">
+<div class="answer" data-answer-id="${answer.id}">
     <div class="answer-body">${answer.formatted_body}</div>
     <div class="answer-footer">
         <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
@@ -125,9 +125,9 @@ const questionViewTemplate = (question, answerForm) => `
             </div>` : ''}
         </div>
     </div>
-    <div class="question-body" data-body="${question.body}">${question.formatted_body}</div>
+    <div class="question-body">${question.formatted_body}</div>
     <div class="question-image-wrapper">
-        ${question.image}
+        ${question.image_tag}
     </div>
     
     <h6><span class="count-answers">${question.answers.length}</span> ${question.answers.length > 1 ? 'réponses' : 'réponse'}</h6>
