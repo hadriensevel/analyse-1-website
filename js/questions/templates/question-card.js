@@ -58,4 +58,56 @@ const errorMessageTemplate = (supportEmail) => `
 </div>
 `;
 
-export {questionCardTemplate, noQuestionsMessageTemplate, notAuthenticatedMessageTemplate, errorMessageTemplate};
+const paginationTemplate = (page, pagesCount) => {
+    let pages = [];
+    const maxDisplay = 5;
+
+    if (pagesCount <= maxDisplay) {
+        // If the total number of pages is less than or equal to maxDisplay, show all pages
+        pages = Array.from({length: pagesCount}, (_, i) => i + 1);
+    } else {
+        // Calculate the first and last page to display
+        let startPage = Math.max(page - 2, 1);
+        let endPage = Math.min(startPage + maxDisplay - 1, pagesCount);
+
+        // Adjust if we're at the last few pages
+        if (page > pagesCount - 2) {
+            startPage = pagesCount - 4;
+            endPage = pagesCount;
+        }
+
+        // Generate the range of pages
+        pages = Array.from({length: (endPage - startPage + 1)}, (_, i) => startPage + i);
+    }
+
+    return `
+<ul class="pagination">
+    <li class="page-item first-page-button ${page === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Première page">
+        <span aria-hidden="true">&lt;&lt;</span>
+      </a>
+    </li>
+    <li class="page-item previous-button ${page === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Précédent">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>
+    ${pages.map(pageNumber => `
+    <li class="page-item page-button ${pageNumber === page ? 'active' : ''}" data-page="${pageNumber}">
+        <a class="page-link" href="#">${pageNumber}</a>
+    </li>
+    `).join('')}
+    <li class="page-item next-button ${page === pagesCount ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Suivant">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>
+    <li class="page-item last-page-button ${page === pagesCount ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Dernière page">
+        <span aria-hidden="true">&gt;&gt;</span>
+      </a>
+    </li>
+</ul>
+`};
+
+export {questionCardTemplate, noQuestionsMessageTemplate, notAuthenticatedMessageTemplate, errorMessageTemplate, paginationTemplate};
