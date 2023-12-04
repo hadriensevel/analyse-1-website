@@ -610,7 +610,7 @@ async function populateAnswers(questionView, questionId) {
 
     // Format the answer data
     answer.date = moment(answer.date).fromNow();
-    answer.user_badge = getUserBadge(answer.user_role, answer.is_op);
+    answer.user_badge = getUserBadge(answer.user_role, answer.is_op, answer.endorsed_assistant);
     answer.formatted_body = processLineBreaks(answer.body);
 
     const answerElement = createElementFromTemplate(questionAnswersTemplate(answer, question.locked));
@@ -658,10 +658,10 @@ function formatQuestionData() {
     '';
 }
 
-function getUserBadge(role, isOp) {
+function getUserBadge(role, isOp, isEndorsedAssistant) {
   const roles = {
     [UserRole.TEACHER]: '<span class="badge text-bg-warning">Enseignant</span>',
-    [UserRole.ASSISTANT]: '<span class="badge text-bg-secondary">Assistant</span>',
+    [UserRole.ASSISTANT]: isEndorsedAssistant ? '<span class="badge text-bg-success">Assistant</span>' : '<span class="badge text-bg-secondary">Assistant</span>',
     [UserRole.STUDENT]: isOp ? '<span class="badge text-bg-light">Auteur original</span>' : '',
   };
   return roles[role] || '';
