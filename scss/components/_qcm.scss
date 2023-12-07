@@ -1,0 +1,57 @@
+// ----------------------------------
+// Quiz
+// ----------------------------------
+
+@import "../utils/icon";
+
+// Variables
+$qcm-bg-color: #fff;
+$qcm-btn-bg-color: #3ba2e3;
+
+.qcm {
+  background-color: $qcm-bg-color;
+  @extend .my-2;
+  @extend .mx-0;
+
+  ul {
+    @extend .mt-1;
+    list-style-type: none;
+    margin-left: -10px;
+
+    li {
+      @extend .mb-1;
+    }
+  }
+
+  .qcm-button-container {
+    @extend .d-flex;
+    @extend .justify-content-end;
+    @extend .w-100;
+    @extend .p-0;
+  }
+
+  .qcm-button {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-sm;
+    background-color: $qcm-btn-bg-color;
+    @extend .border-0;
+  }
+
+  .qcm-answer {
+    @extend .d-inline;
+
+    &:after {
+      @include icon('\F287', #ccc);
+      @extend .me-1;
+    }
+
+    &.true:after {
+      @include icon('\F26A', #77dd91);
+    }
+
+    &.false:after {
+      @include icon('\F622', #ff6166);
+    }
+  }
+}

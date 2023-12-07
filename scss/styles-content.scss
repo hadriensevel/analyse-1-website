@@ -180,22 +180,30 @@ blockquote {
 }
 
 // Colonnes multiples
-.multicolsTHREE {
-  margin-top: 1rem;
-  column-count: 3;
-}
-
 .multicolsTWO {
   margin-top: 1rem;
   column-count: 2;
 }
 
+.multicolsTHREE {
+  margin-top: 1rem;
+  column-count: 3;
+}
+
+.multicolsFOUR {
+  margin-top: 1rem;
+  column-count: 4;
+}
+
 @include media-breakpoint-down(md) {
+  .multicolsTWO {
+    column-count: 1;
+  }
   .multicolsTHREE {
     column-count: 2;
   }
-  .multicolsTWO {
-    column-count: 1;
+  .multicolsFOUR {
+    column-count: 2;
   }
 }
 
@@ -218,6 +226,7 @@ a {
 @import "components/exemple";
 @import "components/preuve";
 @import "components/quiz";
+@import "components/qcm";
 @import "components/video";
 @import "components/image";
 @import "components/popover";

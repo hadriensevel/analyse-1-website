@@ -4,6 +4,7 @@
 
 import {plyrInit} from './utils/plyr';
 import {quizzes} from './utils/quiz';
+import {qcm} from './utils/qcm';
 import {enablePopovers} from './utils/popovers';
 import {enableTooltips} from './utils/tooltips';
 import {animations} from './utils/anims';
@@ -19,6 +20,7 @@ import {solutions} from './utils/solutions';
 document.addEventListener('DOMContentLoaded', async () => {
   plyrInit();
   quizzes();
+  qcm();
   enablePopovers();
   enableTooltips();
   animations();
