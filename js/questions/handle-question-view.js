@@ -661,7 +661,7 @@ function formatQuestionData() {
 function getUserBadge(role, isOp, isEndorsedAssistant) {
   const roles = {
     [UserRole.TEACHER]: '<span class="badge text-bg-warning">Enseignant</span>',
-    [UserRole.ASSISTANT]: isEndorsedAssistant ? '<span class="badge text-bg-success">Assistant</span>' : '<span class="badge text-bg-secondary">Assistant</span>',
+    [UserRole.ASSISTANT]: isEndorsedAssistant ? '<span class="badge text-bg-success">Assistant·e</span>' : '<span class="badge text-bg-secondary">Assistant·e</span>',
     [UserRole.STUDENT]: isOp ? '<span class="badge text-bg-light">Auteur original</span>' : '',
   };
   return roles[role] || '';
