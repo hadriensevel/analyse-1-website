@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/styles-content.css">
+    <!-- Scripts -->
+    <script src="../../js/bundle.js"></script>
+    <script src="../../js/bundle2.js"></script>
+</head>
+
+<body class="polycop">
+
+<div class="grid-container">
+    <h5>I.4 Fonctionnalités Web</h5>
+</div>
+
+<div class="grid-container">
+    <p>
+        Ce polycopié peut être downloadé sous forme de pdf (cliquer sur les entêtes), mais sa version
+        online offre plus d'outils utiles pour une étude individuelle.
+        Voici quelques-unes des fonctionnalités, réservées uniquement à la version web.
+    </p>
+</div>
+
+<div class="grid-container">
+    <h6>Questions d'étudiant.e.s</h6>
+</div>
+
+<div class="grid-container">
+    <blockquote cite="">
+        ''<em>A good course is a course with many stupid questions.</em>''
+        <br>
+        <p class="text-end">
+            <a href='https://fr.wikipedia.org/wiki/Wendelin_Werner' target='_blank'>Wendelin Werner</a>, Rio de Janeiro,
+            2008
+        </p>
+    </blockquote>
+</div>
+
+<div class="grid-container">
+    <p>
+        À certains endroits, le symbole cliquable
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+            C'est quoi l'équation de Schrödinger?
+            " data-bs-content="
+            L'<a href='https://en.wikipedia.org/wiki/Schrödinger_equation' target='_blank'>équation de Schrödinger</a>, c'est
+            l'équation d'onde qui régit l'évolution d'une particule quantique dans un
+            potentiel \(V(x,t)\):
+            \[
+            i \hbar \frac{\partial}{\partial t}\Psi(x,t)=
+            \left[
+            -\frac{\hbar^2}{2m}
+            \frac{\partial^2}{\partial x^2}+V(x,t)
+            \right]
+            \Psi(x,t)\,.
+            \]
+
+            <br><br>
+            Pour fermer la question, cliquez n'importe où ailleurs sur la page.
+
+            <br><br>
+            <b>Remarque</b>: Si
+            le lien ci-dessus (vers l'équation de Schrödinger) ne s'ouvre pas dans un
+            deuxième onglet, essayer de cliquer sur le bouton droite de votre souris, et
+            sélectionnez ''Ouvrir le lien dans un nouvel onglet''.
+            "></a>
+
+        (ou encore
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+            Comment je fais pour lutter contre l'envie de m'endormir? (2017)
+            " data-bs-content="
+            Bonne question! Rien
+            de pire que de somnoler pendant un cours; ça peut être dû à la voix monotone de
+            la personne qui est en face de vous, je vous le concède :-). Je dirais qu'avoir
+            de temps en temps un coup de barre pendant un cours peut arriver, ce qu'il faut
+            c'est éviter que ça devienne systématique. Dormir la nuit aide, forcément, mais
+            une précaution importante, je pense, est de ne pas trop manger avant vos cours!
+            À
+            midi par exemple, pas de gros plat de pâtes, juste une salade... Les somnolences
+            des cours de début d'après midi sont terribles. Sinon un de vos collègues l'a
+            dit très justement: sortez un moment, trouvez un banc quelque part, et faites
+            une minisieste!
+            "></a>
+        ),
+        présente une question qu'a une fois posé un.e étudiant.e, sur un forum de
+        discussion Moodle, Piazza ou via Speakup.
+        Parfois, je prends la liberté de modifier légèrement la question originale,
+        pour la rendre plus compréhensible et utile, pour y ajouter du code \(\LaTeX\), ou
+        pour corriger quelques fautes d'orthographe.
+    </p>
+</div>
+
+<div class="grid-container">
+    <h6>Quiz</h6>
+</div>
+
+<div class="grid-container">
+    <p>
+        On trouvera la plupart du temps, à la fin d'une section, un ou plusieurs quiz
+        dont le but est de faire prendre conscience de
+        certaines subtilités des énoncés qui les précèdent, sans rajouter trop de
+        remarques qui freineraient la lecture.
+        Dans un quiz, il s'agit d'être capable de distinguer, dans un ensemble
+        d'affirmations, celles qui sont vraies et celles qui sont fausses.
+        On pourra alors sélectionner les affirmations que l'on considère correctes en
+        cliquant dans les checkbox, et ensuite faire apparaîtres les
+        réponses en appuyant sur le bouton ''Réponses'' au bas du quiz.
+        Certaines réponses apparaissent avec des commentaires, que l'on voit en passant
+        la souris (sur dispositif mobile: en cliquant) dessus:
+    </p>
+</div>
+
+<div class="grid-container">
+    <div class="quiz" id="QUIZZ-q_fonctions_def_ens_image">
+        <b>Quiz I.4-1 :</b>
+        Vrai ou faux?
+        L'<b>ensemble image</b> d'une fonction \(f:A\to B\), c'est
+        <ol>
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                l'ensemble \(B\)
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
+                    L'ensemble image c'est un
+                    <i>sous-ensemble</i> de \(B\). Dans le cas où \(B\) coïncide avec
+                    l'ensemble-image, on dit que la fonction est surjective.
+                    "></a>
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                le graphe de \(f\)
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
+                    Le <b>graphe</b> d'une fonction \(f:A\to B\), c'est l'ensemble des
+                    paires \((x,f(x))\), où \(x\in A\) (et \(f(x)\in B\)).
+                    "></a>
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                l'ensemble des \(y\in B\) pour lesquels il existe au plus un \(x\in
+                A\) tel que \(f(x)=y\)
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                l'ensemble des \(y\in B\) tels que \(f^{-1}(y)\in A\)
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                l'ensemble des \(x\in A\) pour lesquels \(f(x)\in B\)
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="false"></div>
+                l'ensemble des éléments de \(B\) qui possèdent au moins deux préimages
+            <li>
+                <div class="quiz-answer-user"></div>
+                <div class="quiz-answer" data-answer="true"></div>
+                l'ensemble des \(y\in B\) tels que \(\{x\in
+                A\,|\,f(x)=y\}\neq\varnothing\)
+                <a class="quiz-tooltip" data-bs-toggle="tooltip"
+                   data-bs-title="
+                    C'est bien la définition de l'ensemble image: c'est l'ensemble des points \(y\) de
+                    \(B\) qui possèdent au moins une préimage, c'est-à-dire pour lesquels il existe
+                    au moins un \(x\in A\) tel que \(f(x)=y\).
+                    Cela est équivalent à dire que l'ensemble \(\{x\in
+                    A\,|\,f(x)=y\}\) doit être non-vide.
+                    "></a>
+        </ol>
+        <div class="quiz-button-container">
+            <button type="button" class="quiz-button">Réponses</button>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container">
+    Soit le nombre complexe \(z=1+\sqrt{3}\;\mathrm{i}\). Alors:
+    <div class="qcm">
+        <div class="multicolsFOUR">
+            <ul>
+                <li><div class="qcm-answer" data-answer="false"></div>
+                    \(|z^6|\gt 73\)
+                <li><div class="qcm-answer" data-answer="false"></div>
+                    \(z^{14}\in \mathbb{R}\)
+                <li><div class="qcm-answer" data-answer="false"></div>
+                    \(\operatorname{Re}(z^8)\gt 0\)
+                <li><div class="qcm-answer" data-answer="true"></div>
+                    \(\operatorname{Im}(z^{11})\lt 0\)
+            </ul>
+        </div>
+        <div class="qcm-button-container">
+            <button type="button" class="qcm-button">Réponse</button>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container">
+    <h6>Graphes interactifs</h6>
+</div>
+
+<div class="grid-container">
+    <p>
+        La version online présente de nombreux graphes interactifs
+        (créés avec <a href='https://jsxgraph.org' target='_blank'>JSXGraph</a>, merci Badr!).
+        Par exemple, le suivant sera utilisé pour motiver la notion de dérivée:
+    </p>
+</div>
+
+<div>
+    <div id="BOX-jsx_integrale_ARCHIMEDE" class="jxgbox" style="width:480px; height:200px;"></div>
+</div>
+<script src="../jsxgraph/jsx_integrale_ARCHIMEDE.js"></script>
+
+<div class="grid-container">
+    <ul>
+        <li>Interaction: déplacer
+            le point \(x_0\), ou alors faire apparaître la sécante et
+            déplacer le point \(x\) sur l'axe \(Ox\).
+        <li>
+            <b>SHIFT+CLICK+MOUSE</b>
+            fait glisser la feuille
+        <li>
+            <b>SHIFT+SCROLL</b>
+            permet de zoomer
+    </ul>
+</div>
+
+<div class="grid-container">
+    <h6>Vidéos</h6>
+</div>
+
+<div class="grid-container">
+    <p>
+        Certaines sections du cours ont une vidéo associée. Par exemple (cliquer sur la barre):
+    </p>
+</div>
+
+<div class="grid-container">
+    <div class="video">
+        <a class="video-button" data-bs-toggle="collapse" href="#IDVID-v_suites_tendent_vers_zero"
+           role="button" aria-expanded="false" aria-controls="IDVID-v_suites_tendent_vers_zero">
+            Suites qui tendent vers zéro
+        </a>
+        <div class="collapse" id="IDVID-v_suites_tendent_vers_zero">
+            <video class="video-plyr" playsinline controls
+                   data-poster="../../media/videos/v_suites_tendent_vers_zero_thumbnail.png">
+                <source src="../../media/videos/v_suites_tendent_vers_zero.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="video semestre">
+        <a class="video-button" data-bs-toggle="collapse" href="#IDVID-v_suites_tendent_vers_zero0"
+           role="button" aria-expanded="false" aria-controls="IDVID-v_suites_tendent_vers_zero0">
+            Suites qui tendent vers zéro
+        </a>
+        <div class="collapse" id="IDVID-v_suites_tendent_vers_zero0">
+            <video class="video-plyr" playsinline controls
+                   data-poster="../../media/videos/v_suites_tendent_vers_zero_thumbnail.png">
+                <source src="../../media/videos/v_suites_tendent_vers_zero.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container">
+    <p>
+        La vitesse de lecture peut se régler dans la barre d'outils.
+        Malheureusement, les
+        vidéos ne suivent pas toujours exactement le texte qu'elles
+        accompagnent.
+    </p>
+</div>
+
+<div class="grid-container">
+    <h6>Animations ''explicatives''</h6>
+</div>
+
+<div class="grid-container">
+    <p>
+        Pour faciliter l'étude individuelle, certains éléments de texte sont
+        accompagnés d'une <i>animation</i>.
+        Une animation est une mini-vidéo dont le but est d'expliquer
+        un ou plusieurs éléments de la page (paragraphes, images, graphes, etc.),
+        et se visionne en cliquant dans la marge de droite.
+    </p>
+</div>
+
+<div class="grid-container animation-container" id="a_elephant_petit_prince">
+    <div class="anim-video">
+        <video class="anim-video-plyr" preload="none" playsinline>
+            <source src="../../media/videos/a_elephant_petit_prince.webm" type="video/webm">
+            <source src="../../media/videos/a_elephant_petit_prince.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="div-container">
+        <div><img class="image-center" src="../../media/images/i_integrale_generalisee_chapeau.jpg" width="300"></div>
+    </div>
+    <div class="right-column">
+        <a href="#" class="play-button"></a>
+        <a href="#" class="pause-button"></a>
+        <a href="#" class="fullscreen-button"></a>
+    </div>
+</div>
+
+<div class="grid-container">
+    <h6>Environnements ''texte''</h6>
+</div>
+
+<div class="grid-container">
+    <p>
+        Ci-dessous, plus pour que je puisse moi-même tester le
+        css, les divers environnements textuels utilisés:
+    </p>
+</div>
+
+<div class="grid-container">
+    <p>
+        Ceci est un paragraphe.
+    </p>
+</div>
+
+<div class="grid-container">
+    <div class="defin">
+        Ceci est une définition.
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="theo">
+        <b>Théorème:</b> Ceci est un théorème.
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="pro">
+        Ceci est une proposition.
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="lem">
+        <b>Lemme:</b> Ceci est un lemme.
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+                (2017) C'est quoi un lemme?
+                " data-bs-content="
+                En sciences, on a l'habitude de casser un raisonnement
+                compliqué en bouts de raisonnements plus simples (merci Descartes!). Par
+                exemple, en mathématiques, la preuve d'un gros
+                théorème se scinde souvent en parties plus simples,
+                que l'on appelle ''propositions'', ou alors en morceaux plus petits
+                encore, les ''lemmes''. Il faut considérer un lemme comme
+                un ''petit résultat utile'', ou comme
+                une étape dans la preuve d'un résultat plus important.
+                "></a>
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="cor">
+        Ceci est un corollaire.
+    </div>
+</div>
+
+<div class="grid-container">
+    <p>
+        On fait apparaître le contenu d'une preuve en cliquant sur la barre associée:
+    </p>
+</div>
+
+<div class="grid-container">
+    <div class="preuve">
+        <a class="preuve-button" data-bs-toggle="collapse" href="#PROOFceciestunepreuve" role="button"
+           aria-expanded="false" aria-controls="PROOFceciestunepreuve">Preuve:</a>
+        <div class="collapse" id="PROOFceciestunepreuve">
+            <div class="preuve-card">
+                <p>
+                    Ceci est une preuve, que l'on fait apparaître en cliquant sur la barre
+                    correspondante.
+                    Remarquons que dans le pdf du polycopié, les
+                    preuves sont toutes affichées, par défaut.
+                    <br>
+                    <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+                        Pourquoi y a-t-il un petit carré en bas à droite? (2017)
+                        " data-bs-content="
+                        Ce carré indique la fin de la preuve.
+                        C'est l'équivalent de ''C.Q.F.D.''.
+                        "></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="exemple">
+        <b>Exemple:</b> Ceci est un exemple.
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="rem">
+        <b>Remarque:</b> Ceci est une remarque.
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="info">
+        Cet environnement sera utilisé pour faire des commentaires parfois informels,
+        qui pourront on l'espère aider à comprendre certaines notions un peu abstraites
+        au premier abord.
+    </div>
+</div>
+
+<script src="../../js/main-content.js" type="module"></script>
+</body>
+</html>
