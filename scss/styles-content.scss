@@ -90,6 +90,12 @@ body {
   }
 }
 
+pre code {
+  white-space: pre-wrap;
+  font-family: 'Input Mono', 'IBM Plex Mono', monospace;
+  font-size: $font-size;
+}
+
 // Pour créer virtuellement la 3e colonne pour le polycop
 // si il n'y a pas de grid-container
 body.polycop > :not(.grid-container) {
