@@ -16,6 +16,8 @@ import {getFeatureFlag} from './utils/feature-flags';
 import {authentication} from './utils/auth';
 import {scrollToDiv} from './utils/scroll-div';
 import {solutions} from './utils/solutions';
+import {highlightCode} from './utils/code-highlighting';
+import {rescaleImg} from './utils/rescale-image';
 
 document.addEventListener('DOMContentLoaded', async () => {
   plyrInit();
@@ -39,4 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   solutions();
   scrollToDiv();
+  highlightCode();
+  rescaleImg();
 });

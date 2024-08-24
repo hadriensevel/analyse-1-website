@@ -1,0 +1,157 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/styles-content.css">
+    <!-- Scripts -->
+    <script src="../../js/bundle.js"></script>
+    <script src="../../js/bundle2.js"></script>
+</head>
+
+<body class="polycop">
+
+<h5> 1.3 Ordre: \(\leqslant,\geqslant,\lt,\gt\) </h5>
+
+<div class="grid-container" id="7YsDoAYzPusCd1dC">
+    <p>
+        La deuxième caractéristique de l'ensemble des nombres réels est que deux réels
+        \(x,y\) peuvent toujours être <i>comparés</i>.
+        Si ils sont égaux, \(x=y\), il n'y a pas lieu de les comparer, mais si ils sont
+        distincts, \(x\neq y\), alors il y en a nécessairement un qui est plus petit que
+        l'autre:
+    </p>
+
+    <ul>
+        <li>Si \(x\) est <b>plus petit que</b> \(y\), on note \(x\lt y\).
+        <li>Si \(x\) est <b>plus grand que</b> \(y\), on note \(x\gt y\).
+    </ul>
+
+    <p>
+        Le fait que l'on puisse ainsi comparer n'importe quelle paire de réels distincts
+        représente ce qu'on appelle un <b>ordre total</b>
+        <a tabindex="0" class="question-popover" role="button" data-bs-toggle="popover" data-bs-title="
+(2017)
+Est-ce qu'il existe des ensembles avec un ordre qui n'est pas total?
+" data-bs-content="
+Oui. Il
+est des ensembles où la relation d'ordre (le ''\(\leqslant\)'') permet de comparer
+seulement certaines paires \(x\) et \(y\).
+L'ensemble des nombres complexes, par exemple, est aussi un corps, et on peut lui
+associer un ordre, mais pas total.
+"></a>.
+    </p>
+</div>
+
+<div class="grid-container" id="ooS7XYg8Xj91TLLY">
+    <p>
+        Lorsqu'on veut comparer deux réels sans forcément se préoccuper de savoir s'ils
+        sont distincts:
+    </p>
+
+    <ul>
+        <li>Si \(x\) est <b>plus petit ou égal à</b> \(y\), on note \(x\leqslant y\).
+        <li>Si \(x\) est <b>plus grand ou égal à</b> \(y\), on note \(x\geqslant y\).
+    </ul>
+</div>
+
+<p>
+    Énonçons les propriétés des relations ''\(\leqslant, \geqslant, \lt,\gt\)'':
+</p>
+
+<div class="grid-container" id="dV5vQo6gYlxOILph">
+    <ol>
+        <li>Pour toute paire \(x,y\in \mathbb{R}\), on a soit \(x\leqslant y\), soit \(y\leqslant x\).
+            Si on a à la fois
+            \(x\leqslant y\) et \(y\leqslant x\), alors \(x=y\).
+        <li>\(x\leqslant x\) pour tout \(x\in \mathbb{R}\).
+        <li>Si \(x\leqslant y\) et \(y\leqslant z\), alors \(x\leqslant z\).
+        <li>Si \(x\leqslant y\), alors \(x+z\leqslant y+z\) pour tout \(z\in \mathbb{R}\).
+        <li>Si \(0\leqslant x\) et \(0\leqslant y\), alors \(0\leqslant x\cdot y\)
+    </ol>
+</div>
+
+<div class="grid-container" id="0TjuUZchG6npVI10">
+    <div class="info">
+        La troisième propriété est constamment utilisées en analyse. En effet, pour montrer
+        qu'un nombre \(x\) est plus petit ou égal à un nombre \(z\), on
+        passera souvent par l'utilisation d'un réel intermédiaire \(y\), et on vérifiera
+        les deux relations ''\(x\leqslant y\)'', ''\(y\leqslant z\)'', qui ensemble garantissent
+        que \(x\leqslant z\).
+    </div>
+</div>
+
+<h6>Signe</h6>
+
+<div class="grid-container" id="Z8ODRFt2TKR28JGO">
+    <p>
+        Un réel \(x\in \mathbb{R}\) est dit
+    </p>
+
+    <ul>
+        <li><b>positif</b> (resp.
+            <b>strictement positif</b>) si \(x\geqslant 0\) (resp.
+            \(x\gt 0\)),
+        <li><b>négatif</b> (resp.
+            <b>strictement négatif</b>) si \(x\leqslant 0\) (resp.
+            \(x\lt 0\)).
+    </ul>
+</div>
+
+<div class="grid-container" id="4HSAyjXhIdE3Ftq5">
+    <div class="quiz" id="QUIZZ- q_reels_ordre_0 "> <b>Quiz  1.3-1 :</b>
+        (Ordre total sur \(\mathbb{R}\).)
+        Vrai ou faux?
+        <ol>
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="false"></div> Si \(x\leqslant y\) et \(a\leqslant b\), alors \(\frac{x}{a}\leqslant \frac{y}{b}\).
+                <div class="quiz-tooltip" data-bs-toggle="tooltip" data-bs-title="
+Contre-exemple: \(x=3\), \(y=4\), \(a=1\), \(b=4\).
+"></div>
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="true"></div> Si \(0\lt a\lt b\), alors \(\frac{1}{b}\lt \frac{1}{a}\).
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="false"></div> Si \(x\leqslant y\) et \(a\leqslant b\), alors \(ax\leqslant by\).
+                <div class="quiz-tooltip" data-bs-toggle="tooltip" data-bs-title="
+Contre-exemple: \(x=-3,y=1\) et \(a=-1, b=1\).
+(Par contre, si on impose que tous ces nombres soient positifs, alors
+l'inégalité est vraie.)
+"></div>
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="false"></div> Si \(x\lt y+\varepsilon\) pour tout \(\varepsilon\gt 0\), alors \(x\lt y\).
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="true"></div> Si \(x_k\leqslant a\) pour tout \(k=1,2,\dots,n\), alors
+                \[
+                \max\{x_1,,\dots,x_n\}\leqslant a\,.
+                \]
+        </ol>
+        <div class="quiz-button-container"><button type="button" class="quiz-button" >Réponses</button></div>
+    </div><!--quizz-->
+</div>
+
+<div class="grid-container" id="ZGOHtQERzbiEB2Zf">
+    <div class="quiz" id="QUIZZ- q_reels_pasdepluspetit "> <b>Quiz  1.3-2 :</b>
+        Vrai ou faux?
+        <ol>
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="false"></div> Il existe un nombre réel strictement positif plus petit que tous les
+                autres.
+                <div class="quiz-tooltip" data-bs-toggle="tooltip" data-bs-title="
+Il n'existe <i>pas</i> de nombre réel strictement 
+positif plus petit que les autres! En
+effet, quel que soit \(x\gt 0\), le nombre 
+\(x'=\frac{x}{2}\) est aussi strictement positif, mais \(x'\lt x\).
+"></div>
+            <li><div class="quiz-answer-user"></div><div class="quiz-answer" data-answer="false"></div> Tout nombre réel possède un successeur immédiat.
+                <div class="quiz-tooltip" data-bs-toggle="tooltip" data-bs-title="
+Cette affirmation fait sens dans \(\mathbb{N}\) ou \(\mathbb{Z}\), où le successeur
+immédiat de \(n\) est tout simplement \(n+1\). Mais que 
+serait le ''successeur immédiat'' de \(x\in\mathbb{R}\)? 
+... \(x+0.1\)? ... \(x+0.01\)?  
+"></div>
+        </ol>
+        <div class="quiz-button-container"><button type="button" class="quiz-button" >Réponses</button></div>
+    </div><!--quizz-->
+</div>
+<div class=footer> <hr> <p><em>Dernière compilation: 2023-08-26 (08:30:58)</em></p>  <div class=footer-wrapper> <div> <p>Sauf indication contraire, le contenu de ce document est soumis à une licence <em>Creative Commons</em> internationale, Attribution: Pas d'Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'>(CC BY-NC-SA 4.0)</a> </p> <img src='../../../media/images/smallimages/creative_commons_by_nc_sa.png'> </div> </div> </div>
+<script src="../../js/main-content.js" type="module"></script>
+</body>
+</html>

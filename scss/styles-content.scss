@@ -161,6 +161,14 @@ blockquote {
   @extend .px-4;
 }
 
+// Code
+pre code {
+  @extend .m-0;
+  white-space: pre-wrap;
+  font-family: 'Input Mono', 'IBM Plex Mono', monospace;
+  font-size: $font-size;
+}
+
 // KaTeX
 .katex-display {
   > .katex {

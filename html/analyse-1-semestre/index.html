@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Analyse réelle, S. Friedli, EPFL">
+    <title>Analyse réelle | S. Friedli</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/bundle.js"></script>
+</head>
+
+<body class="had-main-body had-analyse-semestre">
+
+<!-- Header -->
+<nav class="had-navbar">
+    <div class="had-navbar-title">Analyse 1 GM, MATH-101(c)</div>
+    <button class="had-navbar-toggler collapsed" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Ouvrir le menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="had-navbar-right">
+        <div class="had-auth-info"></div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebarMenu" class="had-sidebar">
+    <nav class="had-sidebar-full">
+        <div class="had-sidebar-menu">
+
+            <!-- Informations générales -->
+            <div class="had-sidebar-nav-section section">
+                <ul class="had-sidebar-nav">
+                    <li class="had-nav-toplevel">
+                        <a href="#info-generales" data-bs-toggle="collapse" aria-expanded="false">
+                            Informations générales
+                        </a>
+                        <ul class="had-nav-secondlevel collapse" id="info-generales">
+                            <li class="had-nav-link-secondlevel" id="welcome">
+                                <a href="#">Welcome</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="description">
+                                <a href="#">Description du cours online</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="seances-contact">
+                                <a href="#">Séances contact</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="aide-en-ligne">
+                                <a href="#">Aide en ligne</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="seances-soir">
+                                <a href="#">Séances du soir</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="materiel-didactique">
+                                <a href="#">Matériel didactique</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="dates-importantes">
+                                <a href="#">Dates importantes</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="quiz-exercices">
+                                <a href="#">À propos des quiz et exercices</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="had-nav-toplevel">
+                        <a href="#forum" data-bs-toggle="collapse" aria-expanded="false">
+                            Forum
+                        </a>
+                        <ul class="had-nav-secondlevel collapse" id="forum">
+                            <li class="had-nav-link-secondlevel" id="toutes-les-questions">
+                                <a href="forum/toutes-les-questions.html">Toutes les questions</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="mes-questions">
+                                <a href="forum/mes-questions.html">Mes questions</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="questions-generales">
+                                <a href="forum/questions-generales.html">Questions générales</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Semaine 1 -->
+            <div class="had-sidebar-header">
+                Semaine 01 (19-23 sept)
+            </div>
+            <div class="had-sidebar-nav-section">
+                <ul class="had-sidebar-nav">
+                    <li class="had-nav-link-toplevel" id="contenu-semaine-1">
+                        <a href="seances/contenu-1.html">Contenu (18-22 sept)</a>
+                    </li>
+                    <li class="had-nav-toplevel">
+                        <a href="#serie-01" data-bs-toggle="collapse" aria-expanded="false">
+                            Série 01 (Supremum, Infimum)
+                        </a>
+                        <ul class="had-nav-secondlevel collapse" id="serie-01">
+                            <li class="had-nav-link-secondlevel" id="ex1-1">
+                                <a href="exercices/exercice-1-1.html">Exercice 1</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="ex1-2">
+                                <a href="exercices/exercice-1-1.html">Exercice 2</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="ex1-3">
+                                <a href="exercices/exercice-1-1.html">Exercice 3</a>
+                            </li>
+                            <li class="had-nav-link-secondlevel" id="ex1-4">
+                                <a href="exercices/exercice-1-1.html">Exercice 4</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Semaine 2 -->
+            <div class="had-sidebar-header">
+                Semaine 02 (25-29 sept)
+            </div>
+            <div class="had-sidebar-nav-section">
+                <ul class="had-sidebar-nav">
+                    <li class="had-nav-link-toplevel" id="seance-01">
+                        <a href="seances/seance-1.html">Séance 01 (lundi 25 sept)</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <div class="had-footer">
+        <p>&copy; 2023 S. Friedli, EPFL</p>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="had-content">
+    <iframe name="iframe" id="iframe" class="had-iframe" title="Semestre" allowfullscreen
+            src="forum/toutes-les-questions.html" loading="lazy"></iframe>
+    <iframe name="right-iframe" id="right-iframe" class="had-right-iframe" title="Polycopié" allowfullscreen
+            src="../analyse-1/sections/m_intro_essais_css.html" loading="lazy"></iframe>
+</div>
+
+<!-- Scripts -->
+<script src="../js/main-semestre.js" type="module"></script>
+</body>
+</html>
