@@ -2,9 +2,13 @@
 // Image
 // ----------------------------------
 
-.image-center {
+.image-center, .image-rescale {
   @extend .img-fluid;
   @extend .d-block;
   @extend .mx-auto;
   @extend .my-2;
+}
+
+.image-center {
+  @extend .img-fluid;
 }
