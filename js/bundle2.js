@@ -1,5 +1,5 @@
 // Import JSXGraph
-import './distrib/jsxgraphcore.js';
+import '../node_modules/jsxgraph/distrib/jsxgraphcore.js';
 JXG.Options.text.useKatex = true;
 
 // Import Plyr
