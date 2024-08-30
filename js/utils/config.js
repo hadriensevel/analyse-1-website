@@ -2,7 +2,7 @@
 // CONFIGURATION
 // ----------------------------------
 
-const baseUrl = 'https://api.sfriedli.org';
+const baseUrl = 'https://hadri1sev.com';
 
 // Technical support email address
 const supportEmail = 'support-technique.analyse@groupes.epfl.ch';
