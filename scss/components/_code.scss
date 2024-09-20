@@ -1,0 +1,30 @@
+// ----------------------------------
+// Code blocks
+// ----------------------------------
+
+code[data-lang] {
+    @extend .my-2;
+}
+
+.shiki {
+	@extend .p-2;
+	@extend .rounded;
+	@extend .border;
+    @extend .m-0;
+
+	code {
+		counter-reset: step;
+		counter-increment: step 0;
+	}
+
+	code .line::before {
+        @extend .text-secondary;
+        
+		content: counter(step);
+		counter-increment: step;
+		width: 1rem;
+		margin-right: 1.5rem;
+		display: inline-block;
+		text-align: right;
+	}
+}
