@@ -22,7 +22,7 @@ code[data-lang] {
         
 		content: counter(step);
 		counter-increment: step;
-		width: 1rem;
+		width: 2ch;
 		margin-right: 1.5rem;
 		display: inline-block;
 		text-align: right;
