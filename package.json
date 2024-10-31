@@ -20,11 +20,11 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "axios": "^1.6.2",
+    "axios": "^1.7",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.2",
-    "jsxgraph": "^1.9.2",
-    "katex": "^0.16.9",
+    "jsxgraph": "^1.10",
+    "katex": "^0.16.11",
     "moment": "^2.29.4",
     "plyr": "^3.7.8",
     "shiki": "^1.14.1"
@@ -37,9 +37,9 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
-    "rollup": "^4.6.0",
+    "rollup": "^4.24",
     "sass": "^1.69.5",
-    "serve": "^14.2.1",
+    "serve": "^14.2.4",
     "stylelint": "^15.11.0",
     "stylelint-config-twbs-bootstrap": "^11.0.1"
   }
