@@ -97,12 +97,12 @@ const paginationTemplate = (page, pagesCount) => {
         <a class="page-link" href="#">${pageNumber}</a>
     </li>
     `).join('')}
-    <li class="page-item next-button ${page === pagesCount ? 'disabled' : ''}">
+    <li class="page-item next-button ${page === pagesCount || pagesCount === 0 ? 'disabled' : ''}">
       <a class="page-link" href="#" aria-label="Suivant">
         <span aria-hidden="true">&gt;</span>
       </a>
     </li>
-    <li class="page-item last-page-button ${page === pagesCount ? 'disabled' : ''}">
+    <li class="page-item last-page-button ${page === pagesCount || pagesCount === 0 ? 'disabled' : ''}">
       <a class="page-link" href="#" aria-label="Dernière page">
         <span aria-hidden="true">&gt;&gt;</span>
       </a>
