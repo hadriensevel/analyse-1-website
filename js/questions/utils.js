@@ -33,6 +33,7 @@ const UserRole = {
   STUDENT: 'student',
   ASSISTANT: 'assistant',
   TEACHER: 'teacher',
+  LLM: 'llm',
 }
 
 // Escape HTML and keep the newlines

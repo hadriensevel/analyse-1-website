@@ -108,6 +108,24 @@
     }
   }
 
+  .question-bookmarked {
+    @extend .d-inline;
+    @extend .text-secondary;
+    @extend .fs-6;
+    @extend .me-2;
+    cursor: pointer;
+
+    &:before {
+      @include icon('\F1A2');
+    }
+
+    &[data-bookmarked="true"] {
+      &:before {
+        @include icon('\F199');
+      }
+    }
+  }
+
   .question-options-button {
     @extend .d-inline;
     @extend .text-secondary;

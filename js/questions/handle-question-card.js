@@ -43,7 +43,7 @@ const sortFunctions = {
 };
 
 // Fetch the questions from the backend
-async function fetchQuestions(questionLocation, pageId, divId, page, sort) {
+async function fetchQuestions(questionLocation, pageId, divId, page, sort, showBookmarks) {
     let url = (() => {
         if (questionLocation === QuestionLocation.ALL_QUESTIONS) {
             return `${baseUrl}/api/get-questions/all-questions`;
@@ -60,6 +60,9 @@ async function fetchQuestions(questionLocation, pageId, divId, page, sort) {
     }
     if (sort) {
         url += page ? `&sort=${sort}` : `?sort=${sort}`;
+    }
+    if (showBookmarks) {
+        url += page || sort ? '&bookmarked-questions=true' : '?bookmarked-questions=true';
     }
 
     try {
@@ -191,7 +194,8 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
 
         // Add the top bar with the sort dropdown
         if (!questionsBodyElement.querySelector('.top-bar')) {
-            const topBar = createElementFromTemplate(questionCardsTopBarTemplate(Sort));
+            const addBookmarksButton = questionLocation === QuestionLocation.MY_QUESTIONS;
+            const topBar = createElementFromTemplate(questionCardsTopBarTemplate(Sort, addBookmarksButton));
             questionsBodyElement.prepend(topBar);
 
             // Add the popover to the website info button
@@ -224,6 +228,14 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
                 e.preventDefault();
                 loadQuestionCards(questionsBody, questionLocation, divId, false);
             });
+
+            // Add the event listener to the bookmarks button
+            const bookmarksButton = topBar.querySelector('#bookmarksButton');
+            if (bookmarksButton) {
+                bookmarksButton.addEventListener('change', () => {
+                    loadQuestionCards(questionsBody, questionLocation, divId, false);
+                });
+            }
         }
 
         // If the feature flag is enabled, the user is authenticated, and if there is not
@@ -246,8 +258,16 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
 
     const pageId = (questionLocation === QuestionLocation.COURSE || questionLocation === QuestionLocation.EXERCISE) ? getFileName() : '';
 
+    let showBookmarks = false;
+    if (questionLocation === QuestionLocation.MY_QUESTIONS) {
+        const bookmarksButton = questionsBodyElement.querySelector('#bookmarksButton');
+        if (bookmarksButton) {
+            showBookmarks = bookmarksButton.checked;
+        }
+    }
+
     // Get the questions from the backend
-    const questions = await fetchQuestions(questionLocation, pageId, divId, currentPage, currentSort);
+    const questions = await fetchQuestions(questionLocation, pageId, divId, currentPage, currentSort, showBookmarks);
     currentQuestions = questions || [];
 
     if (questions === null) {

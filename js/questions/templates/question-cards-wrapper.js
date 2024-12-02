@@ -2,7 +2,7 @@
 // QUESTION CARDS WRAPPER
 // ----------------------------------
 
-const questionCardsTopBarTemplate = (Sort) => `
+const questionCardsTopBarTemplate = (Sort, bookmarksButton) => `
 <div class="top-bar">
     <div>
         Trier par:
@@ -20,6 +20,7 @@ const questionCardsTopBarTemplate = (Sort) => `
         </ul>
         <a class="refresh-button" href="#" aria-label="Recharger les questions" title="Recharger les questions"></a>
         <a role="button" class="website-info" data-bs-toggle="popover" data-bs-content="Un problème? Une suggestion?<br><a href='mailto:support-technique.analyse@groupes.epfl.ch'>Alors contactez-nous ici!</a>"></a>
+        ${bookmarksButton ? `<input class="form-check-input" type="checkbox" value="" id="bookmarksButton" style="margin-top:.35em;margin-left:.5em;margin-right:.3em"><label class="form-check-label" for="bookmarksButton">Voir mes questions enregistrées</label>` : ''}
     </div>
     <div class="new-question"></div>
 </div>

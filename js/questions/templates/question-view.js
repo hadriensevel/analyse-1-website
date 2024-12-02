@@ -2,6 +2,8 @@
 // QUESTION VIEW
 // ----------------------------------
 
+import {UserRole} from '../utils';
+
 const polycopDivViewTemplate = () => `
 <div class="polycop-div-view">
     <a class="div-view-button" data-bs-toggle="collapse" href="#div-view"
@@ -14,7 +16,10 @@ const polycopDivViewTemplate = () => `
 
 const questionAnswersTemplate = (answer, questionLocked) => `
 <div class="answer" data-answer-id="${answer.id}">
-    <div class="answer-body">${answer.formatted_body}</div>
+    <div class="answer-body">
+        ${answer.user_role === UserRole.LLM ? '<div class="bg-body-secondary  lh-1 text-uppercase mb-1" style="font-size: 0.75rem; margin-left: -.5rem; padding: .5rem"><strong>Attention, la réponse ci-dessous a été générée automatiquement par un modèle de langage et n\'a pas été validée par l\'enseignant!</strong></div>' : ''}
+        ${answer.formatted_body}
+    </div>  
     <div class="answer-footer">
         <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
         <div class="answer-likes ${answer.user_liked ? 'liked' : ''}">${answer.likes}</div>
@@ -112,6 +117,7 @@ const questionViewTemplate = (question, answerForm) => `
         </div>
         <div class="question-icons">
             <div class="question-resolved" title="Question résolue" data-resolved="${question.resolved ? 'true' : 'false'}"></div>
+            ${question.user_authenticated ? `<div class="question-bookmarked" title="Question enregistrée" data-bookmarked="${question.user_bookmarked ? 'true' : 'false'}"></div>` : ''}
             <div class="question-locked" title="Question verrouillée" data-locked="${question.locked ? 'true' : 'false'}"></div>
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
             ${(question.can_edit || question.can_delete || question.can_lock) && !question.locked ? `
@@ -119,7 +125,7 @@ const questionViewTemplate = (question, answerForm) => `
                 <div class="question-options-button" data-bs-toggle="dropdown"></div>
                 <ul class="dropdown-menu">
                     ${question.can_edit && !question.locked ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
-                    ${question.can_lock ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${question.locked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''}
+                    ${/*question.can_lock ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${question.locked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''*/''}
                     ${question.can_delete && !question.locked ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
                 </ul>
             </div>` : ''}
