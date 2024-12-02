@@ -17,7 +17,7 @@ const polycopDivViewTemplate = () => `
 const questionAnswersTemplate = (answer, questionLocked) => `
 <div class="answer" data-answer-id="${answer.id}">
     <div class="answer-body">
-        ${answer.user_role === UserRole.LLM ? '<div class="bg-body-secondary  lh-1 text-uppercase mb-1" style="font-size: 0.75rem; margin-left: -.5rem; padding: .5rem"><strong>Attention, la réponse ci-dessous a été générée automatiquement par un modèle de langage et n\'a pas été validée par l\'enseignant!</strong></div>' : ''}
+        ${answer.user_role === UserRole.LLM ? '<div class="bg-body-secondary lh-sm mb-1" style="font-size: 0.75rem; margin-left: -.5rem; padding: .5rem"><strong>ATTENTION: La réponse ci-dessous a été générée automatiquement par un modèle de langage et pourrait contenir des erreurs.</strong></br>Merci de cliquer sur "Like" si vous trouvez la réponse utile ou de bonne qualité!</div>' : ''}
         ${answer.formatted_body}
     </div>  
     <div class="answer-footer">
