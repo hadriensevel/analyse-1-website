@@ -176,15 +176,15 @@ pre code {
 
 // KaTeX
 .katex-display {
+  overflow: auto hidden;
+
   > .katex {
     max-width: 100%;
-    overflow: auto;
 
     @include media-breakpoint-down(md) {
       > .katex-html {
         max-width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow: auto hidden;
         padding-left: 2px;
         padding-right: 2px;
       }
