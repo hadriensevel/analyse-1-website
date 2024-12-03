@@ -632,7 +632,7 @@ async function populateAnswers(questionView, questionId) {
     const userRole = getAuthData()?.role;
     const userIsAdmin = getAuthData()?.is_admin;
 
-    sortAnswers(answers).forEach(answer => {
+    answers.forEach(answer => {
         // Initialize permissions for the current answer
         const userPermissions = new UserPermissions({userRole, isAdmin: userIsAdmin, isAuthor: answer.user_is_author});
         answer.can_edit = userPermissions.canEditAnswer();
@@ -697,14 +697,6 @@ function getUserBadge(role, isOp, isEndorsedAssistant) {
         [UserRole.LLM]: '<span class="badge text-bg-info">Modèle de langage (beta)</span>',
     };
     return roles[role] || '';
-}
-
-function sortAnswers(answers) {
-    return answers.sort((a, b) => {
-        //if (a.accepted !== b.accepted) return b.accepted - a.accepted;
-        //if (a.user_role !== b.user_role) return rolesPriority(a.user_role) - rolesPriority(b.user_role);
-        return new Date(a.date) - new Date(b.date);
-    });
 }
 
 function handleQuestionView(questionId, questionLocation, directView, divId) {
