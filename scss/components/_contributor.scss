@@ -12,6 +12,9 @@
     @extend .border;
     @extend .border-light-subtle;
     @extend .me-2;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
   }
 
   .contributor-info {
