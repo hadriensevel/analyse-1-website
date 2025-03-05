@@ -174,13 +174,7 @@ function displayNoQuestionsMessage(questionCardsWrapper) {
 }
 
 // Load the question cards to the modal and add them to the modal
-async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true, loadQuestionId = null) {
-    // Allow to force the page number
-    // A negative or null page number will display all questions
-    const urlParams = new URLSearchParams(window.parent.location.search);
-    const page = urlParams.get('questionsPage') ?? currentPage;
-    currentPage = parseInt(page);
-
+async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true, loadQuestionId = null, loadQuestionsPage = currentPage) {
     // Get the questions body element
     const questionsBodyElement = document.querySelector(questionsBody);
 
@@ -274,7 +268,7 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
     }
 
     // Get the questions from the backend
-    const questions = await fetchQuestions(questionLocation, pageId, divId, currentPage, currentSort, showBookmarks);
+    const questions = await fetchQuestions(questionLocation, pageId, divId, loadQuestionsPage, currentSort, showBookmarks);
     currentQuestions = questions || [];
 
     if (questions === null) {

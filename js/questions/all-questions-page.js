@@ -29,6 +29,8 @@ async function allQuestions() {
   // Get the id of the question if it is in the URL of the parent page and remove it
   const urlParams = new URLSearchParams(window.parent.location.search);
   const questionId = urlParams.get('question') ?? null;
+  const questionsPageRaw = urlParams.get('questionsPage') ?? null
+  const questionsPage = questionsPageRaw ? parseInt(questionsPageRaw) : null;
   if (questionId) {
     urlParams.delete('question');
     const newRelativePathQuery = window.parent.location.pathname + '?' + urlParams.toString();
@@ -36,7 +38,7 @@ async function allQuestions() {
   }
 
   // Load the question cards
-  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS, undefined, undefined, questionId);
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS, undefined, undefined, questionId, questionsPage);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
