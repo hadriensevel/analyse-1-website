@@ -55,15 +55,17 @@ async function fetchQuestions(questionLocation, pageId, divId, page, sort, showB
     })();
 
     // Add the page and sort parameters if needed
-    if (page && page > 0) {
+    const usePage = page && page > 0;
+    if (usePage) {
         url += `?page=${page}`;
     }
 
     if (sort) {
-        url += page ? `&sort=${sort}` : `?sort=${sort}`;
+        url += usePage ? `&sort=${sort}` : `?sort=${sort}`;
     }
+    
     if (showBookmarks) {
-        url += page || sort ? '&bookmarked-questions=true' : '?bookmarked-questions=true';
+        url += usePage || sort ? '&bookmarked-questions=true' : '?bookmarked-questions=true';
     }
 
     try {
