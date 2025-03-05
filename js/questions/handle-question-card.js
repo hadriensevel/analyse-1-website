@@ -178,7 +178,7 @@ async function loadQuestionCards(questionsBody, questionLocation, divId = '', cr
     // Allow to force the page number
     // A negative or null page number will display all questions
     const urlParams = new URLSearchParams(window.parent.location.search);
-    const page = urlParams.get('page') ?? currentPage;
+    const page = urlParams.get('questionsPage') ?? currentPage;
     currentPage = parseInt(page);
 
     // Get the questions body element
