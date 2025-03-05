@@ -55,9 +55,10 @@ async function fetchQuestions(questionLocation, pageId, divId, page, sort, showB
     })();
 
     // Add the page and sort parameters if needed
-    if (page) {
+    if (page && page > 0) {
         url += `?page=${page}`;
     }
+
     if (sort) {
         url += page ? `&sort=${sort}` : `?sort=${sort}`;
     }
@@ -174,6 +175,12 @@ function displayNoQuestionsMessage(questionCardsWrapper) {
 
 // Load the question cards to the modal and add them to the modal
 async function loadQuestionCards(questionsBody, questionLocation, divId = '', createTopBar = true, loadQuestionId = null) {
+    // Allow to force the page number
+    // A negative or null page number will display all questions
+    const urlParams = new URLSearchParams(window.parent.location.search);
+    const page = urlParams.get('page') ?? currentPage;
+    currentPage = parseInt(page);
+
     // Get the questions body element
     const questionsBodyElement = document.querySelector(questionsBody);
 
