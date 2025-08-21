@@ -6,7 +6,7 @@ import {createElementFromTemplate, closeModal} from './templates/utils.js';
 import {newQuestionFormTemplate, newQuestionModalTemplate} from './templates/new-question-view.js';
 import {getFileName, updatePreview} from './utils';
 import {baseUrl} from '../utils/config';
-import {getAuthData} from '../utils/auth';
+import {validateToken} from '../utils/auth';
 
 import axios from 'axios';
 
@@ -107,7 +107,8 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
     <span role="status">Envoi...</span>
   `;
 
-  if (getAuthData()) {
+  const authData = await validateToken();
+  if (authData && authData !== 401 && authData !== 'session_expired') {
     // Append the question data to the form data
     formData.append('page', getFileName());
     formData.append('question-location', questionLocation);
@@ -130,6 +131,9 @@ async function handleFormSubmission(form, questionLocation, successToastElement,
       submitButton.removeAttribute('disabled');
       submitButton.classList.remove('sending');
       submitButton.innerHTML = submitButtonContent;
+
+      // Trigger auto-refresh of question cards
+      window.dispatchEvent(new CustomEvent('new-question-submitted'));
 
       return;
     }
@@ -168,6 +172,8 @@ function addModalEventListeners(newQuestionModal) {
       if (e.target.classList.contains('btn-close')) {
         closeModal(document.querySelector('.question-list-modal'), true);
       }
+      // Trigger auto-refresh when returning from new question form
+      window.dispatchEvent(new CustomEvent('question-view-closed'));
     }
   });
 }
@@ -190,6 +196,9 @@ function addDirectViewEventListeners(newQuestionView) {
 
       document.querySelector('.top-bar').classList.remove('d-none');
       document.querySelector('.question-cards-wrapper').classList.remove('d-none');
+      
+      // Trigger auto-refresh when returning from new question form
+      window.dispatchEvent(new CustomEvent('question-view-closed'));
     }
   });
 }

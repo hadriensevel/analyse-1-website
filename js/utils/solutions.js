@@ -2,14 +2,14 @@
 // SOLUTIONS OF THE EXERCISES
 // ----------------------------------
 
-import {getAuthData} from './auth';
+import {validateToken} from './auth';
 
-function solutions() {
+async function solutions() {
   const solutionElement = document.querySelector('#solution:not(.visible-etudiant)');
 
   if (solutionElement) {
-    const user = getAuthData();
-    if (!user || user.role === 'student') {
+    const user = await validateToken();
+    if (!user || user === 401 || user === 'session_expired' || user.role === 'student') {
       solutionElement.innerHTML = '<p>La solution de l\'exercice n\'est pas encore disponible.</p>';
     }
   }
