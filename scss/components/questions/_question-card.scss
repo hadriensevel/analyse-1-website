@@ -51,6 +51,15 @@
     }
   }
 
+  .question-llm-answer {
+    @extend .d-inline;
+
+    &:before {
+      @include icon('\F6B1');
+      @extend .ms-1;
+    }
+  }
+
   .question-author-date {
     @extend .me-2;
   }

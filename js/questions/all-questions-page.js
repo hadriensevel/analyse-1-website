@@ -27,18 +27,34 @@ async function allQuestions() {
   }
 
   // Get the id of the question if it is in the URL of the parent page and remove it
-  const urlParams = new URLSearchParams(window.parent.location.search);
-  const questionId = urlParams.get('question') ?? null;
-  const questionsPageRaw = urlParams.get('questionsPage') ?? null
-  const questionsPage = questionsPageRaw ? parseInt(questionsPageRaw) : null;
-  if (questionId) {
-    urlParams.delete('question');
-    const newRelativePathQuery = window.parent.location.pathname + '?' + urlParams.toString();
-    window.parent.history.pushState(null, '', newRelativePathQuery);
+  let questionId = null;
+  try {
+    const urlParams = new URLSearchParams(window.parent.location.search);
+    questionId = urlParams.get('question');
+    if (questionId) {
+      urlParams.delete('question');
+      const newRelativePathQuery = window.parent.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+      // Use replaceState instead of pushState to avoid adding to history
+      window.parent.history.replaceState(null, '', newRelativePathQuery);
+    }
+  } catch (error) {
+    console.warn('Could not access parent window location:', error);
+    // Fallback to current window if parent is not accessible (e.g., different origin)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      questionId = urlParams.get('question');
+      if (questionId) {
+        urlParams.delete('question');
+        const newRelativePathQuery = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+        window.history.replaceState(null, '', newRelativePathQuery);
+      }
+    } catch (fallbackError) {
+      console.warn('Could not access window location:', fallbackError);
+    }
   }
 
   // Load the question cards
-  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS, undefined, undefined, questionId, questionsPage);
+  loadQuestionCards(`#${questionsDiv.id}`, QuestionLocation.ALL_QUESTIONS, undefined, undefined, questionId);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -34,6 +34,10 @@ class UserPermissions {
   canDeleteAnswer() {
     return this.isAdmin || this.userRole === UserRole.TEACHER || this.userRole === UserRole.ASSISTANT;
   }
+
+  canMarkForLLMTraining() {
+    return this.isAdmin;
+  }
 }
 
 export {UserPermissions};

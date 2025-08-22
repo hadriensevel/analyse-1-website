@@ -120,12 +120,13 @@ const questionViewTemplate = (question, answerForm) => `
             ${question.user_authenticated ? `<div class="question-bookmarked" title="Question enregistrée" data-bookmarked="${question.user_bookmarked ? 'true' : 'false'}"></div>` : ''}
             <div class="question-locked" title="Question verrouillée" data-locked="${question.locked ? 'true' : 'false'}"></div>
             <div class="question-likes ${question.user_liked ? 'liked' : ''}">${question.likes}</div>
-            ${(question.can_edit || question.can_delete || question.can_lock) && !question.locked ? `
+            ${(question.can_edit || question.can_delete || question.can_lock || question.can_mark_for_llm_training) && !question.locked ? `
             <div class="question-options">
                 <div class="question-options-button" data-bs-toggle="dropdown"></div>
                 <ul class="dropdown-menu">
                     ${question.can_edit && !question.locked ? '<li><a class="dropdown-item" data-action="edit" href="#">Éditer</a></li>' : ''}
                     ${/*question.can_lock ? `<li><a class="dropdown-item disabled" data-action="lock" href="#">${question.locked ? 'Déverrouiller' : 'Vérrouiller'}</a></li>` : ''*/''}
+                    ${question.can_mark_for_llm_training ? `<li><a class="dropdown-item" data-action="mark-llm-training" href="#">${question.marked_for_llm_training ? 'Retirer de l\'entrainement LLM' : 'Marquer pour entrainement LLM'}</a></li>` : ''}
                     ${question.can_delete && !question.locked ? '<li><a class="dropdown-item text-danger" data-action="delete" href="#">Supprimer</a></li>' : ''}
                 </ul>
             </div>` : ''}

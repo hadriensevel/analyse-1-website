@@ -7,8 +7,7 @@ import {questionCardsWrapperTemplate} from './templates/question-cards-wrapper';
 import {loadQuestionCards} from './handle-question-card';
 import {QuestionLocation} from './utils';
 import {getFeatureFlag} from '../utils/feature-flags';
-import {getAuthData, iframeAuthentication} from '../utils/auth';
-import {baseUrl} from '../utils/config';
+import {validateToken, iframeAuthentication} from '../utils/auth';
 import {notAuthenticatedMessageTemplate} from './templates/question-card';
 
 async function myQuestions() {
@@ -29,11 +28,11 @@ async function myQuestions() {
     return;
   }
 
-  const user = getAuthData();
+  const user = await validateToken();
 
-  if (!user) {
+  if (!user || user === 401 || user === 'session_expired') {
     // If the user is not authenticated, display a message
-    const notAuthenticatedMessage = createElementFromTemplate(notAuthenticatedMessageTemplate(baseUrl));
+    const notAuthenticatedMessage = createElementFromTemplate(notAuthenticatedMessageTemplate());
     questionCardsWrapper.innerHTML = '';
     questionCardsWrapper.appendChild(notAuthenticatedMessage);
     return;
