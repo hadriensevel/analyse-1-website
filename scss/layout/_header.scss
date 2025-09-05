@@ -11,6 +11,7 @@
   @extend .flex-md-nowrap;
   @extend .px-3;
   height: $header-height;
+  background-color: rgb(0, 0, 0);
 
   // Polycop max width
   .#{$prefix}-analyse & {
@@ -34,8 +35,12 @@
 
   // Background color header analyse online
   .#{$prefix}-analyse-online & {
-    //background-color: rgb(0, 0, 0);
-    background-color: #3b4d64 ;
+    background-color: #3b4d64;
+  }
+
+  // Background color header analyse flipped
+  .#{$prefix}-analyse-flipped & {
+    background-color: #3b4d64;
   }
 
 
