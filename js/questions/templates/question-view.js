@@ -17,12 +17,12 @@ const polycopDivViewTemplate = () => `
 const questionAnswersTemplate = (answer, questionLocked) => `
 <div class="answer" data-answer-id="${answer.id}">
     <div class="answer-body">
-        ${answer.user_role === UserRole.LLM ? '<div class="bg-body-secondary lh-sm mb-1" style="font-size: 0.75rem; margin-left: -.5rem; padding: .5rem"><strong>ATTENTION: La réponse ci-dessous a été générée automatiquement par un modèle de langage et pourrait contenir des erreurs.</strong></br>Merci de cliquer sur "Like" si vous trouvez la réponse utile ou de bonne qualité!</div>' : ''}
         ${answer.formatted_body}
     </div>  
     <div class="answer-footer">
         <span class="answer-accepted" data-accepted="${answer.accepted ? 'true' : 'false'}" title="Réponse acceptée"></span>
         <div class="answer-likes ${answer.user_liked ? 'liked' : ''}">${answer.likes}</div>
+        ${answer.user_role === UserRole.LLM ? `<span class="answer-llm" title="Réponse générée par une IA"></span>` : ''}
         ${answer.user_badge}
         <span class="answer-date">${answer.user_is_author ? 'vous, ' : ''}${answer.date}</span>
         ${((answer.can_edit || answer.can_delete || answer.can_accept) && !questionLocked) ? `
