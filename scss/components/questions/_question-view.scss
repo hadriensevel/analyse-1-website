@@ -183,6 +183,15 @@
       }
     }
 
+    .answer-llm {
+			@extend .d-inline;
+
+			&:before {
+				@include icon("\F6B1");
+				@extend .ms-1;
+			}
+		}
+
     .answer-date {
       @extend .text-secondary;
       font-size: 0.8rem;

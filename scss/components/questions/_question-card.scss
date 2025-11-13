@@ -102,6 +102,10 @@
       @include icon('\F415');
       @extend .me-1;
     }
+
+    &.liked {
+      @extend .text-danger;
+    }
   }
 }
 

@@ -27,7 +27,7 @@ const questionCardTemplate = (question) => {
                     ${question.has_llm_answer ? `<div class="question-llm-answer" title="Cette question a une réponse générée par IA"></div>` : ''}
                 </div>
                 <div class="question-comments">${question.answers}</div>
-                <div class="question-likes">${question.likes}</div>
+                <div class="question-likes ${question.likes > 0 ? 'liked' : ''}">${question.likes}</div>
             </div>
         </div>
     </div>
