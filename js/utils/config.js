@@ -2,7 +2,7 @@
 // CONFIGURATION
 // ----------------------------------
 
-const baseUrl = 'https://botafogo.epfl.ch/forum/';
+const baseUrl = 'https://botafogo.epfl.ch/forum';
 
 // Technical support email address
 const supportEmail = 'support-technique.analyse@groupes.epfl.ch';
